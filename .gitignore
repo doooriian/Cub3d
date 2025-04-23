@@ -1,0 +1,17 @@
+# Directories
+.vscode/
+objs/
+objs_bonus/
+mlx/
+
+# Files
+*.o
+*.out
+
+# Executables
+cub3D
+cub3D_bonus
+
+# Libraries
+libft.a
+libft/libft.a
