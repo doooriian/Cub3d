@@ -37,17 +37,22 @@ static void	init_game(t_game *game)
 
 int	main(int argc, char **argv)
 {
-	char	**map;
+	t_game		*game;
 
 	if (argc != 2)
 		return (print_error("Error: Invalid arguments", 1));
-	if (!check_extension(argv[1]))
+	if (!check_extension(argv[1], ".cub"))
 		return (print_error("Error: Expected .cub extension", 1));
-	map = get_map(argv[1]);
-	if (!map)
+	game = (t_game *)malloc(sizeof(t_game));
+	if (!game)
+		return (print_error("Error: Memory allocation failed", 1));
+	init_game(game);
+	game->map_info.map = get_map(argv[1]);
+	if (!game->map_info.map)
 		return (print_error("Error: Failed to read map", 1));
-	print_map(map);
-	free_map(map);
+	print_map(game->map_info.map);
+	free_map(game->map_info.map);
+	free(game);
 	printf("Map loaded successfully\n");
 	return (0);
 }

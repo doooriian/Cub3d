@@ -12,12 +12,20 @@
 
 #include "cub3d.h"
 
-int	check_extension(const char *path)
+/**
+ * * @brief Check if the file has the specified extension
+ * *
+ * * @param path The file path to check
+ * * @param ext The expected file extension (e.g., ".cub")
+ * * @return 1 if the file has the expected extension, 0 otherwise
+ */
+int	check_extension(const char *path, const char *ext)
 {
 	size_t	len;
 
 	len = ft_strlen(path);
-	return (len > 4 && !ft_strncmp(path + len - 4, ".cub", 4));
+	return (len > 4 && !ft_strncmp(path + len - ft_strlen(ext),
+			ext, ft_strlen(ext)));
 }
 
 int	open_file(const char *path)

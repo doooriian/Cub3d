@@ -24,8 +24,6 @@
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 
-typedef char **t_map;
-
 typedef struct s_map_info
 {
 	int		width;
@@ -53,7 +51,7 @@ typedef struct s_game
 	t_player	player;
 }	t_game;
 
-int		check_extension(const char *path);
+int		check_extension(const char *path, const char *ext);
 int		open_file(const char *path);
 char	**get_map(const char *path);
 void	free_map(char **map);
