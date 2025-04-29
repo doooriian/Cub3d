@@ -21,7 +21,7 @@ static int	check_border(const char *row)
 	return (0);
 }
 
-int	validate_map(t_map map)
+int	validate_map(char **map)
 {
 	size_t i, j;
 	size_t prev_len, curr_len, next_len;

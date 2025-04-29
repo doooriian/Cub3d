@@ -18,29 +18,45 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-
 # include "libft.h"
 # include "get_next_line.h"
 
-// -- Constants -- //
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 
-
-// -- Structs -- //
 typedef char **t_map;
 
-// -- Functions -- //
+typedef struct s_map_info
+{
+	int		width;
+	int		height;
+	char	**map;
+}	t_map_info;
 
-// Parsing -- //
-int check_extension(const char *path);
-int open_file(const char *path);
-char **read_map(const char *path);
-char *sanitize_line(const char *line);
-void free_map(t_map map);
-int validate_map(t_map map);
+typedef struct s_pos
+{
+	int		x;
+	int		y;
+	char	c;
+}	t_pos;
 
-int	print_error(char *msg, int ret);
+typedef struct s_player
+{
+	t_pos	pos;
+	int		dir; // 0: N, 1: E, 2: S, 3: W
+}	t_player;
 
+typedef struct s_game
+{
+	void		*mlx;
+	t_map_info	map_info;
+	t_player	player;
+}	t_game;
+
+int		check_extension(const char *path);
+int		open_file(const char *path);
+char	**get_map(const char *path);
+void	free_map(char **map);
+int		print_error(char *msg, int ret);
 
 #endif

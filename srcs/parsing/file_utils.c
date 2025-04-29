@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int check_extension(const char *path)
+int	check_extension(const char *path)
 {
 	size_t	len;
 
@@ -20,14 +20,9 @@ int check_extension(const char *path)
 	return (len > 4 && !ft_strncmp(path + len - 4, ".cub", 4));
 }
 
-int open_file(const char *path)
+int	open_file(const char *path)
 {
-	int	fd;
-
 	if (access(path, F_OK) < 0 || access(path, R_OK) < 0)
 		return (-1);
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (-1);
-	return (fd);
+	return (open(path, O_RDONLY));
 }

@@ -17,7 +17,8 @@ SRCS_MAIN := srcs/main.c srcs/errors.c
 
 SRCS_PARSING := srcs/parsing/file_utils.c\
 	srcs/parsing/map_utils.c \
-	srcs/parsing/validate_map.c
+	srcs/parsing/validate_map.c \
+	srcs/parsing/get_map.c
 
 # All sources combined
 SRCS := $(SRCS_MAIN) $(SRCS_PARSING)
