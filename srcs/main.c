@@ -12,21 +12,28 @@
 
 #include "cub3d.h"
 
-float	conver_to_radian(int degree)
+int main(int argc, char **argv)
 {
-	return (degree * (M_PI / 180));
-}
+	t_map map;
 
-float	conver_to_degree(float radian)
-{
-	return (radian * (180 / M_PI));
-}
+	if (argc != 2)
+		return (print_error("Error: Invalid number of arguments", 1));
 
-int	main(void)
-{
-	printf("Hello, World!\n");
-	printf("PI: %f\n", M_PI);
-	printf("90 degrees in radians: %f\n", conver_to_radian(90));
-	printf("PI in degrees: %f\n", conver_to_degree(M_PI));
+	if (!check_extension(argv[1]))
+		return (print_error("Error: Expected .cub extension", 1));
+
+	map = read_map(argv[1]);
+	if (!map)
+		return (print_error("Error: Failed to read map", 1));
+
+	if (validate_map(map) < 0)
+	{
+		free_map(map);
+		return (1);
+	}
+
+	// Continue with game initialization...
+	free_map(map);
+	printf("Map loaded successfully\n");
 	return (0);
 }

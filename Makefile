@@ -13,10 +13,14 @@ NAME := cub3D
 # =============================================================================
 
 # Main sources
-SRCS_MAIN := srcs/main.c
+SRCS_MAIN := srcs/main.c srcs/errors.c
+
+SRCS_PARSING := srcs/parsing/file_utils.c\
+	srcs/parsing/map_utils.c \
+	srcs/parsing/validate_map.c
 
 # All sources combined
-SRCS := $(SRCS_MAIN)
+SRCS := $(SRCS_MAIN) $(SRCS_PARSING)
 
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -26,6 +30,7 @@ LIBS := $(MLX) -ldl -lglfw  -lm # -pthread je l'utilise dans so_long donc jsp
 MLX_DIR := mlx
 MLX := $(MLX_DIR)/build/libmlx42.a
 
+LIBFT_DIR := libft
 LIBFT_A := $(LIBFT_DIR)/libft.a
 
 # =============================================================================
@@ -54,7 +59,7 @@ all: libft $(NAME)
 	@echo "\n🎉 Compilation of $(NAME)!\n"
 
 $(NAME): $(MLX) $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBFT) $(LIBS)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBFT_A) $(LIBS)
 	@echo "\n🎉 Compilation of $(NAME)!\n"
 
 $(OBJ_DIR)/%.o: %.c
@@ -62,11 +67,20 @@ $(OBJ_DIR)/%.o: %.c
 	$(call progress_bar)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
+
+MAPS := $(wildcard maps/*.cub)
+
+maps_win:
+	@for file in $(MAPS); do \
+		sed -i 's/\r$$//' $$file; \
+	done
+	@echo "Conversion des fichiers de maps en format Unix : \033[1;32mOK\033[0m"
+
+.PHONY: maps_win
+
 # =============================================================================
 # LIBFT
 # =============================================================================
-
-LIBFT_DIR := libft
 
 libft:
 	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory
@@ -114,7 +128,7 @@ clean:
 	@rm -rf $(OBJ_DIR)
 	@echo "Clean de $(NAME) : \033[1;32mOK\033[0m"
 
-fclean: clean #fclean_libft # COMPILER AVEC LIBFT (a décommenter si besoin)
+fclean: clean fclean_libft
 	@rm -f $(NAME)
 	@echo "Fclean de $(NAME) : \033[1;32mOK\033[0m"
 
