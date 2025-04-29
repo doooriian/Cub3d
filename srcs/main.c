@@ -26,13 +26,9 @@ void	print_map(char **map)
 
 static void	init_game(t_game *game)
 {
-	game->mlx = NULL;
-	game->map_info.width = WIN_WIDTH;
-	game->map_info.height = WIN_HEIGHT;
-	game->map_info.map = NULL;
-	game->player.pos.x = 0;
-	game->player.pos.y = 0;
-	game->player.dir = 0;
+	ft_bzero(game, sizeof(t_game));
+	ft_bzero(&game->map_info, sizeof(t_map_info));
+	ft_bzero(&game->player, sizeof(t_player));
 }
 
 int	main(int argc, char **argv)
@@ -50,6 +46,12 @@ int	main(int argc, char **argv)
 	game->map_info.map = get_map(argv[1]);
 	if (!game->map_info.map)
 		return (print_error("Error: Failed to read map", 1));
+	if (!init_config(game))
+	{
+		free_map(game->map_info.map);
+		free(game);
+		return (print_error("Error: Invalid map configuration", 1));
+	}
 	print_map(game->map_info.map);
 	free_map(game->map_info.map);
 	free(game);

@@ -5,7 +5,7 @@
 CC := cc
 CFLAGS := -g -Wall -Wextra -Werror
 LDFLAGS := -L/usr/local/lib -lreadline -Llibft
-INCLUDES := -Iincludes -Ilibft/includes
+INCLUDES := -Iincludes -Ilibft/includes -Imlx/include -Imlx/include/MLX42
 NAME := cub3D
 
 # =============================================================================
@@ -17,8 +17,9 @@ SRCS_MAIN := srcs/main.c srcs/errors.c
 
 SRCS_PARSING := srcs/parsing/file_utils.c\
 	srcs/parsing/map_utils.c \
-	srcs/parsing/validate_map.c \
-	srcs/parsing/get_map.c
+	srcs/parsing/get_map.c \
+	srcs/parsing/init_config.c \
+	srcs/parsing/validate_map.c 
 
 # All sources combined
 SRCS := $(SRCS_MAIN) $(SRCS_PARSING)

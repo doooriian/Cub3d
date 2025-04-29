@@ -32,7 +32,7 @@ static int	is_valid_map_line(const char *line)
 	return (1);
 }
 
-static int	is_valid_map(char **map)
+int	is_valid_map(char **map)
 {
 	size_t	i;
 
