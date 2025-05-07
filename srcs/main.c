@@ -26,7 +26,7 @@ void	print_map(char **map)
 
 void	print_config(t_game *game)
 {
-	printf("Top color: %d,%d,%d\n", game->map_info.top_color[0],
+	printf("Ceilling color: %d,%d,%d\n", game->map_info.top_color[0],
 		game->map_info.top_color[1], game->map_info.top_color[2]);
 	printf("Floor color: %d,%d,%d\n", game->map_info.floor_color[0],
 		game->map_info.floor_color[1], game->map_info.floor_color[2]);
@@ -53,8 +53,10 @@ int	main(int argc, char **argv)
 		return (print_error("Error: Invalid map configuration", 1));
 	}
 	print_map(game->map_info.map);
+	printf("##################################################################\n");
 	print_config(game);
 	free_map(game->map_info.map);
+	free_tx(game);
 	free(game);
 	printf("Map loaded successfully\n");
 	return (0);

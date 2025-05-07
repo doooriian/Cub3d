@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 14:03:55 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:50:00 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@
 
 typedef struct s_map_info
 {
-	int		width;
-	int		height;
 	int		index;
 	char	**map;
 	int		floor_color[3];
 	int		top_color[3];
+	int		top_color_set;
+	int		floor_color_set;
 }	t_map_info;
 
 typedef struct s_pos
@@ -74,11 +74,29 @@ typedef struct s_game
 	t_img		img;
 }	t_game;
 
+// File utilities
 int		check_extension(const char *path, const char *ext);
 int		open_file(const char *path);
+
+// Map utilities
 char	**get_map(const char *path);
 void	free_map(char **map);
+int		is_valid_map(char **map);
+
+// Error handling
 int		print_error(char *msg, int ret);
+
+// Configuration parsing
 int		init_config(t_game *game);
+int		check_name_config(char *line);
+int		start_with(char *line, const char *prefix);
+char	*extract_path(char *line);
+int		check_all_config_present(t_game *game);
+int		check_load_texture(t_game *game, char *line);
+int		load_config(t_game *game, int type, char *path);
+
+// Resource management
+void	free_img(t_game *game);
+void	free_tx(t_game *game);
 
 #endif
