@@ -52,12 +52,14 @@ int	main(int argc, char **argv)
 		free(game);
 		return (print_error("Error: Invalid map configuration", 1));
 	}
+
+	// PRINT MAP
 	print_map(game->map_info.map);
 	printf("\n############################################################\n");
 	print_config(game);
+
 	free_map(game->map_info.map);
 	free_tx(game);
 	free(game);
-	printf("Map loaded successfully\n");
 	return (0);
 }

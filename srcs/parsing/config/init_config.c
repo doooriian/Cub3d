@@ -31,11 +31,31 @@ color : R,G,B (0-255)
 Vérifiez que les valeurs sont dans la plage valide (0-255)
 */
 
+static int	process_line(t_game *game, char *line, int *seen, int index)
+{
+	int	type;
+
+	if (is_line_empty(line))
+		return (1);
+	type = check_name_config(line);
+	if (type == 0 || seen[type - 1])
+	{
+		game->map_info.index = index;
+		return (0);
+	}
+	seen[type - 1] = 1;
+	if (!check_load_texture(game, line))
+	{
+		game->map_info.index = index;
+		return (0);
+	}
+	return (1);
+}
+
 static int	get_config(t_game *game)
 {
-	int		i;
-	int		seen[6];
-	int		type;
+	int	i;
+	int	seen[6];
 
 	i = 0;
 	ft_bzero(seen, sizeof(int) * 6);
@@ -46,24 +66,8 @@ static int	get_config(t_game *game)
 			game->map_info.index = i;
 			break ;
 		}
-		if (game->map_info.map[i][0] == '\t' || game->map_info.map[i][0] == ' '
-			|| game->map_info.map[i][0] == '\n' || game->map_info.map[i][0] == '\0')
-		{
-			i++;
-			continue ;
-		}
-		type = check_name_config(game->map_info.map[i]);
-		if (type == 0 || seen[type - 1])
-		{
-			game->map_info.index = i;
+		if (!process_line(game, game->map_info.map[i], seen, i))
 			return (0);
-		}
-		seen[type - 1] = 1;
-		if (!check_load_texture(game, game->map_info.map[i]))
-		{
-			game->map_info.index = i;
-			return (0);
-		}
 		i++;
 	}
 	return (1);
@@ -86,6 +90,7 @@ int	init_config(t_game *game)
 	if (get_config(game) == 0)
 	{
 		free_map(game->map_info.map);
+		game->map_info.map = NULL;
 		ft_putstr_fd("Error: Invalid configuration\n", 2);
 		return (0);
 	}

@@ -44,11 +44,8 @@ static int	start_with(char *line, const char *prefix)
  */
 int	check_name_config(char *line)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] != ' ')
-		i++;
+	while (*line && (*line == ' ' || *line == '\t'))
+		line++;
 	if (start_with(line, "NO "))
 		return (1);
 	else if (start_with(line, "SO "))

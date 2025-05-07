@@ -82,6 +82,7 @@ int		open_file(const char *path);
 char	**get_map(const char *path);
 void	free_map(char **map);
 int		is_valid_map(char **map);
+int		is_line_empty(const char *line);
 
 // Error handling
 int		print_error(char *msg, int ret);

@@ -50,3 +50,19 @@ void	free_tx(t_game *game)
 	if (game->tx.ea)
 		mlx_delete_texture(game->tx.ea);
 }
+
+int	is_line_empty(const char *line)
+{
+	int	i;
+
+	i = 0;
+	if (!line)
+		return (1);
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
