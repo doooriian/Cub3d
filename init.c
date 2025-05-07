@@ -21,6 +21,8 @@ void	init_player(t_player *player)
 	player->y = HEIGHT / 2;
 	player->tmp_x = WIDTH / 2;
 	player->tmp_y = HEIGHT / 2;
+	player->ray_x = WIDTH / 2;
+	player->ray_y = HEIGHT / 2;
 	player->angle = PI / 2;
 	player->go_up = false;
 	player->go_down = false;

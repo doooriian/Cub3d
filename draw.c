@@ -50,6 +50,54 @@ void	draw_map(t_data *data)
 	}
 }
 
+bool	touch_wall(float ray_x, float ray_y, int tile_size)
+{
+	int	i;
+	int	j;
+
+	i = (int)ray_y / tile_size;
+	j = (int)ray_x / tile_size;
+	if (g_map[i][j] == 1)
+		return (1);
+	return (0);
+}
+
+void	draw_line(t_data *data, t_player *player, float start_x)
+{
+	float	ray_x;
+	float	ray_y;
+	float	cos_angle;
+	float	sin_angle;
+	
+	ray_x = player->ray_x;
+	ray_y = player->ray_y;
+	cos_angle = cos(start_x);
+	sin_angle = sin(start_x);
+	while (!touch_wall(ray_x, ray_y, data->tile_size))
+	{
+		put_pixel(&data->img, ray_x, ray_y, 0xFF0000);
+		ray_x += cos_angle;
+		ray_y += sin_angle;
+	}
+}
+
+void	draw_rays(t_data *data, t_player *player)
+{
+	int		i;
+	float	fraction;
+	float	start_x;
+
+	i = 0;
+	fraction = PI / 3 / WIDTH;
+	start_x = player->angle - PI / 6;	
+	while (i < WIDTH)
+	{
+		draw_line(data, player, start_x);
+		start_x += fraction;
+		i++;
+	}
+}
+
 int	draw_loop(t_data *data)
 {
 	float		cos_angle;
@@ -61,9 +109,9 @@ int	draw_loop(t_data *data)
 	cos_angle = cos(player->angle);
 	sin_angle = sin(player->angle);
 	move_player(player, cos_angle, sin_angle, data->tile_size);
-	player->tmp_x = player->x;
-	player->tmp_y = player->y;
+	reset_player_var(player);
 	draw_map(data);
+	draw_rays(data, player);
 	draw_square(&data->img, player->x, player->y, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	return (0);

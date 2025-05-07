@@ -41,6 +41,8 @@ typedef struct s_player
 	float	y;
 	float	tmp_x;
 	float	tmp_y;
+	float	ray_x;
+	float	ray_y;
 	float	angle;
 	bool	go_up;
 	bool	go_down;
@@ -67,6 +69,7 @@ void	init_data(t_data *data);
 void	init_player(t_player *player);
 
 // PLAYER //
+void	reset_player_var(t_player *player);
 bool	check_collision_walls(int tmp_x, int tmp_y, int tile_size);
 void	rotate_player(t_player *player);
 void	move_player(t_player *player, float cos_angle, float sin_angle, int tile_size);
