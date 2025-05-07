@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:41:44 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 14:00:09 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:11:01 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	is_valid_texture_path(const char *path)
 	return (1);
 }
 
-static int	is_valid_color(const char *color)
+static int	is_valid_color(t_game *game, const char *color, int is_top)
 {
 	int		red;
 	int		green;
@@ -66,6 +66,18 @@ static int	is_valid_color(const char *color)
 	{
 		ft_free_tab(rgb_values);
 		return (0);
+	}
+	if (is_top)
+	{
+		game->map_info.top_color[0] = red;
+		game->map_info.top_color[1] = green;
+		game->map_info.top_color[2] = blue;
+	}
+	else
+	{
+		game->map_info.floor_color[0] = red;
+		game->map_info.floor_color[1] = green;
+		game->map_info.floor_color[2] = blue;
 	}
 	ft_free_tab(rgb_values);
 	return (1);
@@ -185,7 +197,7 @@ int	check_load_texture(t_game *game, char *line)
 	}
 	else if (check_name_config(line) == 5)
 	{
-		if (is_valid_color(path))
+		if (is_valid_color(game, path, 0))
 			game->map_info.floor_color[0] = 1;
 		else
 		{
@@ -195,18 +207,13 @@ int	check_load_texture(t_game *game, char *line)
 	}
 	else if (check_name_config(line) == 6)
 	{
-		if (is_valid_color(path))
+		if (is_valid_color(game, path, 1))
 			game->map_info.top_color[0] = 1;
 		else
 		{
 			free(path);
 			return (0);
 		}
-	}
-	else
-	{
-		free(path);
-		return (0);
 	}
 	free(path);
 	return (1);
@@ -221,8 +228,6 @@ static int	get_config(t_game *game)
 	{
 		if (check_load_texture(game, game->map_info.map[i]) == 0)
 		{
-			// free_map(game->map_info.map);
-			// game->map_info.map = NULL;
 			game->map_info.index = i;
 			break ;
 		}

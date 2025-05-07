@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:55:43 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 13:46:42 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:04:21 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ void	print_map(char **map)
 	}
 }
 
+void	print_config(t_game *game)
+{
+	printf("Top color: %d,%d,%d\n", game->map_info.top_color[0],
+		game->map_info.top_color[1], game->map_info.top_color[2]);
+	printf("Floor color: %d,%d,%d\n", game->map_info.floor_color[0],
+		game->map_info.floor_color[1], game->map_info.floor_color[2]);
+}
 
 int	main(int argc, char **argv)
 {
@@ -46,6 +53,7 @@ int	main(int argc, char **argv)
 		return (print_error("Error: Invalid map configuration", 1));
 	}
 	print_map(game->map_info.map);
+	print_config(game);
 	free_map(game->map_info.map);
 	free(game);
 	printf("Map loaded successfully\n");
