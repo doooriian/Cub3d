@@ -4,7 +4,8 @@
 #define	HEIGHT		600
 #define	MAP_WIDTH	15
 #define	MAP_HEIGHT	10
-#define SPEED		1
+#define SPEED		0.5
+#define PLAYER_SIZE	10
 
 typedef struct s_img
 {
@@ -17,8 +18,8 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
+	float	x;
+	float	y;
 	bool	go_up;
 	bool	go_down;
 	bool	go_left;
@@ -32,6 +33,7 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
+	int			tile_size;
 	t_img		img;
 	t_player	player;
 }	t_data;
@@ -82,14 +84,7 @@ void	draw_map(t_data *data)
 {
 	int	i;
 	int	j;
-	int	tile_size;
-	int	tile_w = WIDTH / MAP_WIDTH;
-	int	tile_h = HEIGHT / MAP_HEIGHT;
 
-	if (tile_h < tile_w)
-		tile_size = tile_h;
-	else
-		tile_size = tile_w;
 	i = 0;
 	while (i < MAP_HEIGHT)
 	{
@@ -97,9 +92,9 @@ void	draw_map(t_data *data)
 		while (j < MAP_WIDTH)
 		{
 			if (map[i][j] == 1)
-				draw_square(&data->img, j * tile_size, i * tile_size, tile_size, 0x00888888);
+				draw_square(&data->img, j * data->tile_size, i * data->tile_size, data->tile_size, 0x00888888);
 			else
-				draw_square(&data->img, j * tile_size, i * tile_size, tile_size, 0xFFFFFF);
+				draw_square(&data->img, j * data->tile_size, i * data->tile_size, data->tile_size, 0xFFFFFF);
 			j++;
 		}
 		i++;
@@ -114,7 +109,6 @@ int	ft_exit(t_data *data)
 
 int key_press(int keycode, t_data *data)
 {
-    printf("key_press: %d\n", keycode);
 	if (keycode == ESC)
 		ft_exit(data);
 	if(keycode == W)
@@ -149,16 +143,42 @@ int key_release(int keycode, t_player *player)
     return 0;
 }
 
-void	move_player(t_player *player)
+bool	check_collision_walls(int new_x, int new_y, int tile_size)
 {
+	int	i;
+	int	j;
+
+	i = (int)new_y / tile_size;
+	j = (int)new_x / tile_size;
+	if (map[i][j] == 1)
+		return (0);
+	i = (int)(new_y + PLAYER_SIZE - 1) / tile_size;
+	j = (int)(new_x + PLAYER_SIZE - 1) / tile_size;
+	if (map[i][j] == 1)
+		return (0);
+	return (1);
+}
+
+void	move_player(t_player *player, int tile_size)
+{
+	float	new_y;
+	float	new_x;
+
+	new_y = player->y;
+	new_x = player->x;	
 	if (player->go_up)
-		player->y -= SPEED;
+		new_y -= SPEED;
 	if (player->go_down)
-		player->y += SPEED;
+		new_y += SPEED;
 	if (player->go_right)
-		player->x += SPEED;
+		new_x += SPEED;
 	if (player->go_left)
-		player->x -= SPEED;
+		new_x -= SPEED;
+	if (check_collision_walls((int)new_x, (int)new_y, tile_size))
+	{
+		player->x = new_x;
+		player->y = new_y;
+	}
 }
 
 int	draw_loop(t_data *data)
@@ -166,11 +186,26 @@ int	draw_loop(t_data *data)
 	t_player	*player;
 
 	player = &data->player;
-	move_player(player);
+	move_player(player, data->tile_size);
 	draw_map(data);
-	draw_square(&data->img, player->x, player->y, 10, 0xF7230C);
+	draw_square(&data->img, player->x, player->y, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	return (0);
+}
+
+void	init_data(t_data *data)
+{
+	int	tile_w;
+	int	tile_h;
+
+	tile_w = WIDTH / MAP_WIDTH;
+	tile_h = HEIGHT / MAP_HEIGHT;
+	if (tile_h < tile_w)
+		data->tile_size = tile_h;
+	else
+		data->tile_size = tile_w;
+	data->player.x = WIDTH / 2;
+	data->player.y = HEIGHT / 2;
 }
 
 int	main(void)
@@ -180,14 +215,13 @@ int	main(void)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
-	data->player.x = WIDTH / 2;
-	data->player.y = HEIGHT / 2;
+	init_data(data);
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, 800, 600, "Hello world!");
 	data->img.img = mlx_new_image(data->mlx, 800, 600);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
 	draw_map(data);
-	draw_square(&data->img, data->player.x, data->player.y, 10, 0xF7230C);
+	draw_square(&data->img, data->player.x, data->player.y, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	mlx_hook(data->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->win, KeyRelease, KeyReleaseMask, key_release, &data->player);
