@@ -22,7 +22,9 @@ SRCS_CONFIG := \
 		srcs/parsing/config/is_valid_config.c \
 		srcs/parsing/config/load_config.c
 
-SRCS_MAP := srcs/parsing/map/validate_map.c
+SRCS_MAP := \
+		srcs/parsing/map/init_map.c \
+		srcs/parsing/map/validate_map.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 
