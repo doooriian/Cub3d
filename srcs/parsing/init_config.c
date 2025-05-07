@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:41:44 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 14:11:01 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:20:09 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ static int	is_valid_texture_path(const char *path)
 
 static int	is_valid_color(t_game *game, const char *color, int is_top)
 {
-	int		red;
-	int		green;
-	int		blue;
+	int		tab[3];
 	char	**rgb_values;
 
 	rgb_values = ft_split(color, ',');
@@ -59,26 +57,18 @@ static int	is_valid_color(t_game *game, const char *color, int is_top)
 		ft_free_tab(rgb_values);
 		return (0);
 	}
-	red = ft_atoi(rgb_values[0]);
-	green = ft_atoi(rgb_values[1]);
-	blue = ft_atoi(rgb_values[2]);
-	if (red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255)
+	tab[0] = ft_atoi(rgb_values[0]);
+	tab[1] = ft_atoi(rgb_values[1]);
+	tab[2] = ft_atoi(rgb_values[2]);
+	if (tab[0] < 0 || tab[0] > 255 || tab[1] < 0 || tab[1] > 255 || tab[2] < 0 || tab[2] > 255)
 	{
 		ft_free_tab(rgb_values);
 		return (0);
 	}
 	if (is_top)
-	{
-		game->map_info.top_color[0] = red;
-		game->map_info.top_color[1] = green;
-		game->map_info.top_color[2] = blue;
-	}
+		ft_memcpy(game->map_info.top_color, tab, sizeof(tab));
 	else
-	{
-		game->map_info.floor_color[0] = red;
-		game->map_info.floor_color[1] = green;
-		game->map_info.floor_color[2] = blue;
-	}
+		ft_memcpy(game->map_info.floor_color, tab, sizeof(tab));
 	ft_free_tab(rgb_values);
 	return (1);
 }
@@ -87,7 +77,8 @@ static int	check_all_config_present(t_game *game)
 {
 	if (!game->tx.no || !game->tx.so || !game->tx.we || !game->tx.ea)
 		return (0);
-	if (game->map_info.floor_color[0] == -1 || game->map_info.top_color[0] == -1)
+	if (game->map_info.floor_color[0] == -1
+		|| game->map_info.top_color[0] == -1)
 		return (0);
 	return (1);
 }
@@ -96,7 +87,7 @@ static int	check_all_config_present(t_game *game)
  * @brief Check if the line starts with the given prefix.
  * return 1 if the line starts with the prefix, 0 otherwise.
  */
-int start_with(char *line, const char *prefix)
+int	start_with(char *line, const char *prefix)
 {
 	if (!line || !prefix)
 		return (0);
@@ -144,76 +135,64 @@ int	check_name_config(char *line)
 	return (0);
 }
 
-int	check_load_texture(t_game *game, char *line)
+/*
+** Extrait le chemin après le premier espace sans utiliser de boucle explicite
+*/
+static char	*extract_path(char *line)
 {
-	int		i;
-	char	*path;
+	char	*space;
+	char	*substr;
 
-	i = 0;
-	while (line[i] && line[i] != ' ')
-		i++;
-	path = ft_substr(line, i + 1, ft_strlen(line) - i - 1);
-	if (!path)
-		return (0);
-	if (check_name_config(line) == 1)
+	space = ft_strchr(line, ' ');
+	if (!space)
+		return (NULL);
+	substr = ft_substr(line, (space - line) + 1, ft_strlen(space + 1));
+	return (substr);
+}
+
+// Charge la configuration selon le type
+static int	load_config(t_game *game, int type, char *path)
+{
+	if (type >= 1 && type <= 4)
 	{
-		if (is_valid_texture_path(path))
+		if (!is_valid_texture_path(path))
+			return (0);
+		if (type == 1)
 			game->tx.no = mlx_load_png(path);
-		else
-		{
-			free(path);
-			return (0);
-		}
-	}
-	else if (check_name_config(line) == 2)
-	{
-		if (is_valid_texture_path(path))
+		else if (type == 2)
 			game->tx.so = mlx_load_png(path);
-		else
-		{
-			free(path);
-			return (0);
-		}
-	}
-	else if (check_name_config(line) == 3)
-	{
-		if (is_valid_texture_path(path))
+		else if (type == 3)
 			game->tx.we = mlx_load_png(path);
-		else
-		{
-			free(path);
-			return (0);
-		}
-	}
-	else if (check_name_config(line) == 4)
-	{
-		if (is_valid_texture_path(path))
+		else if (type == 4)
 			game->tx.ea = mlx_load_png(path);
-		else
-		{
-			free(path);
-			return (0);
-		}
 	}
-	else if (check_name_config(line) == 5)
+	else if (type == 5 || type == 6)
 	{
-		if (is_valid_color(game, path, 0))
+		if (!is_valid_color(game, path, type == 6))
+			return (0);
+		if (type == 5)
 			game->map_info.floor_color[0] = 1;
 		else
-		{
-			free(path);
-			return (0);
-		}
-	}
-	else if (check_name_config(line) == 6)
-	{
-		if (is_valid_color(game, path, 1))
 			game->map_info.top_color[0] = 1;
-		else
-		{
-			free(path);
-			return (0);
-		}
+	}
+	else
+		return (0);
+	return (1);
+}
+
+int	check_load_texture(t_game *game, char *line)
+{
+	int		type;
+	char	*path;
+
+	path = extract_path(line);
+	if (!path)
+		return (0);
+	type = check_name_config(line);
+	if (!load_config(game, type, path))
+	{
+		free(path);
+		return (0);
 	}
 	free(path);
 	return (1);
