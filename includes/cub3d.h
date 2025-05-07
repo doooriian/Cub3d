@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/04/23 15:56:04 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:39:16 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_map_info
 {
 	int		width;
 	int		height;
+	int		index;
 	char	**map;
 	int		floor_color[3];
 	int		top_color[3];

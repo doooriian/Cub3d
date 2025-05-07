@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:55:43 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/04/23 15:55:43 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:46:42 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ void	print_map(char **map)
 	}
 }
 
-static void	init_game(t_game *game)
-{
-	ft_bzero(game, sizeof(t_game));
-	ft_bzero(&game->map_info, sizeof(t_map_info));
-	ft_bzero(&game->player, sizeof(t_player));
-}
 
 int	main(int argc, char **argv)
 {
@@ -39,10 +33,9 @@ int	main(int argc, char **argv)
 		return (print_error("Error: Invalid arguments", 1));
 	if (!check_extension(argv[1], ".cub"))
 		return (print_error("Error: Expected .cub extension", 1));
-	game = (t_game *)malloc(sizeof(t_game));
+	game = (t_game *)calloc(1, sizeof(t_game));
 	if (!game)
 		return (print_error("Error: Memory allocation failed", 1));
-	init_game(game);
 	game->map_info.map = get_map(argv[1]);
 	if (!game->map_info.map)
 		return (print_error("Error: Failed to read map", 1));
