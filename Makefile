@@ -3,13 +3,13 @@ NAME = Cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c
+SRCS = main.c draw.c init.c key_hook.c player.c
 OBJS = ${SRCS:.c=.o}
 
 RM = rm -f
 
 MLX_DIR = ./mlx
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 all : mlx_build $(NAME)
 
