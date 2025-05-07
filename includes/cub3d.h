@@ -89,14 +89,15 @@ int		print_error(char *msg, int ret);
 // Configuration parsing
 int		init_config(t_game *game);
 int		check_name_config(char *line);
-int		start_with(char *line, const char *prefix);
 char	*extract_path(char *line);
 int		check_all_config_present(t_game *game);
 int		check_load_texture(t_game *game, char *line);
-int		load_config(t_game *game, int type, char *path);
+int		is_valid_texture_path(const char *path);
+int		is_valid_color(t_game *game, const char *color, int is_top);
 
 // Resource management
 void	free_img(t_game *game);
 void	free_tx(t_game *game);
+int		ft_free_tab_i(char **tab, int i);
 
 #endif

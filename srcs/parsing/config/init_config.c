@@ -56,13 +56,13 @@ static int	get_config(t_game *game)
 		if (type == 0 || seen[type - 1])
 		{
 			game->map_info.index = i;
-			break ;
+			return (0);
 		}
 		seen[type - 1] = 1;
 		if (!check_load_texture(game, game->map_info.map[i]))
 		{
 			game->map_info.index = i;
-			break ;
+			return (0);
 		}
 		i++;
 	}

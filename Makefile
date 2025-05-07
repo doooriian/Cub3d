@@ -16,7 +16,11 @@ LIBFT := $(LIBFT_A)
 # Main sources
 SRCS_MAIN := srcs/main.c srcs/file_utils.c srcs/errors.c srcs/map_utils.c
 
-SRCS_CONFIG := srcs/parsing/config/config_loader.c srcs/parsing/config/config_utils.c srcs/parsing/config/init_config.c
+SRCS_CONFIG := \
+		srcs/parsing/config/init_config.c \
+		srcs/parsing/config/config_utils.c \
+		srcs/parsing/config/is_valid_config.c \
+		srcs/parsing/config/load_config.c
 
 SRCS_MAP := srcs/parsing/map/validate_map.c
 

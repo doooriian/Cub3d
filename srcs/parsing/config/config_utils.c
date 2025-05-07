@@ -13,6 +13,24 @@
 #include "cub3d.h"
 
 /**
+ * @brief Check if the line starts with the given prefix
+ * return 1 if the line starts with the prefix, 0 otherwise
+ */
+static int	start_with(char *line, const char *prefix)
+{
+	if (!line || !prefix)
+		return (0);
+	while (*line && *prefix && *line == *prefix)
+	{
+		line++;
+		prefix++;
+	}
+	if (*prefix == '\0')
+		return (1);
+	return (0);
+}
+
+/**
  * @brief Check if the line contains a valid name config
  * NO <path> : 1
  * SO <path> : 2
@@ -43,24 +61,6 @@ int	check_name_config(char *line)
 		return (5);
 	else if (start_with(line, "C "))
 		return (6);
-	return (0);
-}
-
-/**
- * @brief Check if the line starts with the given prefix
- * return 1 if the line starts with the prefix, 0 otherwise
- */
-int	start_with(char *line, const char *prefix)
-{
-	if (!line || !prefix)
-		return (0);
-	while (*line && *prefix && *line == *prefix)
-	{
-		line++;
-		prefix++;
-	}
-	if (*prefix == '\0')
-		return (1);
 	return (0);
 }
 
