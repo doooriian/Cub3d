@@ -7,6 +7,7 @@ CFLAGS := -g -Wall -Wextra -Werror
 LDFLAGS := -L/usr/local/lib -lreadline -Llibft
 INCLUDES := -Iincludes -Ilibft/includes -Imlx/include -Imlx/include/MLX42
 NAME := cub3D
+LIBFT := $(LIBFT_A)
 
 # =============================================================================
 # 📂 SOURCES & OBJECTS 📂
@@ -19,7 +20,7 @@ SRCS_PARSING := srcs/parsing/file_utils.c\
 	srcs/parsing/map_utils.c \
 	srcs/parsing/get_map.c \
 	srcs/parsing/init_config.c \
-	srcs/parsing/validate_map.c 
+	srcs/parsing/validate_map.c
 
 # All sources combined
 SRCS := $(SRCS_MAIN) $(SRCS_PARSING)
@@ -27,13 +28,14 @@ SRCS := $(SRCS_MAIN) $(SRCS_PARSING)
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-LIBS := $(MLX) -ldl -lglfw  -lm # -pthread je l'utilise dans so_long donc jsp
-
 MLX_DIR := mlx
 MLX := $(MLX_DIR)/build/libmlx42.a
 
 LIBFT_DIR := libft
 LIBFT_A := $(LIBFT_DIR)/libft.a
+
+LIBS := $(LIBFT_A) $(MLX) -pthread -ldl -lm -lglfw
+
 
 # =============================================================================
 #	📊 PROGRESS BAR CONFIG 📊
@@ -60,8 +62,8 @@ endef
 all: libft $(NAME)
 	@echo "\n🎉 Compilation of $(NAME)!\n"
 
-$(NAME): $(MLX) $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBFT_A) $(LIBS)
+$(NAME): $(MLX) $(LIBFT) $(OBJ)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBS) -o $(NAME)
 	@echo "\n🎉 Compilation of $(NAME)!\n"
 
 $(OBJ_DIR)/%.o: %.c
