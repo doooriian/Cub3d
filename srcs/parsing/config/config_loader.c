@@ -25,12 +25,23 @@ static int	is_valid_texture_path(const char *path)
 	return (1);
 }
 
+static int	ft_str_isdigit(const char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
 static int	is_valid_color(t_game *game, const char *color, int is_top)
 {
 	int		tab[3];
 	char	**rgb_values;
+	char	*trimmed;
 	int		i;
-	int		j;
 
 	rgb_values = ft_split(color, ',');
 	if (!rgb_values || ft_tablen(rgb_values) != 3)
@@ -38,14 +49,13 @@ static int	is_valid_color(t_game *game, const char *color, int is_top)
 	i = 0;
 	while (i < 3)
 	{
-		j = 0;
-		while (rgb_values[i][j])
-		{
-			if (!ft_isdigit(rgb_values[i][j]))
-				return (ft_free_tab(rgb_values), 0);
-			j++;
-		}
-		tab[i] = ft_atoi(rgb_values[i]);
+		trimmed = ft_strtrim(rgb_values[i], " \t");
+		if (!trimmed)
+			return (ft_free_tab(rgb_values), 0);
+		if (!ft_str_isdigit(trimmed)) // -> à créer si besoin
+			return (free(trimmed), ft_free_tab(rgb_values), 0);
+		tab[i] = ft_atoi(trimmed);
+		free(trimmed);
 		if (tab[i] < 0 || tab[i] > 255)
 			return (ft_free_tab(rgb_values), 0);
 		i++;
@@ -57,6 +67,7 @@ static int	is_valid_color(t_game *game, const char *color, int is_top)
 	ft_free_tab(rgb_values);
 	return (1);
 }
+
 
 int	check_load_texture(t_game *game, char *line)
 {

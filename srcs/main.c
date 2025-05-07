@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 		return (print_error("Error: Invalid map configuration", 1));
 	}
 	print_map(game->map_info.map);
-	printf("##################################################################\n");
+	printf("\n############################################################\n");
 	print_config(game);
 	free_map(game->map_info.map);
 	free_tx(game);

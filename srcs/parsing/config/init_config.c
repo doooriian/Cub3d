@@ -34,16 +34,17 @@ Vérifiez que les valeurs sont dans la plage valide (0-255)
 static int	get_config(t_game *game)
 {
 	int		i;
-	int		seen[6] = {0}; // NO, SO, WE, EA, F, C
+	int		seen[6];
 	int		type;
 
 	i = 0;
+	ft_bzero(seen, sizeof(int) * 6);
 	while (game->map_info.map[i])
 	{
 		if (seen[0] && seen[1] && seen[2] && seen[3] && seen[4] && seen[5])
 		{
 			game->map_info.index = i;
-			break;
+			break ;
 		}
 		if (game->map_info.map[i][0] == '\t' || game->map_info.map[i][0] == ' '
 			|| game->map_info.map[i][0] == '\n' || game->map_info.map[i][0] == '\0')
@@ -52,7 +53,7 @@ static int	get_config(t_game *game)
 			continue ;
 		}
 		type = check_name_config(game->map_info.map[i]);
-		if (type == 0 || seen[type - 1]) // ligne invalide ou doublon
+		if (type == 0 || seen[type - 1])
 		{
 			game->map_info.index = i;
 			break ;
