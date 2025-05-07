@@ -98,5 +98,16 @@ int	init_config(t_game *game)
 		return (0);
 	if (validate_config(game) == 0)
 		return (0);
+	while (game->map_info.map[game->map_info.index])
+	{
+		if (!is_line_empty(game->map_info.map[game->map_info.index]))
+			break ;
+		game->map_info.index++;
+	}
+	if (game->map_info.index == 0)
+	{
+		ft_putstr_fd("Error: No valid lines found in the map\n", 2);
+		return (0);
+	}
 	return (1);
 }
