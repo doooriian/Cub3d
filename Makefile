@@ -14,7 +14,13 @@ LIBFT := $(LIBFT_A)
 # =============================================================================
 
 # Main sources
-SRCS_MAIN := srcs/main.c srcs/file_utils.c srcs/errors.c srcs/map_utils.c srcs/utils.c
+SRCS_MAIN := srcs/main.c
+
+SRCS_UTILS := \
+		srcs/utils/file_utils.c \
+		srcs/utils/errors.c \
+		srcs/utils/map_utils.c \
+		srcs/utils/utils.c
 
 SRCS_CONFIG := \
 		srcs/parsing/config/init_config.c \
@@ -31,7 +37,7 @@ SRCS_MAP := \
 SRCS_PARSING := srcs/parsing/get_map.c
 
 # All sources combined
-SRCS := $(SRCS_MAIN) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP)
+SRCS := $(SRCS_MAIN) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_UTILS)
 
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:54:37 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:42:26 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:12:25 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ void	free_map(char **map)
 		i++;
 	}
 	free(map);
-}
-
-void	free_img(t_game *game)
-{
-	if (game->img.no)
-		mlx_delete_image(game->mlx, game->img.no);
-	if (game->img.so)
-		mlx_delete_image(game->mlx, game->img.so);
-	if (game->img.we)
-		mlx_delete_image(game->mlx, game->img.we);
-	if (game->img.ea)
-		mlx_delete_image(game->mlx, game->img.ea);
 }
 
 void	free_tx(t_game *game)

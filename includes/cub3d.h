@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 13:46:12 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:12:28 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int		is_valid_texture_path(const char *path);
 int		is_valid_color(t_game *game, const char *color, int is_top);
 
 // Resource management
-void	free_img(t_game *game);
 void	free_tx(t_game *game);
 int		ft_free_tab_i(char **tab, int i);
 
