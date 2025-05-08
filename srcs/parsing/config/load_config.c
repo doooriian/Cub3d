@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:51:56 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:05:04 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 static int	load_texture(t_game *game, int type, char *path)
 {
-	void	*img;
+	t_img	*img;
+	int		width;
+	int		height;
 
 	if (!is_valid_texture_path(path))
-	{
-		ft_putstr_fd("Error: Invalid texture path\n", 2);
-		return (0);
-	}
-	img = mlx_load_png(path);
-	if (!img)
-	{
-		ft_putstr_fd("Error: Failed to load texture image\n", 2);
-		return (0);
-	}
+		return (print_error("Error: Invalid texture path\n", 0));
 	if (type == 1)
-		game->tx.no = img;
+		img = game->imgs->no;
 	else if (type == 2)
-		game->tx.so = img;
+		img = game->imgs->so;
 	else if (type == 3)
-		game->tx.we = img;
+		img = game->imgs->we;
 	else if (type == 4)
-		game->tx.ea = img;
+		img = game->imgs->ea;
+	else
+		return (0);
+	img->img = mlx_xpm_file_to_image(game->mlx, path, &width, &height);
+	if (!img->img)
+		return (print_error("Error: Failed to load texture image\n", 0));
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_length, &img->endian);
+	if (!img->addr)
+		return (print_error("Error: Failed to get texture address\n", 0));
 	return (1);
 }
 

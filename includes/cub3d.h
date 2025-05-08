@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 15:47:38 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:56:55 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ typedef struct s_map_data
 	int		top_color_set;
 	int		floor_color_set;
 }	t_map_data;
-
-typedef struct s_pos
-{
-	int		x;
-	int		y;
-	char	c;
-}	t_pos;
-
 typedef struct s_player
 {
 	float	x;
@@ -89,6 +81,15 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_imgs
+{
+	t_img	*no;
+	t_img	*ea;
+	t_img	*so;
+	t_img	*we;
+	t_img	base;
+}	t_imgs;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -98,7 +99,7 @@ typedef struct s_game
 	int			map_offset_y;
 	t_map_data	map_data;
 	t_player	player;
-	t_img		img;
+	t_imgs		*imgs;
 }	t_game;
 
 int	ft_exit(t_game *data);
@@ -150,7 +151,7 @@ int		is_valid_texture_path(const char *path);
 int		is_valid_color(t_game *game, const char *color, int is_top);
 
 // Resource management
-void	free_tx(t_game *game);
+void	free_imgs(t_game *game);
 int		ft_free_tab_i(char **tab, int i);
 
 // Printing functions

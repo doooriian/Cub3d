@@ -6,30 +6,11 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:41:44 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:56:48 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-Avoir au moins :
-NO <path>
-SO <path>
-WE <path>
-EA <path>
-F <color>
-C <color>
-
-Pas de doublons
-Pas de valeurs vides
-Tout doit être présent
-
-Vérifiez que les chemins de texture existent et sont valides
-
-color : R,G,B (0-255)
-Vérifiez que les valeurs sont dans la plage valide (0-255)
-*/
 
 static int	process_line(t_game *game, char *line, int *seen, int index)
 {
@@ -59,6 +40,15 @@ static int	get_config(t_game *game)
 
 	i = 0;
 	ft_bzero(seen, sizeof(int) * 6);
+	game->imgs = ft_calloc(1, sizeof(t_imgs));
+	if (!game->imgs)
+		return (0);
+	game->imgs->no = ft_calloc(1, sizeof(t_img));
+	game->imgs->so = ft_calloc(1, sizeof(t_img));
+	game->imgs->we = ft_calloc(1, sizeof(t_img));
+	game->imgs->ea = ft_calloc(1, sizeof(t_img));
+	if (!game->imgs->no || !game->imgs->so || !game->imgs->we || !game->imgs->ea)
+		return (0);
 	while (game->map_data.map[i])
 	{
 		if (seen[0] && seen[1] && seen[2] && seen[3] && seen[4] && seen[5])

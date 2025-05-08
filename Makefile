@@ -43,7 +43,7 @@ SRCS_GAME := \
 SRCS_PARSING := srcs/parsing/get_map.c
 
 # All sources combined
-SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) # $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP)
+SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP)
 
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)

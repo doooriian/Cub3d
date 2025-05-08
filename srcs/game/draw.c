@@ -45,9 +45,9 @@ void	draw_map(t_game *data)
 			x = j * data->tile_size + data->map_offset_x;
 			y = i * data->tile_size + data->map_offset_y;
 			if (g_map[i][j] == 1)
-				draw_square(&data->img, x, y, data->tile_size, 0x00888888);
+				draw_square(&data->imgs->base, x, y, data->tile_size, 0x00888888);
 			else
-				draw_square(&data->img, x, y, data->tile_size, 0xFFFFFF);
+				draw_square(&data->imgs->base, x, y, data->tile_size, 0xFFFFFF);
 			j++;
 		}
 		i++;
@@ -79,7 +79,7 @@ void	draw_line(t_game *data, t_player *player, float start_x)
 	sin_angle = sin(start_x);
 	while (!touch_wall(data, ray_x, ray_y))
 	{
-		put_pixel(&data->img, ray_x + data->map_offset_x, ray_y + data->map_offset_y, 0xFF0000);
+		put_pixel(&data->imgs->base, ray_x + data->map_offset_x, ray_y + data->map_offset_y, 0xFF0000);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
@@ -102,7 +102,7 @@ void	draw_rays(t_game *data, t_player *player)
 	}
 }
 
-int	draw_loop(t_game *data)
+int draw_loop(t_game *data)
 {
 	float		cos_angle;
 	float		sin_angle;
@@ -114,9 +114,10 @@ int	draw_loop(t_game *data)
 	sin_angle = sin(player->angle);
 	move_player(player, cos_angle, sin_angle, data->tile_size);
 	reset_player_var(player);
+
 	draw_map(data);
 	draw_rays(data, player);
-	draw_square(&data->img, player->x + data->map_offset_x, player->y + data->map_offset_y, PLAYER_SIZE, 0xF7230C);
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	draw_square(&data->imgs->base, player->x + data->map_offset_x, player->y + data->map_offset_y, PLAYER_SIZE, 0xF7230C);
+	mlx_put_image_to_window(data->mlx, data->win, data->imgs->base.img, 0, 0); // Affiche base au lieu de ea
 	return (0);
 }
