@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 13:12:53 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:46:12 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,12 @@ typedef struct s_tx
 	mlx_texture_t	*ea;
 }	t_tx;
 
-typedef struct s_img
-{
-	mlx_image_t	*no;
-	mlx_image_t	*so;
-	mlx_image_t	*we;
-	mlx_image_t	*ea;
-}	t_img;
-
 typedef struct s_game
 {
 	void		*mlx;
 	t_map_info	map_info;
 	t_player	player;
 	t_tx		tx;
-	t_img		img;
 }	t_game;
 
 // File utilities
