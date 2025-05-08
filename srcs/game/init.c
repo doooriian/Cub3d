@@ -1,6 +1,6 @@
-#include "cub.h"
+#include "cub3d.h"
 
-void	init_data(t_data *data)
+void	init_data(t_game *data)
 {
 	int	tile_w;
 	int	tile_h;

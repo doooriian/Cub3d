@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "cub3d.h"
 
 void	reset_player_var(t_player *player)
 {
@@ -39,22 +39,22 @@ void	rotate_player(t_player *player)
 void	move_player(t_player *player, float cos_angle, float sin_angle, int tile_size)
 {
 	if (player->go_up)
-	{	
+	{
 		player->tmp_x += cos_angle * SPEED;
 		player->tmp_y += sin_angle * SPEED;
 	}
 	if (player->go_down)
-	{	
+	{
 		player->tmp_x -= cos_angle * SPEED;
 		player->tmp_y -= sin_angle * SPEED;
 	}
 	if (player->go_left)
-	{	
+	{
 		player->tmp_x += sin_angle * SPEED;
 		player->tmp_y -= cos_angle * SPEED;
 	}
 	if (player->go_right)
-	{	
+	{
 		player->tmp_x -= sin_angle * SPEED;
 		player->tmp_y += cos_angle * SPEED;
 	}

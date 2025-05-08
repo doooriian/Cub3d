@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "cub3d.h"
 
 void	put_pixel(t_img *img, int x, int y, int color)
 {
@@ -29,7 +29,7 @@ void	draw_square(t_img *img, int x, int y, int size, int color)
 	}
 }
 
-void	draw_map(t_data *data)
+void	draw_map(t_game *data)
 {
 	int	i;
 	int	j;
@@ -54,7 +54,7 @@ void	draw_map(t_data *data)
 	}
 }
 
-bool	touch_wall(t_data *data, float ray_x, float ray_y)
+bool	touch_wall(t_game *data, float ray_x, float ray_y)
 {
 	int	i;
 	int	j;
@@ -66,7 +66,7 @@ bool	touch_wall(t_data *data, float ray_x, float ray_y)
 	return (0);
 }
 
-void	draw_line(t_data *data, t_player *player, float start_x)
+void	draw_line(t_game *data, t_player *player, float start_x)
 {
 	float	ray_x;
 	float	ray_y;
@@ -85,7 +85,7 @@ void	draw_line(t_data *data, t_player *player, float start_x)
 	}
 }
 
-void	draw_rays(t_data *data, t_player *player)
+void	draw_rays(t_game *data, t_player *player)
 {
 	int		i;
 	float	fraction;
@@ -102,7 +102,7 @@ void	draw_rays(t_data *data, t_player *player)
 	}
 }
 
-int	draw_loop(t_data *data)
+int	draw_loop(t_game *data)
 {
 	float		cos_angle;
 	float		sin_angle;

@@ -4,7 +4,7 @@
 
 CC := cc
 CFLAGS := -g -Wall -Wextra -Werror
-LDFLAGS := -L/usr/local/lib -lreadline -Llibft
+LDFLAGS := -L/usr/local/lib -lreadline -Llibft -Lmlx
 INCLUDES := -Iincludes -Ilibft/includes -Imlx
 NAME := cub3D
 LIBFT := $(LIBFT_A)
@@ -34,21 +34,27 @@ SRCS_MAP := \
 		srcs/parsing/map/validate_horizontal.c \
 		srcs/parsing/map/validate_space.c
 
+SRCS_GAME := \
+		srcs/game/draw.c \
+		srcs/game/init.c \
+		srcs/game/key_hook.c \
+		srcs/game/player.c
+
 SRCS_PARSING := srcs/parsing/get_map.c
 
 # All sources combined
-SRCS := $(SRCS_MAIN) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_UTILS)
+SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) # $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP)
 
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 MLX_DIR := mlx
-MLX := $(MLX_DIR)/mlx.a
+MLX := $(MLX_DIR)/libmlx_Linux.a
 
 LIBFT_DIR := libft
 LIBFT_A := $(LIBFT_DIR)/libft.a
 
-LIBS := $(LIBFT_A) $(MLX) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
+LIBS := $(LIBFT_A) $(MLX) -L/usr/lib/X11 -lXext -lX11 -lm
 
 
 # =============================================================================
@@ -116,22 +122,25 @@ re_libft:
 # MLX
 # =============================================================================
 
-$(MLX): $(MLX_DIR)
-	@if [ ! -d "$(MLX_DIR)"" ]; then \
-		echo "Building Minilibx..."; \
-		$(MAKE) -C $(MLX_DIR)
-	else \
-		echo "Minilibx already built."; \
-	fi
+# @if [ ! -d "mlx/mlx.a" ]; then \
+# 		echo "Building Minilibx..."; \
+# 		$(MAKE) -C mlx;
+# 	else \
+# 		echo "Minilibx already built."; \
+# 	fi
+
+$(MLX):
+	@$(MAKE) -C $(MLX_DIR)
 
 $(MLX_DIR):
 	@if [ ! -d "$(MLX_DIR)" ]; then \
 		echo "Cloning Minilibx..."; \
 		git clone https://github.com/42paris/minilibx-linux.git $(MLX_DIR); \
 	fi
+	$(MAKE) -C mlx;
 
 clean_mlx:
-	@rm -rf $(MLX)
+	@$(MAKE) -C $(MLX_DIR) clean
 	@echo "Clean of Minilibx : \033[1;32mOK\033[0m"
 
 fclean_mlx: clean_mlx
