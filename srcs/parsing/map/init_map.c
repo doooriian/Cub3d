@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:27:13 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 19:46:13 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:23:01 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	**normalize_map(char **map)
 		if (!normalized[i])
 		{
 			ft_free_tab_i(normalized, i);
+			ft_free_tab(map);
 			return (NULL);
 		}
 		j = ft_strlen(map[i]);
@@ -103,11 +104,16 @@ int	init_map(t_game *game)
 	game->map_data.index = 0;
 	normalized = normalize_map(game->map_data.map);
 	if (!normalized)
+	{
+		free_map(game->map_data.map); // Libère la map en cas d'erreur
 		return (0);
+	}
 	if (!is_valid_map(normalized))
 	{
 		free_map(normalized);
+		free_map(game->map_data.map); // Libère la map en cas d'erreur
 		return (print_error("Error: Invalid map spaces", 0));
 	}
+	free_map(normalized); // Libère la map normalisée après validation
 	return (1);
 }

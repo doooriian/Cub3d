@@ -27,4 +27,6 @@ void	destroy_imgs(t_game *game)
 		mlx_destroy_image(game->mlx, game->imgs.we.img);
 	if (game->imgs.ea.img)
 		mlx_destroy_image(game->mlx, game->imgs.ea.img);
+	if (game->imgs.base.img)
+		mlx_destroy_image(game->mlx, game->imgs.base.img);
 }

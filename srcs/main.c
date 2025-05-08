@@ -19,14 +19,10 @@ int	ft_exit(t_game *game)
 	destroy_imgs(game);
 	if (game->imgs.base.img)
 		mlx_destroy_image(game->mlx, game->imgs.base.img);
-
 	if (game->mlx && game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
-	{
-		// mlx_destroy_display(game->mlx);
 		free(game->mlx);
-	}
 	if (game)
 		free(game);
 	exit(0);
