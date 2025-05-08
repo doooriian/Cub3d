@@ -20,7 +20,8 @@ SRCS_UTILS := \
 		srcs/utils/file_utils.c \
 		srcs/utils/errors.c \
 		srcs/utils/map_utils.c \
-		srcs/utils/utils.c
+		srcs/utils/utils.c \
+		srcs/utils/frees.c
 
 SRCS_CONFIG := \
 		srcs/parsing/config/init_config.c \
