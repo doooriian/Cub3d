@@ -25,7 +25,8 @@ SRCS_CONFIG := \
 SRCS_MAP := \
 		srcs/parsing/map/init_map.c \
 		srcs/parsing/map/validate_map.c \
-		srcs/parsing/map/validate_line.c
+		srcs/parsing/map/validate_horizontal.c \
+		srcs/parsing/map/validate_space.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 

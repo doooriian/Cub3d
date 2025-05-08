@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:51:34 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:12:53 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	free_map(char **map);
 int		is_valid_map(char **map);
 int		is_line_empty(const char *line);
 char	**duplicate_map(char **map);
-int		is_valid_map(char **map);
 int		init_map(t_game *game);
+int		has_invalid_spaces(char **map);
 
 // Error handling
 int		print_error(char *msg, int ret);

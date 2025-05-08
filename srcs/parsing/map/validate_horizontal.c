@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 12:51:49 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:52:01 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:13:58 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	validate_horizontal(char **map)
 	{
 		if (!is_valid_map_line(map[i]))
 			return (0);
+		i++;
 	}
 	return (1);
 }
