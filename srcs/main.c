@@ -1,28 +1,24 @@
 #include "cub3d.h"
 
-int	g_map[MAP_HEIGHT][MAP_WIDTH] = {
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-};
-
 int	ft_exit(t_game *game)
 {
 	free_map(game->map_data.map);
 	destroy_imgs(game);
 	if (game->imgs.base.img)
+	{
 		mlx_destroy_image(game->mlx, game->imgs.base.img);
+		game->imgs.base.img = NULL; // Évitez les lectures invalides
+	}
 	if (game->mlx && game->win)
+	{
 		mlx_destroy_window(game->mlx, game->win);
+		game->win = NULL; // Évitez les lectures invalides
+	}
 	if (game->mlx)
+	{
 		free(game->mlx);
+		game->mlx = NULL;
+	}
 	if (game)
 		free(game);
 	exit(0);
@@ -60,7 +56,7 @@ int	main(int argc, char **argv)
 	if (parsing(game, argv[1]))
 		ft_exit(game);
 
-	// GET MLX
+	// Initialisez les dimensions dynamiques de la carte
 	init_data(game);
 	init_player(&game->player);
 
@@ -68,8 +64,8 @@ int	main(int argc, char **argv)
 	game->imgs.base.addr = mlx_get_data_addr(game->imgs.base.img, &game->imgs.base.bits_per_pixel,
 			&game->imgs.base.line_length, &game->imgs.base.endian);
 	draw_map(game);
-	draw_square(&game->imgs.base, game->player.x + game->map_offset_x,
-		game->player.y + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
+	draw_square(&game->imgs.base, game->player.x - PLAYER_SIZE / 2 + game->map_offset_x,
+		game->player.y - PLAYER_SIZE / 2 + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(game->mlx, game->win, game->imgs.base.img, 0, 0);
 
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);

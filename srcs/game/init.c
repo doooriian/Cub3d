@@ -1,5 +1,41 @@
 #include "cub3d.h"
 
+static void	player_position(t_game *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map_data.map[i])
+	{
+		j = 0;
+		while (data->map_data.map[i][j])
+		{
+			if (data->map_data.map[i][j] == 'N' || data->map_data.map[i][j] == 'S'
+				|| data->map_data.map[i][j] == 'E' || data->map_data.map[i][j] == 'W')
+			{
+				data->player.x = j * data->tile_size + data->tile_size / 2;
+				data->player.y = i * data->tile_size + data->tile_size / 2;
+				data->player.tmp_x = data->player.x;
+				data->player.tmp_y = data->player.y;
+				data->player.ray_x = data->player.x;
+				data->player.ray_y = data->player.y;
+				if (data->map_data.map[i][j] == 'N')
+					data->player.angle = 3 * PI / 2;
+				else if (data->map_data.map[i][j] == 'S')
+					data->player.angle = PI / 2;
+				else if (data->map_data.map[i][j] == 'E')
+					data->player.angle = 0;
+				else if (data->map_data.map[i][j] == 'W')
+					data->player.angle = PI;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	init_data(t_game *data)
 {
 	int	tile_w;
@@ -7,28 +43,26 @@ void	init_data(t_game *data)
 	int	map_px_w;
 	int	map_px_h;
 
-	tile_w = WIDTH / MAP_WIDTH;
-	tile_h = HEIGHT / MAP_HEIGHT;
+	data->map_width = get_max_len(data->map_data.map);
+	data->map_height = get_map_height(data->map_data.map);
+
+	tile_w = WIDTH / data->map_width;
+	tile_h = HEIGHT / data->map_height;
 	if (tile_h < tile_w)
 		data->tile_size = tile_h;
 	else
 		data->tile_size = tile_w;
-	map_px_w = MAP_WIDTH * data->tile_size;
-	map_px_h = MAP_HEIGHT * data->tile_size;
+	map_px_w = data->map_width * data->tile_size;
+	map_px_h = data->map_height * data->tile_size;
 	data->map_offset_x = (WIDTH - map_px_w) / 2;
 	data->map_offset_y = (HEIGHT - map_px_h) / 2;
-	data->player.x = WIDTH / 2;
-	data->player.y = HEIGHT / 2;
+
+	// Met à jour les informations du joueur en fonction de la carte
+	player_position(data);
 }
 
 void	init_player(t_player *player)
 {
-	player->x = WIDTH / 2;
-	player->y = HEIGHT / 2;
-	player->tmp_x = WIDTH / 2;
-	player->tmp_y = HEIGHT / 2;
-	player->ray_x = WIDTH / 2;
-	player->ray_y = HEIGHT / 2;
 	player->ray_offset = PLAYER_SIZE / 2;
 	player->angle = PI / 2;
 	player->go_up = false;

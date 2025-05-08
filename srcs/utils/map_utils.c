@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:54:37 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 20:19:12 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 21:01:09 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,30 @@ int	is_line_empty(const char *line)
 		i++;
 	}
 	return (1);
+}
+
+size_t	get_max_len(char **map)
+{
+	size_t	max_len;
+	size_t	i;
+
+	max_len = 0;
+	i = 0;
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) > max_len)
+			max_len = ft_strlen(map[i]);
+		i++;
+	}
+	return (max_len);
+}
+
+size_t	get_map_height(char **map)
+{
+	size_t	height;
+
+	height = 0;
+	while (map[height])
+		height++;
+	return (height);
 }

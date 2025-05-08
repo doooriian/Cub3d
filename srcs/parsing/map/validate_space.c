@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 13:06:14 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 19:41:34 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 21:48:38 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	has_invalid_spaces(char **map)
 		while (map[y][x])
 		{
 			if (!is_cell_properly_enclosed(map, y, x))
-				return (0);
+				return (print_error("Error: Invalid space in map", 0));
 			x++;
 		}
 		y++;

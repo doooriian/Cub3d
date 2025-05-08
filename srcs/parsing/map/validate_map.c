@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:55:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 19:43:05 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 21:48:23 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ static int	has_single_player_start(char **map)
 		}
 		i++;
 	}
-	return (player_count == 1);
+	if (player_count != 1)
+		return (print_error("Error: Invalid number of player starts", 0));
+	return (1);
 }
 
 int	is_valid_map(char **map)
