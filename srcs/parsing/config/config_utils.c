@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:35:54 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 18:35:54 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:42:45 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	start_with(char *line, const char *prefix)
  */
 int	check_name_config(char *line)
 {
-	while (*line && (*line == ' ' || *line == '\t'))
+	while (*line && *line == ' ' )
 		line++;
 	if (start_with(line, "NO "))
 		return (1);
@@ -68,11 +68,11 @@ int	check_name_config(char *line)
  */
 char	*extract_path(char *line)
 {
-	while (*line == ' ' || *line == '\t')
+	while (*line == ' ')
 		line++;
-	while (*line && *line != ' ' && *line != '\t')
+	while (*line && *line != ' ')
 		line++;
-	while (*line == ' ' || *line == '\t')
+	while (*line == ' ')
 		line++;
 	if (*line == '\0')
 		return (NULL);

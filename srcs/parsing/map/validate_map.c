@@ -6,31 +6,11 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:55:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/04/29 10:55:53 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:43:24 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	is_valid_char(char c)
-{
-	return (c == '0' || c == '1' || c == '2' || c == 'N' || c == 'E'
-		|| c == 'S' || c == 'W' || c == ' ');
-}
-
-static int	is_valid_map_line(const char *line)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (!is_valid_char(line[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 static int	has_single_player_start(char **map)
 {
@@ -94,8 +74,8 @@ static int	has_invalid_spaces_or_tabs(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if ((map[i][j] == ' ' || map[i][j] == '\t') &&
-				((j > 0 && map[i][j - 1] != '1') || (map[i][j + 1] && map[i][j + 1] != '1')))
+			if (map[i][j] == ' ' && ((j > 0 && map[i][j - 1] != '1')
+				|| (map[i][j + 1] && map[i][j + 1] != '1')))
 				return (1);
 			j++;
 		}

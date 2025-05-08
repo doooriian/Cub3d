@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:49:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 19:49:53 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:42:51 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	parse_rgb_value(char *value, int *tab, int index)
 {
 	char	*trimmed;
 
-	trimmed = ft_strtrim(value, " \t");
+	trimmed = ft_strtrim(value, " ");
 	if (!trimmed || !ft_str_isdigit(trimmed))
 	{
 		free(trimmed);

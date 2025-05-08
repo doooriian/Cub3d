@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:27:13 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:19:08 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:22:01 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int	init_map(t_game *game)
 	print_map(normalized);
 	if (!is_valid_map(normalized))
 	{
+		free_map(game->map_info.map);
+		game->map_info.map = NULL;
 		free_map(normalized);
 		return (0);
 	}
