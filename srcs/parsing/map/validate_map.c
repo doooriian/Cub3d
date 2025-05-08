@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:55:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 19:31:47 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:42:12 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,13 @@ static int	has_single_player_start(char **map)
 	return (player_count == 1);
 }
 
-static int	is_surrounded_by_walls(char **map)
-{
-	// TMP
-	(void)map;
-	return (1);
-}
-
 int	is_valid_map(char **map)
 {
 	if (!validate_horizontal(map))
 		return (0);
-	if (has_invalid_spaces(map))
-		return (0);
 	if (!has_single_player_start(map))
 		return (0);
-	if (!is_surrounded_by_walls(map))
+	if (!validate_vertical(map))
 		return (0);
 	return (1);
 }
