@@ -14,3 +14,10 @@
    fun:mlx_new_window
 }
 
+{
+   suppress_all_mlx_loop
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:mlx_loop
+}

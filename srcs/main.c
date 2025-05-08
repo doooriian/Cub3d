@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 int	g_map[MAP_HEIGHT][MAP_WIDTH] = {
@@ -17,7 +16,9 @@ int	g_map[MAP_HEIGHT][MAP_WIDTH] = {
 int	ft_exit(t_game *game)
 {
 	free_map(game->map_data.map);
-	free_imgs(game);
+	destroy_imgs(game);
+	if (game->imgs.base.img)
+		mlx_destroy_image(game->mlx, game->imgs.base.img);
 
 	if (game->mlx && game->win)
 		mlx_destroy_window(game->mlx, game->win);
@@ -49,15 +50,15 @@ static int	parsing(t_game *game, char *path)
 
 int	main(int argc, char **argv)
 {
-	t_game		*game;
+	t_game	*game;
 
 	if (argc != 2)
 		return (print_error("Error: Invalid arguments", 1));
 	if (!check_extension(argv[1], ".cub"))
 		return (print_error("Error: Expected .cub extension", 1));
-	game = (t_game *)calloc(1, sizeof(t_game));
+	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
-		return (print_error("Error: Memory allocation failed", 1));
+		return (print_error("Error: Memory allocation failure", 1));
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, 800, 600, "Hello world!");
 	if (parsing(game, argv[1]))
@@ -67,12 +68,13 @@ int	main(int argc, char **argv)
 	init_data(game);
 	init_player(&game->player);
 
-	game->imgs->base.img = mlx_new_image(game->mlx, 800, 600);
-	game->imgs->base.addr = mlx_get_data_addr(game->imgs->base.img, &game->imgs->base.bits_per_pixel, &game->imgs->base.line_length, &game->imgs->base.endian);
+	game->imgs.base.img = mlx_new_image(game->mlx, 800, 600);
+	game->imgs.base.addr = mlx_get_data_addr(game->imgs.base.img, &game->imgs.base.bits_per_pixel,
+			&game->imgs.base.line_length, &game->imgs.base.endian);
 	draw_map(game);
-	draw_square(&game->imgs->base, game->player.x + game->map_offset_x, game->player.y + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
-	mlx_put_image_to_window(game->mlx, game->win, game->imgs->base.img, 0, 0);
-
+	draw_square(&game->imgs.base, game->player.x + game->map_offset_x,
+		game->player.y + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
+	mlx_put_image_to_window(game->mlx, game->win, game->imgs.base.img, 0, 0);
 
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, &game->player);

@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:51:56 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 17:05:04 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:15:02 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static int	load_texture(t_game *game, int type, char *path)
 	if (!is_valid_texture_path(path))
 		return (print_error("Error: Invalid texture path\n", 0));
 	if (type == 1)
-		img = game->imgs->no;
+		img = &game->imgs.no;
 	else if (type == 2)
-		img = game->imgs->so;
+		img = &game->imgs.so;
 	else if (type == 3)
-		img = game->imgs->we;
+		img = &game->imgs.we;
 	else if (type == 4)
-		img = game->imgs->ea;
+		img = &game->imgs.ea;
 	else
 		return (0);
 	img->img = mlx_xpm_file_to_image(game->mlx, path, &width, &height);

@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:54:37 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 17:16:52 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:08:59 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,19 @@ void	free_map(char **map)
 	free(map);
 }
 
-void	free_imgs(t_game *game)
+void	destroy_imgs(t_game *game)
 {
-	if (!game || !game->imgs)
+	if (!game)
 		return;
-	if (game->imgs->no)
-	{
-		if (game->imgs->no->img)
-			mlx_destroy_image(game->mlx, game->imgs->no->img);
-		free(game->imgs->no);
-	}
-	if (game->imgs->so)
-	{
-		if (game->imgs->so->img)
-			mlx_destroy_image(game->mlx, game->imgs->so->img);
-		free(game->imgs->so);
-	}
-	if (game->imgs->we)
-	{
-		if (game->imgs->we->img)
-			mlx_destroy_image(game->mlx, game->imgs->we->img);
-		free(game->imgs->we);
-	}
-	if (game->imgs->ea)
-	{
-		if (game->imgs->ea->img)
-			mlx_destroy_image(game->mlx, game->imgs->ea->img);
-		free(game->imgs->ea);
-	}
-	free(game->imgs);
+	if (game->imgs.no.img)
+		mlx_destroy_image(game->mlx, game->imgs.no.img);
+	if (game->imgs.so.img)
+		mlx_destroy_image(game->mlx, game->imgs.so.img);
+	if (game->imgs.we.img)
+		mlx_destroy_image(game->mlx, game->imgs.we.img);
+	if (game->imgs.ea.img)
+		mlx_destroy_image(game->mlx, game->imgs.ea.img);
 }
-
 int	is_line_empty(const char *line)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 19:41:37 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:10:10 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ typedef struct s_img
 
 typedef struct s_imgs
 {
-	t_img	*no;
-	t_img	*ea;
-	t_img	*so;
-	t_img	*we;
+	t_img	no;
+	t_img	ea;
+	t_img	so;
+	t_img	we;
 	t_img	base;
 }	t_imgs;
 
@@ -99,7 +99,7 @@ typedef struct s_game
 	int			map_offset_y;
 	t_map_data	map_data;
 	t_player	player;
-	t_imgs		*imgs;
+	t_imgs		imgs;
 }	t_game;
 
 int	ft_exit(t_game *data);
@@ -151,7 +151,7 @@ int		is_valid_texture_path(const char *path);
 int		is_valid_color(t_game *game, const char *color, int is_top);
 
 // Resource management
-void	free_imgs(t_game *game);
+void	destroy_imgs(t_game *game);
 int		ft_free_tab_i(char **tab, int i);
 
 // Printing functions

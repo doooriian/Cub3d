@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:41:44 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 17:56:48 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:06:25 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,12 @@ static int	get_config(t_game *game)
 
 	i = 0;
 	ft_bzero(seen, sizeof(int) * 6);
-	game->imgs = ft_calloc(1, sizeof(t_imgs));
-	if (!game->imgs)
-		return (0);
-	game->imgs->no = ft_calloc(1, sizeof(t_img));
-	game->imgs->so = ft_calloc(1, sizeof(t_img));
-	game->imgs->we = ft_calloc(1, sizeof(t_img));
-	game->imgs->ea = ft_calloc(1, sizeof(t_img));
-	if (!game->imgs->no || !game->imgs->so || !game->imgs->we || !game->imgs->ea)
-		return (0);
+	// Suppression de l'allocation dynamique pour game->imgs
+	// Initialisation directe des sous-structures
+	ft_bzero(&game->imgs.no, sizeof(t_img));
+	ft_bzero(&game->imgs.so, sizeof(t_img));
+	ft_bzero(&game->imgs.we, sizeof(t_img));
+	ft_bzero(&game->imgs.ea, sizeof(t_img));
 	while (game->map_data.map[i])
 	{
 		if (seen[0] && seen[1] && seen[2] && seen[3] && seen[4] && seen[5])
