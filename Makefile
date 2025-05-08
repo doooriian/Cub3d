@@ -5,7 +5,7 @@
 CC := cc
 CFLAGS := -g -Wall -Wextra -Werror
 LDFLAGS := -L/usr/local/lib -lreadline -Llibft
-INCLUDES := -Iincludes -Ilibft/includes -Imlx/include -Imlx/include/MLX42
+INCLUDES := -Iincludes -Ilibft/includes -Imlx
 NAME := cub3D
 LIBFT := $(LIBFT_A)
 
@@ -43,12 +43,12 @@ OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 MLX_DIR := mlx
-MLX := $(MLX_DIR)/build/libmlx42.a
+MLX := $(MLX_DIR)/mlx.a
 
 LIBFT_DIR := libft
 LIBFT_A := $(LIBFT_DIR)/libft.a
 
-LIBS := $(LIBFT_A) $(MLX) -pthread -ldl -lm -lglfw
+LIBS := $(LIBFT_A) $(MLX) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 
 # =============================================================================
@@ -117,22 +117,22 @@ re_libft:
 # =============================================================================
 
 $(MLX): $(MLX_DIR)
-	@if [ ! -d "$(MLX_DIR)/build" ]; then \
-		echo "Building MLX42..."; \
-		cd $(MLX_DIR) && cmake -B build && cmake --build build -j4; \
+	@if [ ! -d "$(MLX_DIR)"" ]; then \
+		echo "Building Minilibx..."; \
+		$(MAKE) -C $(MLX_DIR)
 	else \
-		echo "MLX42 already built."; \
+		echo "Minilibx already built."; \
 	fi
 
 $(MLX_DIR):
 	@if [ ! -d "$(MLX_DIR)" ]; then \
-		echo "Cloning MLX42..."; \
-		git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR); \
+		echo "Cloning Minilibx..."; \
+		git clone https://github.com/42paris/minilibx-linux.git $(MLX_DIR); \
 	fi
 
 clean_mlx:
-	@rm -rf $(MLX_DIR)/build
-	@echo "Clean of MLX42 : \033[1;32mOK\033[0m"
+	@rm -rf $(MLX)
+	@echo "Clean of Minilibx : \033[1;32mOK\033[0m"
 
 fclean_mlx: clean_mlx
 
@@ -146,7 +146,7 @@ clean:
 	@rm -rf $(OBJ_DIR)
 	@echo "Clean de $(NAME) : \033[1;32mOK\033[0m"
 
-fclean: clean fclean_libft
+fclean: clean #fclean_libft
 	@rm -f $(NAME)
 	@echo "Fclean de $(NAME) : \033[1;32mOK\033[0m"
 

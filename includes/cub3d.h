@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:33:45 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:57:48 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,20 @@ typedef struct s_pos
 
 typedef struct s_player
 {
-	t_pos	pos;
-	int		dir; // 0: N, 1: E, 2: S, 3: W
+	float	x;
+	float	y;
+	float	tmp_x;
+	float	tmp_y;
+	float	ray_x;
+	float	ray_y;
+	float	ray_offset;
+	float	angle;
+	bool	go_up;
+	bool	go_down;
+	bool	go_left;
+	bool	go_right;
+	bool	rotate_left;
+	bool	rotate_right;
 }	t_player;
 
 typedef struct s_tx
