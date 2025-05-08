@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:55:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 13:10:47 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:28:17 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int	has_single_player_start(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
 				player_count++;
 			j++;
 		}
@@ -41,25 +42,8 @@ static int	is_surrounded_by_walls(char **map)
 
 	i = 0;
 	j = 0;
-	// Check top and bottom rows
-	for (j = 0; map[0][j]; j++)
-		if (map[0][j] != '1' && map[0][j] != ' ')
-			return (0);
-	for (j = 0; map[i - 1][j]; j++)
-		if (map[i - 1][j] != '1' && map[i - 1][j] != ' ')
-			return (0);
-
-	// Check left and right columns
-	for (i = 0; map[i]; i++)
-	{
-		if (map[i][0] != '1' && map[i][0] != ' ')
-			return (0);
-		j = 0;
-		while (map[i][j])
-			j++;
-		if (map[i][j - 1] != '1' && map[i][j - 1] != ' ')
-			return (0);
-	}
+	// TMP
+	(void)map;
 	return (1);
 }
 

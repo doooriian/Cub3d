@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:27:13 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:27:58 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ char	**normalize_map(char **map)
 	normalized = ft_calloc(i + 1, sizeof(char *));
 	if (!normalized)
 		return (NULL);
-	i = 0;
-	while (map[i])
+	i = -1;
+	while (map[++i])
 	{
 		normalized[i] = ft_calloc(max_len + 1, sizeof(char));
 		if (!normalized[i])
@@ -86,7 +86,6 @@ char	**normalize_map(char **map)
 		ft_memcpy(normalized[i], map[i], j);
 		while (j < max_len)
 			normalized[i][j++] = ' ';
-		i++;
 	}
 	return (normalized);
 }
