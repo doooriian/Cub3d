@@ -1,0 +1,16 @@
+{
+   suppress_all_mlx_init
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:mlx_init
+}
+
+{
+   suppress_all_mlx_new_window
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:mlx_new_window
+}
+
