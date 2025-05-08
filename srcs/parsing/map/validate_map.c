@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:55:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:28:17 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:31:47 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ static int	has_single_player_start(char **map)
 
 static int	is_surrounded_by_walls(char **map)
 {
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
 	// TMP
 	(void)map;
 	return (1);
@@ -49,9 +44,6 @@ static int	is_surrounded_by_walls(char **map)
 
 int	is_valid_map(char **map)
 {
-	size_t	i;
-
-	i = 0;
 	if (!validate_horizontal(map))
 		return (0);
 	if (has_invalid_spaces(map))
