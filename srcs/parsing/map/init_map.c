@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:27:13 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 20:27:13 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:19:08 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,81 @@ char	**duplicate_map(char **map)
 	return (dup_map);
 }
 
+static size_t	get_max_len(char **map)
+{
+	size_t	max_len;
+	size_t	i;
+
+	max_len = 0;
+	i = 0;
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) > max_len)
+			max_len = ft_strlen(map[i]);
+		i++;
+	}
+	return (max_len);
+}
+
+static size_t	get_map_height(char **map)
+{
+	size_t	height;
+
+	height = 0;
+	while (map[height])
+		height++;
+	return (height);
+}
+
+char	**normalize_map(char **map)
+{
+	char	**normalized;
+	size_t	max_len;
+	size_t	i;
+	size_t	j;
+
+	max_len = get_max_len(map);
+	i = get_map_height(map);
+	normalized = ft_calloc(i + 1, sizeof(char *));
+	if (!normalized)
+		return (NULL);
+	i = 0;
+	while (map[i])
+	{
+		normalized[i] = ft_calloc(max_len + 1, sizeof(char));
+		if (!normalized[i])
+		{
+			ft_free_tab_i(normalized, i);
+			return (NULL);
+		}
+		j = ft_strlen(map[i]);
+		ft_memcpy(normalized[i], map[i], j);
+		while (j < max_len)
+			normalized[i][j++] = ' ';
+		i++;
+	}
+	return (normalized);
+}
+
 int	init_map(t_game *game)
 {
 	char	**map;
+	char	**normalized;
 
 	map = duplicate_map(&game->map_info.map[game->map_info.index]);
 	if (!map)
 		return (0);
 	free_map(game->map_info.map);
-	game->map_info.map = NULL;
-	if (!is_valid_map(map))
-	{
-		free_map(map);
-		return (0);
-	}
 	game->map_info.map = map;
 	game->map_info.index = 0;
+	normalized = normalize_map(game->map_info.map);
+	if (!normalized)
+		return (0);
+	print_map(normalized);
+	if (!is_valid_map(normalized))
+	{
+		free_map(normalized);
+		return (0);
+	}
 	return (1);
 }

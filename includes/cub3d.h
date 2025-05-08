@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 18:50:00 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:18:23 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,9 @@ int		is_valid_color(t_game *game, const char *color, int is_top);
 void	free_img(t_game *game);
 void	free_tx(t_game *game);
 int		ft_free_tab_i(char **tab, int i);
+
+// Printing functions
+void	print_map(char **map);
+void	print_config(t_game *game);
 
 #endif

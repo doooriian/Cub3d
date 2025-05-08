@@ -14,7 +14,7 @@ LIBFT := $(LIBFT_A)
 # =============================================================================
 
 # Main sources
-SRCS_MAIN := srcs/main.c srcs/file_utils.c srcs/errors.c srcs/map_utils.c
+SRCS_MAIN := srcs/main.c srcs/file_utils.c srcs/errors.c srcs/map_utils.c srcs/utils.c
 
 SRCS_CONFIG := \
 		srcs/parsing/config/init_config.c \
