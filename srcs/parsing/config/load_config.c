@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:51:56 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/07 19:51:56 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static int	load_config(t_game *game, int type, char *path)
 		if (!is_valid_color(game, path, type == 6))
 			return (0);
 		if (type == 5)
-			game->map_info.floor_color_set = 1;
+			game->map_data.floor_color_set = 1;
 		else
-			game->map_info.top_color_set = 1;
+			game->map_data.top_color_set = 1;
 	}
 	else
 		return (0);

@@ -14,7 +14,7 @@ LIBFT := $(LIBFT_A)
 # =============================================================================
 
 # Main sources
-SRCS_MAIN := srcs/main.c
+SRCS_MAIN := srcs/main.c srcs/print_data.c
 
 SRCS_UTILS := \
 		srcs/utils/file_utils.c \

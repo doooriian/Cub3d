@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:49:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:42:51 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int	is_valid_color(t_game *game, const char *color, int is_top)
 		}
 	}
 	if (is_top)
-		ft_memcpy(game->map_info.top_color, tab, sizeof(tab));
+		ft_memcpy(game->map_data.top_color, tab, sizeof(tab));
 	else
-		ft_memcpy(game->map_info.floor_color, tab, sizeof(tab));
+		ft_memcpy(game->map_data.floor_color, tab, sizeof(tab));
 	ft_free_tab(rgb_values);
 	return (1);
 }

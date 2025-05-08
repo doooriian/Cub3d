@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:35:54 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:42:45 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_all_config_present(t_game *game)
 {
 	if (!game->tx.no || !game->tx.so || !game->tx.we || !game->tx.ea)
 		return (0);
-	if (!game->map_info.top_color_set || !game->map_info.floor_color_set)
+	if (!game->map_data.top_color_set || !game->map_data.floor_color_set)
 		return (0);
 	return (1);
 }

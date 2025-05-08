@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:27:13 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:45:56 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,20 @@ int	init_map(t_game *game)
 	char	**map;
 	char	**normalized;
 
-	map = duplicate_map(&game->map_info.map[game->map_info.index]);
+	map = duplicate_map(&game->map_data.map[game->map_data.index]);
 	if (!map)
 		return (0);
-	free_map(game->map_info.map);
-	game->map_info.map = map;
-	game->map_info.index = 0;
-	normalized = normalize_map(game->map_info.map);
+	free_map(game->map_data.map);
+	game->map_data.map = map;
+	game->map_data.index = 0;
+	normalized = normalize_map(game->map_data.map);
 	if (!normalized)
 		return (0);
 	print_map(normalized); /// TMP
 	if (!is_valid_map(normalized))
 	{
-		free_map(game->map_info.map);
-		game->map_info.map = NULL;
+		free_map(game->map_data.map);
+		game->map_data.map = NULL;
 		free_map(normalized);
 		return (0);
 	}

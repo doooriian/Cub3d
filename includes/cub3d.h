@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:12:28 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 
-typedef struct s_map_info
+typedef struct s_map_data
 {
 	int		index;
 	char	**map;
@@ -34,7 +34,7 @@ typedef struct s_map_info
 	int		top_color[3];
 	int		top_color_set;
 	int		floor_color_set;
-}	t_map_info;
+}	t_map_data;
 
 typedef struct s_pos
 {
@@ -60,7 +60,7 @@ typedef struct s_tx
 typedef struct s_game
 {
 	void		*mlx;
-	t_map_info	map_info;
+	t_map_data	map_data;
 	t_player	player;
 	t_tx		tx;
 }	t_game;
