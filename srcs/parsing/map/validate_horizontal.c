@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_line.c                                    :+:      :+:    :+:   */
+/*   validate_horizontal.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/08 12:20:16 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:24:09 by rcaillie         ###   ########.fr       */
+/*   Created: 2025/05/08 12:51:49 by rcaillie          #+#    #+#             */
+/*   Updated: 2025/05/08 12:52:01 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-Horizontal check : check for each line if the characters are valid characters "01NSEW ".
-In case of space, check if the character preceding the space is a 1,
-and if the next character following the space string is a 1 or the end of line.
-So it is possible to have space holes in a map provided that this hole is surrounded by walls.
-*/
 
 static int	is_valid_char(char c)
 {
@@ -25,7 +18,7 @@ static int	is_valid_char(char c)
 		|| c == 'S' || c == 'W' || c == ' ');
 }
 
-int	is_valid_map_line(const char *line)
+static int	is_valid_map_line(const char *line)
 {
 	size_t	i;
 
@@ -35,6 +28,19 @@ int	is_valid_map_line(const char *line)
 		if (!is_valid_char(line[i]))
 			return (0);
 		i++;
+	}
+	return (1);
+}
+
+int	validate_horizontal(char **map)
+{
+	size_t	i;
+
+	i = 0;
+	while (map[i])
+	{
+		if (!is_valid_map_line(map[i]))
+			return (0);
 	}
 	return (1);
 }

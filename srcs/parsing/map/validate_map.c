@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:55:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:43:24 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:05:27 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	is_surrounded_by_walls(char **map)
 	return (1);
 }
 
-static int	has_invalid_spaces_or_tabs(char **map)
+static int	has_invalid_spaces(char **map)
 {
 	size_t	i;
 	size_t	j;
@@ -89,14 +89,8 @@ int	is_valid_map(char **map)
 	size_t	i;
 
 	i = 0;
-	while (map[i])
-	{
-		if (map[i][0] == '\0') // Check for empty lines
-			return (0);
-		if (!is_valid_map_line(map[i]))
-			return (0);
-		i++;
-	}
+	if (!validate_horizontal(map))
+		return (0);
 	if (has_invalid_spaces_or_tabs(map))
 		return (0);
 	if (!has_single_player_start(map))

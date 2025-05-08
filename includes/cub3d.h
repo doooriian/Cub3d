@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:21:18 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:51:34 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ void	print_map(char **map);
 void	print_config(t_game *game);
 
 // Map validation
-int		is_valid_map_line(const char *line);
+int		validate_horizontal(char **map);
 
 #endif

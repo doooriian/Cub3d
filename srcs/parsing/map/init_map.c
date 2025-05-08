@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:27:13 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 12:22:01 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:45:56 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	init_map(t_game *game)
 	normalized = normalize_map(game->map_info.map);
 	if (!normalized)
 		return (0);
-	print_map(normalized);
+	print_map(normalized); /// TMP
 	if (!is_valid_map(normalized))
 	{
 		free_map(game->map_info.map);
