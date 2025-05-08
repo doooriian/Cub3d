@@ -33,11 +33,11 @@ int	main(void)
 	data->img.img = mlx_new_image(data->mlx, 800, 600);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
 	draw_map(data);
-	draw_square(&data->img, data->player.x, data->player.y, PLAYER_SIZE, 0xF7230C);
+	draw_square(&data->img, data->player.x + data->map_offset_x, data->player.y + data->map_offset_y, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	mlx_hook(data->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->win, KeyRelease, KeyReleaseMask, key_release, &data->player);
 	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, &ft_exit, data);
 	mlx_loop_hook(data->mlx, &draw_loop, data);
-	mlx_loop(data->mlx); 
+	mlx_loop(data->mlx);
 }
