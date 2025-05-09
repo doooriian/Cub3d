@@ -9,11 +9,6 @@ static int	parsing(t_game *game, char *path)
 		ft_exit(game);
 	if (!init_map(game))
 		ft_exit(game);
-	if (game->debug)
-	{
-		print_map(game->map_data.map);
-		print_config(game);
-	}
 	return (0);
 }
 
@@ -78,6 +73,12 @@ int	main(int argc, char **argv)
 		ft_exit(game);
 	init_data(game);
 	init_player(&game->player);
+	if (game->debug)
+	{
+		print_config(game);
+		print_map(game->map_data.map);
+		print_player(&game->player);
+	}
 
 	// Create the image main win
 	game->imgs.base.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);

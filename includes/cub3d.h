@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 14:40:49 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 19:08:52 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ int		ft_free_tab_i(char **tab, int i);
 // Printing functions
 void	print_map(char **map);
 void	print_config(t_game *game);
+void	print_player(t_player *player);
 
 // Map validation
 int		validate_horizontal(char **map);

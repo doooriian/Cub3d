@@ -61,7 +61,6 @@ void	init_data(t_game *data)
 void	init_player(t_player *player)
 {
 	player->ray_offset = PLAYER_SIZE / 2;
-	player->angle = PI / 2;
 	player->go_up = false;
 	player->go_down = false;
 	player->go_left = false;
