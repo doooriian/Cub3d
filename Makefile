@@ -14,13 +14,14 @@ LIBFT := $(LIBFT_A)
 # =============================================================================
 
 # Main sources
-SRCS_MAIN := srcs/main.c srcs/print_data.c
+SRCS_MAIN := srcs/main.c srcs/print_data.c srcs/main_utils.c
 
 SRCS_UTILS := \
 		srcs/utils/file_utils.c \
 		srcs/utils/errors.c \
 		srcs/utils/map_utils.c \
-		srcs/utils/utils.c
+		srcs/utils/utils.c \
+		srcs/utils/frees.c
 
 SRCS_CONFIG := \
 		srcs/parsing/config/init_config.c \
@@ -35,26 +36,26 @@ SRCS_MAP := \
 		srcs/parsing/map/validate_space.c
 
 SRCS_GAME := \
-		srcs/game/draw.c \
-		srcs/game/init.c \
+		srcs/game/minimap.c \
+		srcs/game/init_game.c \
 		srcs/game/key_hook.c \
 		srcs/game/player.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 
 # All sources combined
-SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) # $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP)
+SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP)
 
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-MLX_DIR := mlx
-MLX := $(MLX_DIR)/libmlx_Linux.a
-
 LIBFT_DIR := libft
 LIBFT_A := $(LIBFT_DIR)/libft.a
 
-LIBS := $(LIBFT_A) $(MLX) -L/usr/lib/X11 -lXext -lX11 -lm
+MLX_DIR := mlx
+MLX := $(MLX_DIR)/libmlx_Linux.a
+
+LIBS := $(LIBFT_A) $(MLX) -L/usr/lib/X11 -lXext -lX11 -lm -lreadline
 
 
 # =============================================================================
@@ -79,7 +80,7 @@ endef
 # 🏗️ RULES 🏗️
 # =============================================================================
 
-all: libft $(NAME)
+all: $(MLX_DIR) $(MLX) libft $(NAME)
 	@echo "\n🎉 Compilation of $(NAME)!\n"
 
 $(NAME): $(MLX) $(LIBFT) $(OBJ)
@@ -119,31 +120,20 @@ re_libft:
 	@$(MAKE) -C $(LIBFT_DIR) re --no-print-directory
 
 # =============================================================================
-# MLX
+# 📥 MLX RULES 📥
 # =============================================================================
 
-# @if [ ! -d "mlx/mlx.a" ]; then \
-# 		echo "Building Minilibx..."; \
-# 		$(MAKE) -C mlx;
-# 	else \
-# 		echo "Minilibx already built."; \
-# 	fi
+$(MLX_DIR):
+	@git clone https://github.com/42Paris/minilibx-linux.git $(MLX_DIR)
 
 $(MLX):
 	@$(MAKE) -C $(MLX_DIR)
 
-$(MLX_DIR):
-	@if [ ! -d "$(MLX_DIR)" ]; then \
-		echo "Cloning Minilibx..."; \
-		git clone https://github.com/42paris/minilibx-linux.git $(MLX_DIR); \
-	fi
-	$(MAKE) -C mlx;
-
 clean_mlx:
 	@$(MAKE) -C $(MLX_DIR) clean
-	@echo "Clean of Minilibx : \033[1;32mOK\033[0m"
 
-fclean_mlx: clean_mlx
+fclean_mlx:
+	@$(MAKE) -C $(MLX_DIR) clean
 
 re_mlx: fclean_mlx $(MLX)
 
@@ -155,7 +145,7 @@ clean:
 	@rm -rf $(OBJ_DIR)
 	@echo "Clean de $(NAME) : \033[1;32mOK\033[0m"
 
-fclean: clean #fclean_libft
+fclean: clean # fclean_libft
 	@rm -f $(NAME)
 	@echo "Fclean de $(NAME) : \033[1;32mOK\033[0m"
 

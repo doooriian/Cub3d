@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:27:13 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:27:58 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:10:40 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,6 @@ char	**duplicate_map(char **map)
 	return (dup_map);
 }
 
-static size_t	get_max_len(char **map)
-{
-	size_t	max_len;
-	size_t	i;
-
-	max_len = 0;
-	i = 0;
-	while (map[i])
-	{
-		if (ft_strlen(map[i]) > max_len)
-			max_len = ft_strlen(map[i]);
-		i++;
-	}
-	return (max_len);
-}
-
-static size_t	get_map_height(char **map)
-{
-	size_t	height;
-
-	height = 0;
-	while (map[height])
-		height++;
-	return (height);
-}
-
 char	**normalize_map(char **map)
 {
 	char	**normalized;
@@ -80,6 +54,7 @@ char	**normalize_map(char **map)
 		if (!normalized[i])
 		{
 			ft_free_tab_i(normalized, i);
+			ft_free_tab(map);
 			return (NULL);
 		}
 		j = ft_strlen(map[i]);
@@ -97,20 +72,19 @@ int	init_map(t_game *game)
 
 	map = duplicate_map(&game->map_data.map[game->map_data.index]);
 	if (!map)
-		return (0);
+		return (print_error("Error: Failed to duplicate map", 0));
 	free_map(game->map_data.map);
 	game->map_data.map = map;
 	game->map_data.index = 0;
 	normalized = normalize_map(game->map_data.map);
 	if (!normalized)
-		return (0);
-	print_map(normalized); /// TMP
+		return (print_error("Error: Failed to normalize map", 0));
 	if (!is_valid_map(normalized))
 	{
-		free_map(game->map_data.map);
-		game->map_data.map = NULL;
 		free_map(normalized);
 		return (0);
 	}
+	free_map(game->map_data.map);
+	game->map_data.map = normalized;
 	return (1);
 }

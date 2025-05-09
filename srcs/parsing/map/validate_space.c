@@ -6,40 +6,42 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 13:06:14 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:27:09 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 21:48:38 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
-A partir d'un point,si c'est un ' ' space alors check autour de lui,
-Si il y a autre chose qu'un '1' ou un ' ' alors return 1
-sinon continue de tout parcourir x + 1 x - 1 y + 1 y - 1
-*/
-/*
- * Check if there are invalid spaces in the map.
- * Invalid spaces are those that are not surrounded by walls (1).
- * Return 1 if there are invalid spaces, 0 otherwise.
- *
-*/
+static int	is_cell_properly_enclosed(char **map, size_t y, size_t x)
+{
+	if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'S'
+		|| map[y][x] == 'E' || map[y][x] == 'W')
+	{
+		if (y == 0 || x == 0 || !map[y + 1] || !map[y][x + 1])
+			return (0);
+		if (map[y - 1][x] == ' ' || map[y + 1][x] == ' '
+			|| map[y][x - 1] == ' ' || map[y][x + 1] == ' ')
+			return (0);
+	}
+	return (1);
+}
+
 int	has_invalid_spaces(char **map)
 {
-	size_t	i;
-	size_t	j;
+	size_t	y;
+	size_t	x;
 
-	i = 0;
-	while (map[i])
+	y = 0;
+	while (map[y])
 	{
-		j = 0;
-		while (map[i][j])
+		x = 0;
+		while (map[y][x])
 		{
-			if (map[i][j] == ' ' && ((j > 0 && map[i][j - 1] != '1')
-				|| (map[i][j + 1] && map[i][j + 1] != '1')))
-				return (1);
-			j++;
+			if (!is_cell_properly_enclosed(map, y, x))
+				return (print_error("Error: Invalid space in map", 0));
+			x++;
 		}
-		i++;
+		y++;
 	}
-	return (0);
+	return (1);
 }

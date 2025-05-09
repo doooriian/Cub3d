@@ -6,38 +6,11 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:54:37 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 15:58:21 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:44:24 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	free_map(char **map)
-{
-	size_t	i;
-
-	i = 0;
-	if (!map)
-		return ;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
-}
-
-// void	free_tx(t_game *game)
-// {
-// 	if (game->tx.no)
-// 		mlx_delete_texture(game->tx.no);
-// 	if (game->tx.so)
-// 		mlx_delete_texture(game->tx.so);
-// 	if (game->tx.we)
-// 		mlx_delete_texture(game->tx.we);
-// 	if (game->tx.ea)
-// 		mlx_delete_texture(game->tx.ea);
-// }
 
 int	is_line_empty(const char *line)
 {
@@ -53,4 +26,40 @@ int	is_line_empty(const char *line)
 		i++;
 	}
 	return (1);
+}
+
+size_t	get_max_len(char **map)
+{
+	size_t	max_len;
+	size_t	i;
+
+	max_len = 0;
+	i = 0;
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) > max_len)
+			max_len = ft_strlen(map[i]);
+		i++;
+	}
+	return (max_len);
+}
+
+size_t	get_map_height(char **map)
+{
+	size_t	height;
+
+	height = 0;
+	while (map[height])
+		height++;
+	return (height);
+}
+
+int	get_pixel_color(t_img *img, int x, int y)
+{
+	char	*dst;
+
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return (0);
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
 }

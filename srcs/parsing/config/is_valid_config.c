@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:49:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 14:21:13 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:00:28 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_valid_texture_path(const char *path)
 	if (fd < 0)
 		return (0);
 	close(fd);
-	if (check_extension(path, ".png") == 0)
+	if (check_extension(path, ".xpm") == 0)
 		return (0);
 	return (1);
 }
