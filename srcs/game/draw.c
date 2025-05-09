@@ -1,17 +1,17 @@
 #include "cub3d.h"
 
-void	put_pixel(t_img *img, int x, int y, int color)
+void	draw_minimap_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT)
 	{
 		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
 
-void	draw_square(t_img *img, int x, int y, int size, int color)
+void	draw_minimap_square(t_img *img, int x, int y, int size, int color)
 {
 	int	i;
 	int	j;
@@ -22,14 +22,14 @@ void	draw_square(t_img *img, int x, int y, int size, int color)
 		j = 0;
 		while (j < size)
 		{
-			put_pixel(img, x + j, y + i, color);
+			draw_minimap_pixel(img, x + j, y + i, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_map(t_game *data)
+void	render_minimap(t_game *data)
 {
 	int	i;
 	int	j;
@@ -45,19 +45,19 @@ void	draw_map(t_game *data)
 			x = j * data->tile_size + data->map_offset_x;
 			y = i * data->tile_size + data->map_offset_y;
 			if (data->map_data.map[i][j] == '1')
-				draw_square(&data->imgs.base, x, y, data->tile_size, 0x00888888);
+				draw_minimap_square(&data->imgs.map, x, y, data->tile_size, 0x00888888);
 			else if (data->map_data.map[i][j] == '0' || data->map_data.map[i][j] == 'N' || data->map_data.map[i][j] == 'S'
 				|| data->map_data.map[i][j] == 'E' || data->map_data.map[i][j] == 'W')
-				draw_square(&data->imgs.base, x, y, data->tile_size, 0xFFFFFF);
+				draw_minimap_square(&data->imgs.map, x, y, data->tile_size, 0xFFFFFF);
 			else
-				draw_square(&data->imgs.base, x, y, data->tile_size, 0x000000); // espaces vides
+				draw_minimap_square(&data->imgs.map, x, y, data->tile_size, 0x000000); // espaces vides
 			j++;
 		}
 		i++;
 	}
 }
 
-bool	touch_wall(t_game *data, float ray_x, float ray_y)
+bool	is_ray_touching_wall(t_game *data, float ray_x, float ray_y)
 {
 	int	i;
 	int	j;
@@ -72,7 +72,7 @@ bool	touch_wall(t_game *data, float ray_x, float ray_y)
 	return (0);
 }
 
-void	draw_line(t_game *data, t_player *player, float angle)
+void	draw_ray_line(t_game *data, t_player *player, float angle)
 {
 	float	ray_x;
 	float	ray_y;
@@ -83,15 +83,15 @@ void	draw_line(t_game *data, t_player *player, float angle)
 	ray_y = player->y;
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
-	while (!touch_wall(data, ray_x, ray_y))
+	while (!is_ray_touching_wall(data, ray_x, ray_y))
 	{
-		put_pixel(&data->imgs.base, ray_x + data->map_offset_x, ray_y + data->map_offset_y, 0xFF0000);
+		draw_minimap_pixel(&data->imgs.map, ray_x + data->map_offset_x, ray_y + data->map_offset_y, 0xFF0000);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
 }
 
-void	draw_rays(t_game *data, t_player *player)
+void	render_rays_on_minimap(t_game *data, t_player *player)
 {
 	int		i;
 	int		ray_count;
@@ -99,18 +99,18 @@ void	draw_rays(t_game *data, t_player *player)
 	float	start_angle;
 
 	i = 0;
-	ray_count = 20; // NB rayons
+	ray_count = RAYS;
 	fraction = PI / 3 / ray_count; // Ajustez l'incrément en fonction du nombre de rayons
 	start_angle = player->angle - PI / 6;
 	while (i < ray_count)
 	{
-		draw_line(data, player, start_angle);
+		draw_ray_line(data, player, start_angle);
 		start_angle += fraction;
 		i++;
 	}
 }
 
-int draw_loop(t_game *data)
+int update_minimap_loop(t_game *data)
 {
 	float		cos_angle;
 	float		sin_angle;
@@ -123,10 +123,10 @@ int draw_loop(t_game *data)
 	move_player(data, cos_angle, sin_angle, data->tile_size);
 	reset_player_var(player);
 
-	draw_map(data);
-	draw_rays(data, player);
-	draw_square(&data->imgs.base, player->x - PLAYER_SIZE / 2 + data->map_offset_x,
+	render_minimap(data);
+	render_rays_on_minimap(data, player);
+	draw_minimap_square(&data->imgs.map, player->x - PLAYER_SIZE / 2 + data->map_offset_x,
 		player->y - PLAYER_SIZE / 2 + data->map_offset_y, PLAYER_SIZE, 0xF7230C);
-	mlx_put_image_to_window(data->mlx, data->win, data->imgs.base.img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win_map, data->imgs.map.img, 0, 0);
 	return (0);
 }

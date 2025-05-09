@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 10:41:12 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:48:21 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
-# define WIDTH		1500
-# define HEIGHT		1000
+# define WIDTH		1000
+# define HEIGHT		800
+# define MAP_WIDTH	500
+# define MAP_HEIGHT	300
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
-# define PLAYER_SIZE	10
+# define PLAYER_SIZE	4
+# define RAYS		20
 # define PI 			3.14159265
 
 // Structures
@@ -90,12 +93,14 @@ typedef struct s_imgs
 	t_img	so;
 	t_img	we;
 	t_img	base;
+	t_img	map;
 }	t_imgs;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	void		*win_map;
 	int			tile_size;
 	int			map_offset_x;
 	int			map_offset_y;
@@ -104,6 +109,7 @@ typedef struct s_game
 	t_imgs		imgs;
 	int			map_width; // Largeur de la carte
 	int			map_height; // Hauteur de la carte
+	bool		debug;
 }	t_game;
 
 // General
@@ -126,10 +132,13 @@ int		key_press(int keycode, t_game *data);
 int		key_release(int keycode, t_player *player);
 
 // Drawing
-void	put_pixel(t_img *img, int x, int y, int color);
-void	draw_square(t_img *img, int x, int y, int size, int color);
-void	draw_map(t_game *data);
-int		draw_loop(t_game *data);
+void	draw_minimap_pixel(t_img *img, int x, int y, int color);
+void	draw_minimap_square(t_img *img, int x, int y, int size, int color);
+void	render_minimap(t_game *data);
+int		update_minimap_loop(t_game *data);
+void	draw_ray_line(t_game *data, t_player *player, float angle);
+void	render_rays_on_minimap(t_game *data, t_player *player);
+bool	is_ray_touching_wall(t_game *data, float ray_x, float ray_y);
 
 // File utilities
 int		check_extension(const char *path, const char *ext);

@@ -45,16 +45,16 @@ void	init_data(t_game *data)
 
 	data->map_width = get_max_len(data->map_data.map);
 	data->map_height = get_map_height(data->map_data.map);
-	tile_w = WIDTH / data->map_width;
-	tile_h = HEIGHT / data->map_height;
+	tile_w = MAP_WIDTH / data->map_width;
+	tile_h = MAP_HEIGHT / data->map_height;
 	if (tile_h < tile_w)
 		data->tile_size = tile_h;
 	else
 		data->tile_size = tile_w;
 	map_px_w = data->map_width * data->tile_size;
 	map_px_h = data->map_height * data->tile_size;
-	data->map_offset_x = (WIDTH - map_px_w) / 2;
-	data->map_offset_y = (HEIGHT - map_px_h) / 2;
+	data->map_offset_x = (MAP_WIDTH - map_px_w) / 2;
+	data->map_offset_y = (MAP_HEIGHT - map_px_h) / 2;
 	player_position(data);
 }
 
