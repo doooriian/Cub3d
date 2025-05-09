@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 09:52:55 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:41:12 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
-# define WIDTH		1000
-# define HEIGHT		800
+# define WIDTH		1500
+# define HEIGHT		1000
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
 # define PLAYER_SIZE	10

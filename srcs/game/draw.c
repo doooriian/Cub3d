@@ -46,8 +46,11 @@ void	draw_map(t_game *data)
 			y = i * data->tile_size + data->map_offset_y;
 			if (data->map_data.map[i][j] == '1')
 				draw_square(&data->imgs.base, x, y, data->tile_size, 0x00888888);
-			else
+			else if (data->map_data.map[i][j] == '0' || data->map_data.map[i][j] == 'N' || data->map_data.map[i][j] == 'S'
+				|| data->map_data.map[i][j] == 'E' || data->map_data.map[i][j] == 'W')
 				draw_square(&data->imgs.base, x, y, data->tile_size, 0xFFFFFF);
+			else
+				draw_square(&data->imgs.base, x, y, data->tile_size, 0x000000); // espaces vides
 			j++;
 		}
 		i++;
@@ -91,13 +94,15 @@ void	draw_line(t_game *data, t_player *player, float angle)
 void	draw_rays(t_game *data, t_player *player)
 {
 	int		i;
+	int		ray_count;
 	float	fraction;
 	float	start_angle;
 
 	i = 0;
-	fraction = PI / 3 / WIDTH;
+	ray_count = 20; // NB rayons
+	fraction = PI / 3 / ray_count; // Ajustez l'incrément en fonction du nombre de rayons
 	start_angle = player->angle - PI / 6;
-	while (i < WIDTH)
+	while (i < ray_count)
 	{
 		draw_line(data, player, start_angle);
 		start_angle += fraction;

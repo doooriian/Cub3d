@@ -40,11 +40,13 @@ static int	parsing(t_game *game, char *path)
 	return (0);
 }
 
-static int	init(t_game *game, char *path, int argc)
+int	main(int argc, char **argv)
 {
+	t_game	*game;
+
 	if (argc != 2)
 		return (print_error("Error: Invalid arguments", 1));
-	if (!check_extension(path, ".cub"))
+	if (!check_extension(argv[1], ".cub"))
 		return (print_error("Error: Expected .cub extension", 1));
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
@@ -55,30 +57,28 @@ static int	init(t_game *game, char *path, int argc)
 		free(game);
 		return (print_error("Error: Failed to initialize mlx", 1));
 	}
-	game->win = mlx_new_window(game->mlx, 800, 600, "Cub3D");
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Hello world!");
 	if (!game->win)
 	{
-		free(game);
 		free(game->mlx);
-		game->mlx = NULL;
+		free(game);
 		return (print_error("Error: Failed to create window", 1));
 	}
-	if (parsing(game, path))
+	if (parsing(game, argv[1]))
 		ft_exit(game);
+
 	init_data(game);
 	init_player(&game->player);
-}
 
-int	main(int argc, char **argv)
-{
-	t_game	*game;
+	game->imgs.base.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);1
+	if (!game->imgs.base.img)
+		return (print_error("Error: Failed to create image", 1));
 
-	if (init(game, argv[1], argc))
-		return (1);
-
-	game->imgs.base.img = mlx_new_image(game->mlx, 800, 600);
 	game->imgs.base.addr = mlx_get_data_addr(game->imgs.base.img, &game->imgs.base.bits_per_pixel,
 			&game->imgs.base.line_length, &game->imgs.base.endian);
+	if (!game->imgs.base.addr || game->imgs.base.line_length <= 0 || game->imgs.base.bits_per_pixel <= 0)
+		return (print_error("Error: Failed to configure image", 1));
+
 	draw_map(game);
 	draw_square(&game->imgs.base, game->player.x - PLAYER_SIZE / 2 + game->map_offset_x,
 		game->player.y - PLAYER_SIZE / 2 + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
