@@ -36,8 +36,8 @@ SRCS_MAP := \
 		srcs/parsing/map/validate_space.c
 
 SRCS_GAME := \
-		srcs/game/draw.c \
-		srcs/game/init.c \
+		srcs/game/minimap.c \
+		srcs/game/init_game.c \
 		srcs/game/key_hook.c \
 		srcs/game/player.c
 
