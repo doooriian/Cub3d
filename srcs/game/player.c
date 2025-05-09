@@ -61,9 +61,8 @@ void	move_player(t_game *game, float cos_angle, float sin_angle, int tile_size)
 		player->tmp_x -= sin_angle * SPEED;
 		player->tmp_y += cos_angle * SPEED;
 	}
-	if (check_collision_walls(game, (int)player->tmp_x, (int)player->tmp_y, tile_size))
-	{
+	if (check_collision_walls(game, (int)player->tmp_x, (int)player->y, tile_size))
 		player->x = player->tmp_x;
+	if (check_collision_walls(game, (int)player->x, (int)player->tmp_y, tile_size))
 		player->y = player->tmp_y;
-	}
 }
