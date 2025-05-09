@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 13:51:17 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:40:49 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@
 # define RIGHT 65363
 # define WIDTH		1000
 # define HEIGHT		800
-# define MAP_WIDTH	500
-# define MAP_HEIGHT	300
+# define MAP_WIDTH	800
+# define MAP_HEIGHT	600
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
-# define PLAYER_SIZE	4
+# define PLAYER_SIZE	6
 # define RAYS		20
 # define PI 			3.14159265
 
