@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 	init_data(game);
 	init_player(&game->player);
 
-	game->imgs.base.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);1
+	game->imgs.base.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->imgs.base.img)
 		return (print_error("Error: Failed to create image", 1));
 
