@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:41:44 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 09:48:43 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:46:15 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	get_config(t_game *game)
 			break ;
 		}
 		if (!process_line(game, game->map_data.map[i], seen, i))
-			return (0);
+			return (print_error("Error: Invalid configuration", 0));
 		i++;
 	}
 	return (1);
@@ -57,24 +57,14 @@ static int	get_config(t_game *game)
 int	validate_config(t_game *game)
 {
 	if (!check_all_config_present(game))
-	{
-		ft_putstr_fd("Error: Missing or duplicate configuration\n", 2);
-		free_map(game->map_data.map);
-		game->map_data.map = NULL;
-		return (0);
-	}
+		return (print_error("Error: Missing or duplicate configuration\n", 0));
 	return (1);
 }
 
 int	init_config(t_game *game)
 {
 	if (get_config(game) == 0)
-	{
-		free_map(game->map_data.map);
-		game->map_data.map = NULL;
-		ft_putstr_fd("Error: Invalid configuration\n", 2);
 		return (0);
-	}
 	if (!game->map_data.map)
 		return (0);
 	if (validate_config(game) == 0)
