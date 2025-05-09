@@ -22,7 +22,7 @@ void	draw_square(t_img *img, int x, int y, int size, int color)
 		j = 0;
 		while (j < size)
 		{
-			put_pixel(img, x + j, y + i, color); // Corrigez les coordonnées ici
+			put_pixel(img, x + j, y + i, color);
 			j++;
 		}
 		i++;
@@ -61,7 +61,7 @@ bool	touch_wall(t_game *data, float ray_x, float ray_y)
 
 	i = (int)ray_y / data->tile_size;
 	j = (int)ray_x / data->tile_size;
-	// Vérifiez si les indices sont hors limites
+	// Vérifiez indices hors map
 	if (i < 0 || i >= data->map_height || j < 0 || j >= data->map_width)
 		return (1);
 	if (data->map_data.map[i][j] == '1')
@@ -76,7 +76,6 @@ void	draw_line(t_game *data, t_player *player, float angle)
 	float	cos_angle;
 	float	sin_angle;
 
-	// Initialisez les rayons à partir des coordonnées du joueur
 	ray_x = player->x;
 	ray_y = player->y;
 	cos_angle = cos(angle);
@@ -119,7 +118,6 @@ int draw_loop(t_game *data)
 	move_player(data, cos_angle, sin_angle, data->tile_size);
 	reset_player_var(player);
 
-	// Dessinez la carte, les rayons et le joueur
 	draw_map(data);
 	draw_rays(data, player);
 	draw_square(&data->imgs.base, player->x - PLAYER_SIZE / 2 + data->map_offset_x,

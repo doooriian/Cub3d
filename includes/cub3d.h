@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 21:40:18 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:52:55 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "get_next_line.h"
 # include "mlx.h"
 
+// Constants
 # define ESC 65307
 # define W 119
 # define A 97
@@ -31,12 +32,19 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
-#define	WIDTH		1000
-#define	HEIGHT		800
-#define SPEED		0.5
-#define	ANGLE_SPEED	0.03
-#define PLAYER_SIZE	10
-#define PI 			3.14159265
+# define WIDTH		1000
+# define HEIGHT		800
+# define SPEED		0.5
+# define ANGLE_SPEED	0.03
+# define PLAYER_SIZE	10
+# define PI 			3.14159265
+
+// Structures
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct s_map_data
 {
@@ -47,6 +55,7 @@ typedef struct s_map_data
 	int		top_color_set;
 	int		floor_color_set;
 }	t_map_data;
+
 typedef struct s_player
 {
 	float	x;
@@ -93,32 +102,34 @@ typedef struct s_game
 	t_map_data	map_data;
 	t_player	player;
 	t_imgs		imgs;
-	int			map_width;  // Largeur dynamique de la carte
-	int			map_height; // Hauteur dynamique de la carte
+	int			map_width; // Largeur de la carte
+	int			map_height; // Hauteur de la carte
 }	t_game;
 
-int	ft_exit(t_game *data);
+// General
+int		ft_exit(t_game *data);
 
-// INIT //
+// Initialization
 void	init_data(t_game *data);
 void	init_player(t_player *player);
 
-// PLAYER //
+// Player management
 void	reset_player_var(t_player *player);
 void	rotate_player(t_player *player);
-bool	check_collision_walls(t_game *game, int tmp_x, int tmp_y, int tile_size);
-void	move_player(t_game *game, float cos_angle, float sin_angle, int tile_size);
+bool	check_collision_walls(t_game *game, int tmp_x,
+			int tmp_y, int tile_size);
+void	move_player(t_game *game, float cos_angle,
+			float sin_angle, int tile_size);
 
-// KEY_HOOK //
-int key_press(int keycode, t_game *data);
-int key_release(int keycode, t_player *player);
+// Key hooks
+int		key_press(int keycode, t_game *data);
+int		key_release(int keycode, t_player *player);
 
-// DRAW //
+// Drawing
 void	put_pixel(t_img *img, int x, int y, int color);
 void	draw_square(t_img *img, int x, int y, int size, int color);
 void	draw_map(t_game *data);
 int		draw_loop(t_game *data);
-
 
 // File utilities
 int		check_extension(const char *path, const char *ext);
@@ -134,6 +145,7 @@ int		init_map(t_game *game);
 int		has_invalid_spaces(char **map);
 size_t	get_max_len(char **map);
 size_t	get_map_height(char **map);
+int		get_pixel_color(t_img *img, int x, int y);
 
 // Error handling
 int		print_error(char *msg, int ret);

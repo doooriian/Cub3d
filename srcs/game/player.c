@@ -16,11 +16,10 @@ bool	check_collision_walls(t_game *game, int tmp_x, int tmp_y, int tile_size)
 	i = (int)(tmp_y) / tile_size;
 	j = (int)(tmp_x) / tile_size;
 
-	// Vérifiez si les indices sont hors limites
 	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
 		return (0);
 
-	if (game->map_data.map[i][j] == '1') // Vérifiez les murs avec '1'
+	if (game->map_data.map[i][j] == '1')
 		return (0);
 
 	return (1);

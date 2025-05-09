@@ -7,12 +7,12 @@ int	ft_exit(t_game *game)
 	if (game->imgs.base.img)
 	{
 		mlx_destroy_image(game->mlx, game->imgs.base.img);
-		game->imgs.base.img = NULL; // Évitez les lectures invalides
+		game->imgs.base.img = NULL;
 	}
 	if (game->mlx && game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);
-		game->win = NULL; // Évitez les lectures invalides
+		game->win = NULL;
 	}
 	if (game->mlx)
 	{
@@ -40,25 +40,41 @@ static int	parsing(t_game *game, char *path)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+static int	init(t_game *game, char *path, int argc)
 {
-	t_game	*game;
-
 	if (argc != 2)
 		return (print_error("Error: Invalid arguments", 1));
-	if (!check_extension(argv[1], ".cub"))
+	if (!check_extension(path, ".cub"))
 		return (print_error("Error: Expected .cub extension", 1));
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
 		return (print_error("Error: Memory allocation failure", 1));
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, 800, 600, "Hello world!");
-	if (parsing(game, argv[1]))
+	if (!game->mlx)
+	{
+		free(game);
+		return (print_error("Error: Failed to initialize mlx", 1));
+	}
+	game->win = mlx_new_window(game->mlx, 800, 600, "Cub3D");
+	if (!game->win)
+	{
+		free(game);
+		free(game->mlx);
+		game->mlx = NULL;
+		return (print_error("Error: Failed to create window", 1));
+	}
+	if (parsing(game, path))
 		ft_exit(game);
-
-	// Initialisez les dimensions dynamiques de la carte
 	init_data(game);
 	init_player(&game->player);
+}
+
+int	main(int argc, char **argv)
+{
+	t_game	*game;
+
+	if (init(game, argv[1], argc))
+		return (1);
 
 	game->imgs.base.img = mlx_new_image(game->mlx, 800, 600);
 	game->imgs.base.addr = mlx_get_data_addr(game->imgs.base.img, &game->imgs.base.bits_per_pixel,

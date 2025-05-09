@@ -45,7 +45,6 @@ void	init_data(t_game *data)
 
 	data->map_width = get_max_len(data->map_data.map);
 	data->map_height = get_map_height(data->map_data.map);
-
 	tile_w = WIDTH / data->map_width;
 	tile_h = HEIGHT / data->map_height;
 	if (tile_h < tile_w)
@@ -56,8 +55,6 @@ void	init_data(t_game *data)
 	map_px_h = data->map_height * data->tile_size;
 	data->map_offset_x = (WIDTH - map_px_w) / 2;
 	data->map_offset_y = (HEIGHT - map_px_h) / 2;
-
-	// Met à jour les informations du joueur en fonction de la carte
 	player_position(data);
 }
 

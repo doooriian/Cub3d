@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:41:44 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 20:06:25 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:48:43 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ static int	get_config(t_game *game)
 
 	i = 0;
 	ft_bzero(seen, sizeof(int) * 6);
-	// Suppression de l'allocation dynamique pour game->imgs
-	// Initialisation directe des sous-structures
-	ft_bzero(&game->imgs.no, sizeof(t_img));
-	ft_bzero(&game->imgs.so, sizeof(t_img));
-	ft_bzero(&game->imgs.we, sizeof(t_img));
-	ft_bzero(&game->imgs.ea, sizeof(t_img));
 	while (game->map_data.map[i])
 	{
 		if (seen[0] && seen[1] && seen[2] && seen[3] && seen[4] && seen[5])
