@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 13:48:21 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:51:17 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,12 @@ void	move_player(t_game *game, float cos_angle,
 			float sin_angle, int tile_size);
 
 // Key hooks
+int		loop(t_game *data);
 int		key_press(int keycode, t_game *data);
 int		key_release(int keycode, t_player *player);
 
-// Drawing
+// MINIMAP
+int		minimap_init(t_game *game);
 void	draw_minimap_pixel(t_img *img, int x, int y, int color);
 void	draw_minimap_square(t_img *img, int x, int y, int size, int color);
 void	render_minimap(t_game *data);

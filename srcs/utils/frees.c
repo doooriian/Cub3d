@@ -15,6 +15,20 @@ void	free_map(char **map)
 	free(map);
 }
 
+static void	destroy_img_2(t_game *game)
+{
+	if (game->imgs.map.img)
+	{
+		mlx_destroy_image(game->mlx, game->imgs.map.img);
+		game->imgs.map.img = NULL;
+	}
+	if (game->imgs.base.img)
+	{
+		mlx_destroy_image(game->mlx, game->imgs.base.img);
+		game->imgs.base.img = NULL;
+	}
+}
+
 void	destroy_imgs(t_game *game)
 {
 	if (!game)
@@ -39,9 +53,5 @@ void	destroy_imgs(t_game *game)
 		mlx_destroy_image(game->mlx, game->imgs.ea.img);
 		game->imgs.ea.img = NULL;
 	}
-	if (game->imgs.base.img)
-	{
-		mlx_destroy_image(game->mlx, game->imgs.base.img);
-		game->imgs.base.img = NULL;
-	}
+	destroy_img_2(game);
 }
