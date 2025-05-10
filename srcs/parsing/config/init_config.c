@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:41:44 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 18:46:15 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 15:10:18 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	get_config(t_game *game)
 int	validate_config(t_game *game)
 {
 	if (!check_all_config_present(game))
-		return (print_error("Error: Missing or duplicate configuration\n", 0));
+		return (print_error("Error: Missing or duplicate configuration", 0));
 	return (1);
 }
 
@@ -76,9 +76,6 @@ int	init_config(t_game *game)
 		game->map_data.index++;
 	}
 	if (game->map_data.index == 0)
-	{
-		ft_putstr_fd("Error: No valid lines found in the map\n", 2);
-		return (0);
-	}
+		return (print_error("Error: No valid lines found in the map", 0));
 	return (1);
 }

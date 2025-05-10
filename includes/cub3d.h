@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/10 14:25:58 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 15:06:09 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ int		get_pixel_color(t_img *img, int x, int y);
 
 // Error handling
 int		print_error(char *msg, int ret);
+void	*print_error_void(char *msg, void *ret);
 
 // Configuration parsing
 int		init_config(t_game *game);
