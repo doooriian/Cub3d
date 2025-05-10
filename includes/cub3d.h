@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 19:08:52 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:06:14 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
 # define PLAYER_SIZE	6
-# define RAYS		20
+# define RAYS		2000
 # define PI 			3.14159265
 
 // Structures
