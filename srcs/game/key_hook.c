@@ -2,6 +2,9 @@
 
 int	loop(t_game *data)
 {
+	if (data->debug)
+		display_fps(&data->fps);
+
 	// Update the minimap
 	update_minimap_loop(data);
 

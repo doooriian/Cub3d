@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:21:18 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/10 16:31:29 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 23:10:58 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,22 @@ void	print_player(t_player *player)
 		player->rotate_left, player->rotate_right);
 	printf("Player size: %d\n", PLAYER_SIZE);
 	printf("===================\n");
+}
+
+void	display_fps(t_fps *fps)
+{
+	struct timeval	current_time;
+	long			elapsed_time;
+
+	gettimeofday(&current_time, NULL);
+	fps->frame_count++;
+	elapsed_time = (current_time.tv_sec - fps->last_time.tv_sec) * 1000000L
+		+ (current_time.tv_usec - fps->last_time.tv_usec);
+	if (elapsed_time >= 1000000L)
+	{
+		fps->fps = fps->frame_count / (elapsed_time / 1000000.0f);
+		fps->frame_count = 0;
+		fps->last_time = current_time;
+		printf("FPS: %.2f\n", fps->fps);
+	}
 }

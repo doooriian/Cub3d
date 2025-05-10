@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/10 16:27:57 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 23:11:52 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
+# include <sys/time.h>
 # include <stdbool.h>
 # include <X11/X.h>
 # include "libft.h"
@@ -96,6 +97,13 @@ typedef struct s_imgs
 	t_img	map;
 }	t_imgs;
 
+typedef struct s_fps
+{
+	struct timeval	last_time;
+	int				frame_count;
+	float			fps;
+}	t_fps;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -110,6 +118,7 @@ typedef struct s_game
 	int			map_width; // Largeur de la carte
 	int			map_height; // Hauteur de la carte
 	bool		debug;
+	t_fps		fps;
 }	t_game;
 
 // General
@@ -179,6 +188,7 @@ int		ft_free_tab_i(char **tab, int i);
 void	print_map(char **map);
 void	print_config(t_game *game);
 void	print_player(t_player *player);
+void	display_fps(t_fps *fps);
 
 // Map validation
 char	**ft_split_with_sep(const char *str, char sep);
