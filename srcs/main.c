@@ -3,8 +3,12 @@
 static int	parsing(t_game *game, char *path)
 {
 	game->map_data.map = get_map(path);
-	if (!game->map_data.map)
-		return (print_error("Error: Failed to read map", 1));
+	if (!game->map_data.map || game->map_data.map[0] == NULL)
+	{
+		free(game->map_data.map);
+		game->map_data.map = NULL;
+		return (print_error("Error: Failed to get map", 1));
+	}
 	if (!init_config(game))
 		ft_exit(game);
 	if (!init_map(game))
@@ -49,17 +53,16 @@ static t_game	*init_game(int argc, char **argv)
 	game = NULL;
 	debug = false;
 	if (argc == 3)
-		debug = true;
+	{
+		if (ft_strncmp(argv[2], "-d", 2) == 0)
+			debug = true;
+		else
+			return (print_error_void("Error: Invalid option. Use -d", NULL));
+	}
 	else if (argc != 2)
-	{
-		print_error("Error: ./cub3d <map.cub> [debug if more than 2 args]", 1);
-		return (NULL);
-	}
+		return (print_error_void("Error: ./cub3d <map.cub> [-d]", NULL));
 	if (!check_extension(argv[1], ".cub"))
-	{
-		print_error("Error: Expected .cub extension", 1);
-		return (NULL);
-	}
+		return (print_error_void("Error: Expected .cub extension", NULL));
 	game = init_game_win(game, argv[1], debug);
 	return (game);
 }

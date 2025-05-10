@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:49:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/08 17:00:28 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:27:52 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int	ft_str_isdigit(char *str)
 static int	parse_rgb_value(char *value, int *tab, int index)
 {
 	char	*trimmed;
+	int		valid;
+	int		res;
 
 	trimmed = ft_strtrim(value, " ");
 	if (!trimmed || !ft_str_isdigit(trimmed))
@@ -51,31 +53,47 @@ static int	parse_rgb_value(char *value, int *tab, int index)
 		free(trimmed);
 		return (0);
 	}
-	tab[index] = ft_atoi(trimmed);
+	res = ft_atoi_safe(trimmed, &valid);
+	if (!valid || res < 0 || res > 255)
+	{
+		free(trimmed);
+		return (0);
+	}
+	tab[index] = res;
 	free(trimmed);
 	return (tab[index] >= 0 && tab[index] <= 255);
+}
+
+static int	process_rgb_values(char **rgb_values, int *tab)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		if (!parse_rgb_value(rgb_values[i], tab, i))
+			return (0);
+	}
+	return (1);
 }
 
 int	is_valid_color(t_game *game, const char *color, int is_top)
 {
 	int		tab[3];
 	char	**rgb_values;
-	int		i;
 
-	rgb_values = ft_split(color, ',');
-	if (!rgb_values || ft_tablen(rgb_values) != 3)
+	rgb_values = ft_split_with_sep(color, ',');
+	if (!rgb_values || ft_tablen(rgb_values) != 5)
 	{
 		ft_free_tab(rgb_values);
 		return (0);
 	}
-	i = -1;
-	while (++i < 3)
+	ft_free_tab(rgb_values);
+	rgb_values = ft_split(color, ',');
+	if (!process_rgb_values(rgb_values, tab))
 	{
-		if (!parse_rgb_value(rgb_values[i], tab, i))
-		{
-			ft_free_tab(rgb_values);
-			return (0);
-		}
+		ft_free_tab(rgb_values);
+		return (0);
 	}
 	if (is_top)
 		ft_memcpy(game->map_data.top_color, tab, sizeof(tab));

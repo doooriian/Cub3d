@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/10 13:06:14 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/10 16:27:57 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ int		get_pixel_color(t_img *img, int x, int y);
 
 // Error handling
 int		print_error(char *msg, int ret);
+void	*print_error_void(char *msg, void *ret);
 
 // Configuration parsing
 int		init_config(t_game *game);
@@ -180,6 +181,8 @@ void	print_config(t_game *game);
 void	print_player(t_player *player);
 
 // Map validation
+char	**ft_split_with_sep(const char *str, char sep);
+int		ft_atoi_safe(const char *str, int *valid);
 int		validate_horizontal(char **map);
 
 #endif

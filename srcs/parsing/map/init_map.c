@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 20:27:13 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 15:10:40 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 15:12:21 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ char	**duplicate_map(char **map)
 	{
 		dup_map[i] = ft_strdup(map[i]);
 		if (!dup_map[i])
+		{
+			ft_free_tab_i(dup_map, i);
 			return (NULL);
+		}
 		i++;
 	}
 	dup_map[i] = NULL;
@@ -46,7 +49,10 @@ char	**normalize_map(char **map)
 	i = get_map_height(map);
 	normalized = ft_calloc(i + 1, sizeof(char *));
 	if (!normalized)
+	{
+		ft_free_tab(map);
 		return (NULL);
+	}
 	i = -1;
 	while (map[++i])
 	{
@@ -62,6 +68,7 @@ char	**normalize_map(char **map)
 		while (j < max_len)
 			normalized[i][j++] = ' ';
 	}
+	ft_free_tab(map);
 	return (normalized);
 }
 
@@ -70,21 +77,25 @@ int	init_map(t_game *game)
 	char	**map;
 	char	**normalized;
 
+	if (!game->map_data.map || !game->map_data.map[game->map_data.index])
+		return (print_error("Error: Map not found", 0));
 	map = duplicate_map(&game->map_data.map[game->map_data.index]);
 	if (!map)
 		return (print_error("Error: Failed to duplicate map", 0));
 	free_map(game->map_data.map);
-	game->map_data.map = map;
+	game->map_data.map = NULL;
 	game->map_data.index = 0;
-	normalized = normalize_map(game->map_data.map);
-	if (!normalized)
+	normalized = normalize_map(map);
+	if (!normalized || !normalized[0])
+	{
+		free_map(normalized);
 		return (print_error("Error: Failed to normalize map", 0));
+	}
 	if (!is_valid_map(normalized))
 	{
 		free_map(normalized);
 		return (0);
 	}
-	free_map(game->map_data.map);
 	game->map_data.map = normalized;
 	return (1);
 }
