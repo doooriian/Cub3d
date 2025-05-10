@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:21:18 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 19:08:44 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:31:29 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	print_config(t_game *game)
 		game->map_data.top_color[1], game->map_data.top_color[2]);
 	printf("Floor color:   R:%d, G:%d, B:%d\n", game->map_data.floor_color[0],
 		game->map_data.floor_color[1], game->map_data.floor_color[2]);
+	printf("Map dimensions: Width: %d, Height: %d\n", game->map_width, game->map_height);
+	printf("Tile size: %d\n", game->tile_size);
+	printf("Map offset: X:%d, Y:%d\n", game->map_offset_x, game->map_offset_y);
+	printf("Debug mode: %s\n", game->debug ? "ON" : "OFF");
 	printf("==========================\n");
 }
 
@@ -48,5 +52,6 @@ void	print_player(t_player *player)
 		player->go_up, player->go_down, player->go_left, player->go_right);
 	printf("Rotation: Left: %d, Right: %d\n",
 		player->rotate_left, player->rotate_right);
+	printf("Player size: %d\n", PLAYER_SIZE);
 	printf("===================\n");
 }
