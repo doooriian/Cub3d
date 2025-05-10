@@ -8,23 +8,29 @@ void	reset_player_var(t_player *player)
 	player->ray_y = player->y;
 }
 
-bool	check_collision_walls(t_game *game, int tmp_x, int tmp_y, int tile_size)
+static bool	corner_collision(t_game *game, int i, int j)
 {
-	int	i;
-	int	j;
+	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
+		return (1);
+	if (game->map_data.map[i][j] == '1')
+		return (1);
+	return (0);
+}
 
-	i = (int)(tmp_y - PLAYER_SIZE / 2) / tile_size;
-	j = (int)(tmp_x - PLAYER_SIZE / 2) / tile_size;
-	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
+static bool	check_collision(t_game *game, int tmp_x, int tmp_y, int tile_size)
+{
+	if (corner_collision(game, (int)(tmp_y - PLAYER_SIZE / 2) / tile_size,
+		(int)(tmp_x - PLAYER_SIZE / 2) / tile_size) == 1)
 		return (1);
-	if (game->map_data.map[i][j] == '1')
-			return (1);
-	i = (int)(tmp_y + PLAYER_SIZE / 2 - 1) / tile_size;
-	j = (int)(tmp_x + PLAYER_SIZE / 2 - 1) / tile_size;
-	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
+	if (corner_collision(game, (int)(tmp_y - PLAYER_SIZE / 2) / tile_size,
+		(int)(tmp_x + PLAYER_SIZE / 2 - 1) / tile_size) == 1)
 		return (1);
-	if (game->map_data.map[i][j] == '1')
-			return (1);
+	if (corner_collision(game, (int)(tmp_y + PLAYER_SIZE / 2 - 1) / tile_size,
+		(int)(tmp_x - PLAYER_SIZE / 2) / tile_size) == 1)
+		return (1);
+	if (corner_collision(game, (int)(tmp_y + PLAYER_SIZE / 2 - 1) / tile_size,
+		(int)(tmp_x + PLAYER_SIZE / 2 - 1) / tile_size) == 1)
+		return (1);
 	return (0);
 }
 
@@ -40,8 +46,13 @@ void	rotate_player(t_player *player)
 		player->angle = 2 * PI;
 }
 
-static void	add_move(float *tmp_x, float *tmp_y, float cos_angle, float sin_angle, int mv)
+static void	add_move(t_game *game, float cos_angle, float sin_angle, int mv)
 {
+	float	*tmp_x;
+	float	*tmp_y;
+
+	tmp_x = &game->player.tmp_x;
+	tmp_y = &game->player.tmp_y;
 	if (mv == 1)
 	{
 		*tmp_x += cos_angle * SPEED;
@@ -64,24 +75,24 @@ static void	add_move(float *tmp_x, float *tmp_y, float cos_angle, float sin_angl
 	}
 }
 
-void	move_player(t_game *game, float cos_angle, float sin_angle, int tile_size)
+void	move_player(t_game *game, float cos_angle, float sin_angle, int tile_s)
 {
 	if (game->player.go_up)
-		add_move(&game->player.tmp_x, &game->player.tmp_y, cos_angle, sin_angle, 1);
+		add_move(game, cos_angle, sin_angle, 1);
 	if (game->player.go_down)
-		add_move(&game->player.tmp_x, &game->player.tmp_y, cos_angle, sin_angle, 2);
+		add_move(game, cos_angle, sin_angle, 2);
 	if (game->player.go_left)
-		add_move(&game->player.tmp_x, &game->player.tmp_y, cos_angle, sin_angle, 3);
+		add_move(game, cos_angle, sin_angle, 3);
 	if (game->player.go_right)
-		add_move(&game->player.tmp_x, &game->player.tmp_y, cos_angle, sin_angle, 4);
-	if (!check_collision_walls(game, game->player.tmp_x, game->player.tmp_y, tile_size))
+		add_move(game, cos_angle, sin_angle, 4);
+	if (!check_collision(game, game->player.tmp_x, game->player.tmp_y, tile_s))
 	{
 		game->player.x = game->player.tmp_x;
 		game->player.y = game->player.tmp_y;
 		return ;
 	}
-	if (!check_collision_walls(game, game->player.tmp_x, game->player.y, tile_size))
+	if (!check_collision(game, game->player.tmp_x, game->player.y, tile_s))
 		game->player.x = game->player.tmp_x;
-	if (!check_collision_walls(game, game->player.x, game->player.tmp_y, tile_size))
+	if (!check_collision(game, game->player.x, game->player.tmp_y, tile_s))
 		game->player.y = game->player.tmp_y;
 }
