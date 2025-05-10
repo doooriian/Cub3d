@@ -21,7 +21,9 @@ SRCS_UTILS := \
 		srcs/utils/errors.c \
 		srcs/utils/map_utils.c \
 		srcs/utils/utils.c \
-		srcs/utils/frees.c
+		srcs/utils/frees.c \
+		srcs/utils/ft_split_with_sep.c \
+		srcs/utils/ft_atoi_safe.c
 
 SRCS_CONFIG := \
 		srcs/parsing/config/init_config.c \

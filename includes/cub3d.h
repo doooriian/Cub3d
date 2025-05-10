@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 19:08:52 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:25:58 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,8 @@ void	print_config(t_game *game);
 void	print_player(t_player *player);
 
 // Map validation
+char	**ft_split_with_sep(const char *str, char sep);
+int		ft_atoi_safe(const char *str, int *valid);
 int		validate_horizontal(char **map);
 
 #endif
