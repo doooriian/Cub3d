@@ -87,7 +87,11 @@ void	draw_ray_line(t_game *data, t_player *player, float angle)
 	{
 		draw_minimap_pixel(&data->imgs.map, ray_x + data->map_offset_x, ray_y + data->map_offset_y, 0xFF0000);
 		ray_x += cos_angle;
+		if (is_ray_touching_wall(data, ray_x, ray_y))
+			break ;
 		ray_y += sin_angle;
+		if (is_ray_touching_wall(data, ray_x, ray_y))
+			break;
 	}
 }
 
