@@ -143,13 +143,13 @@ typedef struct s_game
 }	t_game;
 
 // General
-int		ft_exit(t_game *data);
+int		ft_exit(t_game *game);
 int		get_rgb_color(int r, int g, int b);
 
 void	render_walls(t_game *game);
 
 // Initialization
-void	init_data(t_game *data);
+void	init_data(t_game *game);
 void	init_player(t_player *player);
 int		init_base_img(t_game *game);
 
@@ -163,19 +163,19 @@ void	move_player(t_game *game, float cos_angle,
 			float sin_angle, int tile_size);
 
 // Key hooks
-int		loop(t_game *data);
-int		key_press(int keycode, t_game *data);
+int		loop(t_game *game);
+int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_player *player);
 
 // MINIMAP
 int		minimap_init(t_game *game);
 void	draw_minimap_pixel(t_img *img, int x, int y, int color);
 void	draw_minimap_square(t_img *img, int x, int y, int size, int color);
-void	render_minimap(t_game *data);
-int		update_minimap_loop(t_game *data);
-void	draw_ray_line(t_game *data, t_player *player, float angle);
-void	render_rays_on_minimap(t_game *data, t_player *player);
-bool	is_ray_touching_wall(t_game *data, float ray_x, float ray_y);
+void	render_minimap(t_game *game);
+int		update_minimap_loop(t_game *game);
+void	draw_ray_line(t_game *game, t_player *player, float angle);
+void	render_rays_on_minimap(t_game *game, t_player *player);
+bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y);
 
 // File utilities
 int		check_extension(const char *path, const char *ext);

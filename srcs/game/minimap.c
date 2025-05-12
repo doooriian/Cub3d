@@ -29,7 +29,7 @@ void	draw_minimap_square(t_img *img, int x, int y, int size, int color)
 	}
 }
 
-void	render_minimap(t_game *data)
+void	render_minimap(t_game *game)
 {
 	int	i;
 	int	j;
@@ -37,42 +37,42 @@ void	render_minimap(t_game *data)
 	int	y;
 
 	i = 0;
-	while (i < data->map_height)
+	while (i < game->map_height)
 	{
 		j = 0;
-		while (j < data->map_width)
+		while (j < game->map_width)
 		{
-			x = j * data->tile_size + data->map_offset_x;
-			y = i * data->tile_size + data->map_offset_y;
-			if (data->map_data.map[i][j] == '1')
-				draw_minimap_square(&data->imgs.map, x, y, data->tile_size, 0x00888888);
-			else if (data->map_data.map[i][j] == '0' || data->map_data.map[i][j] == 'N' || data->map_data.map[i][j] == 'S'
-				|| data->map_data.map[i][j] == 'E' || data->map_data.map[i][j] == 'W')
-				draw_minimap_square(&data->imgs.map, x, y, data->tile_size, 0xFFFFFF);
+			x = j * game->tile_size + game->map_offset_x;
+			y = i * game->tile_size + game->map_offset_y;
+			if (game->map_data.map[i][j] == '1')
+				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0x00888888);
+			else if (game->map_data.map[i][j] == '0' || game->map_data.map[i][j] == 'N' || game->map_data.map[i][j] == 'S'
+				|| game->map_data.map[i][j] == 'E' || game->map_data.map[i][j] == 'W')
+				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0xFFFFFF);
 			else
-				draw_minimap_square(&data->imgs.map, x, y, data->tile_size, 0x000000); // espaces vides
+				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0x000000); // espaces vides
 			j++;
 		}
 		i++;
 	}
 }
 
-bool	is_ray_touching_wall(t_game *data, float ray_x, float ray_y)
+bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y)
 {
 	int	i;
 	int	j;
 
-	i = (int)ray_y / data->tile_size;
-	j = (int)ray_x / data->tile_size;
+	i = (int)ray_y / game->tile_size;
+	j = (int)ray_x / game->tile_size;
 	// Vérifiez indices hors map
-	if (i < 0 || i >= data->map_height || j < 0 || j >= data->map_width)
+	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
 		return (1);
-	if (data->map_data.map[i][j] == '1')
+	if (game->map_data.map[i][j] == '1')
 		return (1);
 	return (0);
 }
 
-void	draw_ray_line(t_game *data, t_player *player, float angle)
+void	draw_ray_line(t_game *game, t_player *player, float angle)
 {
 	float	ray_x;
 	float	ray_y;
@@ -83,14 +83,14 @@ void	draw_ray_line(t_game *data, t_player *player, float angle)
 	ray_y = player->y;
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
-	while (!is_ray_touching_wall(data, ray_x, ray_y))
+	while (!is_ray_touching_wall(game, ray_x, ray_y))
 	{
-		draw_minimap_pixel(&data->imgs.map, ray_x + data->map_offset_x, ray_y + data->map_offset_y, 0xFF0000);
+		draw_minimap_pixel(&game->imgs.map, ray_x + game->map_offset_x, ray_y + game->map_offset_y, 0xFF0000);
 		ray_x += cos_angle;
-		if (is_ray_touching_wall(data, ray_x, ray_y))
+		if (is_ray_touching_wall(game, ray_x, ray_y))
 			break ;
 		ray_y += sin_angle;
-		if (is_ray_touching_wall(data, ray_x, ray_y))
+		if (is_ray_touching_wall(game, ray_x, ray_y))
 			break ;
 	}
 }
@@ -161,7 +161,7 @@ void	draw_ray_with_dda(t_game *game, t_player *player, float ray_angle)
 	}
 }
 
-void	render_rays_on_minimap(t_game *data, t_player *player)
+void	render_rays_on_minimap(t_game *game, t_player *player)
 {
 	int		i;
 	int		ray_count;
@@ -174,30 +174,30 @@ void	render_rays_on_minimap(t_game *data, t_player *player)
 	start_angle = player->angle - PI / 6;
 	while (i < ray_count)
 	{
-		draw_ray_line(data, player, start_angle);
+		draw_ray_line(game, player, start_angle);
 		start_angle += fraction;
 		i++;
 	}
 }
 
-int update_minimap_loop(t_game *data)
+int update_minimap_loop(t_game *game)
 {
 	float		cos_angle;
 	float		sin_angle;
 	t_player	*player;
 
-	player = &data->player;
+	player = &game->player;
 	rotate_player(player);
 	cos_angle = cos(player->angle);
 	sin_angle = sin(player->angle);
-	move_player(data, cos_angle, sin_angle, data->tile_size);
+	move_player(game, cos_angle, sin_angle, game->tile_size);
 	reset_player_var(player);
 
-	render_minimap(data);
-	if (data->debug)
-		render_rays_on_minimap(data, player);
-	draw_minimap_square(&data->imgs.map, player->x - PLAYER_SIZE / 2 + data->map_offset_x,
-		player->y - PLAYER_SIZE / 2 + data->map_offset_y, PLAYER_SIZE, 0xF7230C);
-	mlx_put_image_to_window(data->mlx, data->win_map, data->imgs.map.img, 0, 0);
+	render_minimap(game);
+	if (game->debug)
+		render_rays_on_minimap(game, player);
+	draw_minimap_square(&game->imgs.map, player->x - PLAYER_SIZE / 2 + game->map_offset_x,
+		player->y - PLAYER_SIZE / 2 + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
+	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
 	return (0);
 }

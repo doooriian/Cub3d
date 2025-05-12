@@ -1,31 +1,31 @@
 #include "cub3d.h"
 
-int	loop(t_game *data)
+int	loop(t_game *game)
 {
-	if (data->debug)
-		display_fps(&data->fps);
-	update_minimap_loop(data);
-	render_walls(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->imgs.base.img, 0, 0);
+	if (game->debug)
+		display_fps(&game->fps);
+	update_minimap_loop(game);
+	render_walls(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->imgs.base.img, 0, 0);
 	return (0);
 }
 
-int	key_press(int keycode, t_game *data)
+int	key_press(int keycode, t_game *game)
 {
 	if (keycode == ESC)
-		ft_exit(data);
+		ft_exit(game);
 	if (keycode == W)
-		data->player.go_up = true;
+		game->player.go_up = true;
 	if (keycode == S)
-		data->player.go_down = true;
+		game->player.go_down = true;
 	if (keycode == A)
-		data->player.go_left = true;
+		game->player.go_left = true;
 	if (keycode == D)
-		data->player.go_right = true;
+		game->player.go_right = true;
 	if (keycode == LEFT)
-		data->player.rotate_left = true;
+		game->player.rotate_left = true;
 	if (keycode == RIGHT)
-		data->player.rotate_right = true;
+		game->player.rotate_right = true;
 	return (0);
 }
 
