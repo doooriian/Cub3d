@@ -119,6 +119,54 @@ void	verLine(t_game *game, int x, int draw_start, int draw_end, int color)
 	}
 }
 
+t_img	*get_texture(t_game *game, t_ray *ray)
+{
+	if (ray->side == 0 && ray->dir_x < 0)
+		return (&game->imgs.we);
+	if (ray->side == 0 && ray->dir_x >= 0)
+		return (&game->imgs.ea);
+	if (ray->side == 1 && ray->dir_y < 0)
+		return (&game->imgs.no);
+	return (&game->imgs.so);
+}
+
+
+void	draw_wall_tx(t_game *game, t_ray *ray, int x)
+{
+	double	step;
+	double	tex_pos;
+	int		line_height;
+	int		tex_x;
+	int		tex_y;
+	int		color;
+	int		y;
+	double	wall_x;
+
+	line_height = game->draw_end - game->draw_start;
+	if (ray->side == 0)
+		wall_x = game->player.y + ray->perp_wall_dist * ray->dir_y;
+	else
+		wall_x = game->player.x + ray->perp_wall_dist * ray->dir_x;
+	wall_x -= floor(wall_x);
+	tex_x = (int)(wall_x * (double)TEX_WIDTH);
+	if (ray->side == 0 && ray->dir_x > 0)
+		tex_x = TEX_WIDTH - tex_x - 1;
+	if (ray->side == 1 && ray->dir_y < 0)
+		tex_x = TEX_WIDTH - tex_x - 1;
+	step = 1.0 * TEX_HEIGHT / line_height;
+	tex_pos = (game->draw_start - HEIGHT / 2 + line_height / 2) * step;
+	y = game->draw_start;
+	while (y < game->draw_end)
+	{
+		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
+		tex_pos += step;
+		color = get_pixel_color(get_texture(game, ray), tex_x, tex_y);
+		draw_pixel(&game->imgs.base, x, y, color);
+		y++;
+	}
+}
+
+
 void	draw_wall(t_game *game, t_ray *ray, int x)
 {
 	int	wall_color;
@@ -139,7 +187,8 @@ void	draw_wall(t_game *game, t_ray *ray, int x)
 	verLine(game, x, 0, game->draw_start, ceiling_color);
 
 	// Dessiner le mur
-	verLine(game, x, game->draw_start, game->draw_end, wall_color);
+	// verLine(game, x, game->draw_start, game->draw_end, wall_color);
+	draw_wall_tx(game, ray, x);
 
 	// Dessiner le sol (de la fin du mur jusqu'en bas de la fenêtre)
 	verLine(game, x, game->draw_end, HEIGHT, floor_color);

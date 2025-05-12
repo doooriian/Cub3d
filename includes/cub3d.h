@@ -42,6 +42,8 @@
 # define PLAYER_SIZE	6
 # define RAYS		20
 # define PI 			3.14159265
+# define TEX_WIDTH 	64
+# define TEX_HEIGHT 	64
 
 // Structures
 typedef struct s_point
