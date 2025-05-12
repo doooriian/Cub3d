@@ -12,24 +12,37 @@ void draw_wall_tx(t_game *game, t_ray *ray, int x)
 	double	wall_x;
 
 	line_height = game->draw_end - game->draw_start;
+
+	// calculate value of wallX
 	if (ray->side == 0)
 		wall_x = game->player.y + ray->perp_wall_dist * ray->dir_y;
 	else
 		wall_x = game->player.x + ray->perp_wall_dist * ray->dir_x;
 	wall_x -= floor(wall_x);
+
+	// x coordinate on the texture
 	tex_x = (int)(wall_x * (double)TEX_WIDTH);
 	if (ray->side == 0 && ray->dir_x > 0)
 		tex_x = TEX_WIDTH - tex_x - 1;
 	if (ray->side == 1 && ray->dir_y < 0)
 		tex_x = TEX_WIDTH - tex_x - 1;
+
+	// How much to increase the texture coordinate per screen pixel
 	step = 1.0 * TEX_HEIGHT / line_height;
 	tex_pos = (game->draw_start - HEIGHT / 2 + line_height / 2) * step;
+
+	// Draw wall
 	y = game->draw_start;
 	while (y < game->draw_end)
 	{
 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
 		tex_pos += step;
 		color = get_pixel_color(get_texture(game, ray), tex_x, tex_y);
+
+		// Assombrir
+		if (ray->side == 1)
+			color = (color >> 1) & 0x7F7F7F;
+
 		draw_pixel(&game->imgs.base, x, y, color);
 		y++;
 	}
@@ -64,8 +77,8 @@ void draw_ceiling_and_floor(t_game *game, int x)
 void draw_all(t_game *game, t_ray *ray, int x)
 {
 	draw_ceiling_and_floor(game, x);
-	draw_wall_color(game, ray, x);
-	// draw_wall_tx(game, ray, x); // Uncomment for textured walls
+	// draw_wall_color(game, ray, x);
+	draw_wall_tx(game, ray, x); // Uncomment for textured walls
 }
 
 void render_walls(t_game *game)
