@@ -50,7 +50,7 @@ void	render_minimap(t_game *game)
 				|| game->map_data.map[i][j] == 'E' || game->map_data.map[i][j] == 'W')
 				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0xFFFFFF);
 			else
-				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0x000000); // espaces vides
+				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0x000000);
 			j++;
 		}
 		i++;
@@ -182,22 +182,11 @@ void	render_rays_on_minimap(t_game *game, t_player *player)
 
 int update_minimap_loop(t_game *game)
 {
-	float		cos_angle;
-	float		sin_angle;
-	t_player	*player;
-
-	player = &game->player;
-	rotate_player(player);
-	cos_angle = cos(player->angle);
-	sin_angle = sin(player->angle);
-	move_player(game, cos_angle, sin_angle, game->tile_size);
-	reset_player_var(player);
-
 	render_minimap(game);
 	if (game->debug)
-		render_rays_on_minimap(game, player);
-	draw_minimap_square(&game->imgs.map, player->x - PLAYER_SIZE / 2 + game->map_offset_x,
-		player->y - PLAYER_SIZE / 2 + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
+		render_rays_on_minimap(game, &game->player);
+	draw_minimap_square(&game->imgs.map, game->player.x - PLAYER_SIZE / 2 + game->map_offset_x,
+		game->player.y - PLAYER_SIZE / 2 + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
 	return (0);
 }
