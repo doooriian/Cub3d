@@ -1,5 +1,17 @@
 #include "cub3d.h"
 
+static	void	player_orientation(t_game *data, int i, int j)
+{
+	if (data->map_data.map[i][j] == 'N')
+		data->player.angle = 3 * PI / 2;
+	else if (data->map_data.map[i][j] == 'S')
+		data->player.angle = PI / 2;
+	else if (data->map_data.map[i][j] == 'E')
+		data->player.angle = 0;
+	else if (data->map_data.map[i][j] == 'W')
+		data->player.angle = PI;
+}
+
 static void	player_position(t_game *data)
 {
 	int	i;
@@ -20,14 +32,7 @@ static void	player_position(t_game *data)
 				data->player.tmp_y = data->player.y;
 				data->player.ray_x = data->player.x;
 				data->player.ray_y = data->player.y;
-				if (data->map_data.map[i][j] == 'N')
-					data->player.angle = 3 * PI / 2;
-				else if (data->map_data.map[i][j] == 'S')
-					data->player.angle = PI / 2;
-				else if (data->map_data.map[i][j] == 'E')
-					data->player.angle = 0;
-				else if (data->map_data.map[i][j] == 'W')
-					data->player.angle = PI;
+				player_orientation(data, i, j);
 				return ;
 			}
 			j++;

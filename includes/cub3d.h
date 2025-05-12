@@ -224,7 +224,6 @@ int		validate_horizontal(char **map);
 // Raycasting
 void	init_ray(t_game *game, t_ray *ray, float ray_angle);
 void	advance_ray(t_ray *ray);
-int		check_wall_hit(t_game *game, t_ray *ray);
 void	calculate_perpendicular_distance(t_game *game, t_ray *ray);
 int		perform_dda(t_game *game, t_ray *ray);
 
