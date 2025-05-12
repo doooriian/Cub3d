@@ -21,6 +21,7 @@ int	loop(t_game *game)
 	update_player(game);
 	update_minimap_loop(game);
 	render_walls(game);
+	draw_compass(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->imgs.base.img, 0, 0);
 	return (0);
 }

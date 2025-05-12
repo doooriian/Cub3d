@@ -142,6 +142,10 @@ typedef struct s_game
 	int			draw_end;
 }	t_game;
 
+void	draw_compass(t_game *game);
+
+
+
 // General
 int		ft_exit(t_game *game);
 int		get_rgb_color(int r, int g, int b);
