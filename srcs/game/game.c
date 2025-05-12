@@ -187,8 +187,8 @@ void	draw_wall(t_game *game, t_ray *ray, int x)
 	verLine(game, x, 0, game->draw_start, ceiling_color);
 
 	// Dessiner le mur
-	// verLine(game, x, game->draw_start, game->draw_end, wall_color);
-	draw_wall_tx(game, ray, x);
+	verLine(game, x, game->draw_start, game->draw_end, wall_color);
+	// draw_wall_tx(game, ray, x);
 
 	// Dessiner le sol (de la fin du mur jusqu'en bas de la fenêtre)
 	verLine(game, x, game->draw_end, HEIGHT, floor_color);
