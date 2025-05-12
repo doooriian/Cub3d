@@ -104,6 +104,22 @@ typedef struct s_fps
 	float			fps;
 }	t_fps;
 
+typedef struct s_ray
+{
+	double dir_x;
+	double dir_y;
+	double side_dist_x;
+	double side_dist_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	double perp_wall_dist;
+	int step_x;
+	int step_y;
+	int map_x;
+	int map_y;
+	int side; // 0 si c'est un mur vertical, 1 si c'est un mur horizontal
+} t_ray;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -119,10 +135,14 @@ typedef struct s_game
 	int			map_height; // Hauteur de la carte
 	bool		debug;
 	t_fps		fps;
+	int			draw_start;
+	int			draw_end;
 }	t_game;
 
 // General
 int		ft_exit(t_game *data);
+
+void	render_walls(t_game *game);
 
 // Initialization
 void	init_data(t_game *data);

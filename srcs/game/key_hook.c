@@ -8,21 +8,7 @@ int	loop(t_game *data)
 	// Update the minimap
 	update_minimap_loop(data);
 
-	// CHANGE WIN COLOR main
-	if (data->player.go_up)
-		draw_minimap_square(&data->imgs.base, 0, 0, 100, 0x00FF00);
-	else if (data->player.go_down)
-		draw_minimap_square(&data->imgs.base, 0, 0, 100, 0xFF0000);
-	else if (data->player.go_left)
-		draw_minimap_square(&data->imgs.base, 0, 0, 100, 0x0000FF);
-	else if (data->player.go_right)
-		draw_minimap_square(&data->imgs.base, 0, 0, 100, 0xFFFF00);
-	else if (data->player.rotate_left)
-		draw_minimap_square(&data->imgs.base, 0, 0, 100, 0xFF00FF);
-	else if (data->player.rotate_right)
-		draw_minimap_square(&data->imgs.base, 0, 0, 100, 0x00FFFF);
-	else
-		draw_minimap_square(&data->imgs.base, 0, 0, 100, 0xFFFFFF);
+	render_walls(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->imgs.base.img, 0, 0);
 
 	return (0);

@@ -41,7 +41,8 @@ SRCS_GAME := \
 		srcs/game/minimap.c \
 		srcs/game/init_game.c \
 		srcs/game/key_hook.c \
-		srcs/game/player.c
+		srcs/game/player.c \
+		srcs/game/game.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 

@@ -91,7 +91,6 @@ int	main(int argc, char **argv)
 			&game->imgs.base.line_length, &game->imgs.base.endian);
 	if (!game->imgs.base.addr || game->imgs.base.line_length <= 0 || game->imgs.base.bits_per_pixel <= 0)
 		return (print_error("Error: Failed to configure image", 1));
-	draw_minimap_square(&game->imgs.base, 0, 0, 100, 0xF7230C);
 	mlx_put_image_to_window(game->mlx, game->win, game->imgs.base.img, 0, 0);
 
 	// Mini map
@@ -104,6 +103,6 @@ int	main(int argc, char **argv)
 	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &ft_exit, game);
 	mlx_loop_hook(game->mlx, &loop, game);
 	mlx_loop(game->mlx);
-
+	ft_exit(game);
 	return (0);
 }

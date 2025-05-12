@@ -87,11 +87,73 @@ void	draw_ray_line(t_game *data, t_player *player, float angle)
 	{
 		draw_minimap_pixel(&data->imgs.map, ray_x + data->map_offset_x, ray_y + data->map_offset_y, 0xFF0000);
 		ray_x += cos_angle;
-		if (is_ray_touching_wall(data, ray_x, ray_y))
-			break ;
 		ray_y += sin_angle;
-		if (is_ray_touching_wall(data, ray_x, ray_y))
-			break;
+	}
+}
+
+void	draw_ray_with_dda(t_game *game, t_player *player, float ray_angle)
+{
+	t_ray	ray;
+	int		tile_size = game->tile_size;
+
+	// Position de départ
+	ray.map_x = (int)(player->x / tile_size);
+	ray.map_y = (int)(player->y / tile_size);
+
+	// Direction du rayon
+	ray.dir_x = cos(ray_angle);
+	ray.dir_y = sin(ray_angle);
+
+	// Longueur de chaque pas dans x et y
+	ray.delta_dist_x = fabs(1 / ray.dir_x);
+	ray.delta_dist_y = fabs(1 / ray.dir_y);
+
+	// Initialisation des étapes et distances initiales
+	if (ray.dir_x < 0)
+	{
+		ray.step_x = -1;
+		ray.side_dist_x = (player->x / tile_size - ray.map_x) * ray.delta_dist_x;
+	}
+	else
+	{
+		ray.step_x = 1;
+		ray.side_dist_x = (ray.map_x + 1.0 - player->x / tile_size) * ray.delta_dist_x;
+	}
+
+	if (ray.dir_y < 0)
+	{
+		ray.step_y = -1;
+		ray.side_dist_y = (player->y / tile_size - ray.map_y) * ray.delta_dist_y;
+	}
+	else
+	{
+		ray.step_y = 1;
+		ray.side_dist_y = (ray.map_y + 1.0 - player->y / tile_size) * ray.delta_dist_y;
+	}
+
+	// Avancer jusqu'à collision
+	while (ray.map_x >= 0 && ray.map_x < game->map_width
+		&& ray.map_y >= 0 && ray.map_y < game->map_height
+		&& game->map_data.map[ray.map_y][ray.map_x] != '1')
+	{
+		if (game->debug)
+		{
+			int pixel_x = ray.map_x * tile_size + tile_size / 2 + game->map_offset_x;
+			int pixel_y = ray.map_y * tile_size + tile_size / 2 + game->map_offset_y;
+			draw_minimap_pixel(&game->imgs.map, pixel_x, pixel_y, 0xFF0000); // Rouge
+		}
+		if (ray.side_dist_x < ray.side_dist_y)
+		{
+			ray.side_dist_x += ray.delta_dist_x;
+			ray.map_x += ray.step_x;
+			ray.side = 0;
+		}
+		else
+		{
+			ray.side_dist_y += ray.delta_dist_y;
+			ray.map_y += ray.step_y;
+			ray.side = 1;
+		}
 	}
 }
 
@@ -108,7 +170,7 @@ void	render_rays_on_minimap(t_game *data, t_player *player)
 	start_angle = player->angle - PI / 6;
 	while (i < ray_count)
 	{
-		draw_ray_line(data, player, start_angle);
+		draw_ray_with_dda(data, player, start_angle);
 		start_angle += fraction;
 		i++;
 	}
