@@ -33,14 +33,14 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
-# define WIDTH		1000
-# define HEIGHT		800
+# define WIDTH		1600
+# define HEIGHT		1200
 # define MAP_WIDTH	800
 # define MAP_HEIGHT	600
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
 # define PLAYER_SIZE	6
-# define RAYS		2000
+# define RAYS		20
 # define PI 			3.14159265
 
 // Structures
@@ -117,6 +117,7 @@ typedef struct s_ray
 	int step_y;
 	int map_x;
 	int map_y;
+	float ray_angle;
 	int side; // 0 si c'est un mur vertical, 1 si c'est un mur horizontal
 } t_ray;
 

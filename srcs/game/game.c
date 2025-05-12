@@ -5,6 +5,8 @@ void init_ray(t_game *game, t_ray *ray, float ray_angle)
 {
 	int		tile_size = game->tile_size;
 
+	ray->ray_angle = ray_angle;
+
 	// Position du joueur
 	ray->map_x = (int)(game->player.x / tile_size);
 	ray->map_y = (int)(game->player.y / tile_size);
@@ -72,6 +74,8 @@ int perform_dda(t_game *game, t_ray *ray)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
+
+	ray->perp_wall_dist *= cos(ray->ray_angle - game->player.angle);
 
 	return (hit);
 }

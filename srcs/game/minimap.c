@@ -87,7 +87,11 @@ void	draw_ray_line(t_game *data, t_player *player, float angle)
 	{
 		draw_minimap_pixel(&data->imgs.map, ray_x + data->map_offset_x, ray_y + data->map_offset_y, 0xFF0000);
 		ray_x += cos_angle;
+		if (is_ray_touching_wall(data, ray_x, ray_y))
+			break ;
 		ray_y += sin_angle;
+		if (is_ray_touching_wall(data, ray_x, ray_y))
+			break ;
 	}
 }
 
@@ -170,7 +174,7 @@ void	render_rays_on_minimap(t_game *data, t_player *player)
 	start_angle = player->angle - PI / 6;
 	while (i < ray_count)
 	{
-		draw_ray_with_dda(data, player, start_angle);
+		draw_ray_line(data, player, start_angle);
 		start_angle += fraction;
 		i++;
 	}
@@ -190,7 +194,8 @@ int update_minimap_loop(t_game *data)
 	reset_player_var(player);
 
 	render_minimap(data);
-	render_rays_on_minimap(data, player);
+	if (data->debug)
+		render_rays_on_minimap(data, player);
 	draw_minimap_square(&data->imgs.map, player->x - PLAYER_SIZE / 2 + data->map_offset_x,
 		player->y - PLAYER_SIZE / 2 + data->map_offset_y, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(data->mlx, data->win_map, data->imgs.map.img, 0, 0);
