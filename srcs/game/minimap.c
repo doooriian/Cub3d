@@ -1,17 +1,6 @@
 #include "cub3d.h"
 
-void	draw_minimap_pixel(t_img *img, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT)
-	{
-		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
-	}
-}
-
-void	draw_minimap_square(t_img *img, int x, int y, int size, int color)
+void	draw_square(t_img *img, t_point point, int size, int color)
 {
 	int	i;
 	int	j;
@@ -22,7 +11,7 @@ void	draw_minimap_square(t_img *img, int x, int y, int size, int color)
 		j = 0;
 		while (j < size)
 		{
-			draw_minimap_pixel(img, x + j, y + i, color);
+			draw_pixel(img, point.x + j, point.y + i, color);
 			j++;
 		}
 		i++;
@@ -45,12 +34,11 @@ void	render_minimap(t_game *game)
 			x = j * game->tile_size + game->map_offset_x;
 			y = i * game->tile_size + game->map_offset_y;
 			if (game->map_data.map[i][j] == '1')
-				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0x00888888);
-			else if (game->map_data.map[i][j] == '0' || game->map_data.map[i][j] == 'N' || game->map_data.map[i][j] == 'S'
-				|| game->map_data.map[i][j] == 'E' || game->map_data.map[i][j] == 'W')
-				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0xFFFFFF);
+				draw_square(&game->imgs.map, (t_point){x, y}, game->tile_size, 0x00888888);
+			else if (game->map_data.map[i][j] == '0' || is_char_player(game->map_data.map[i][j]))
+				draw_square(&game->imgs.map, (t_point){x, y}, game->tile_size, 0xFFFFFF);
 			else
-				draw_minimap_square(&game->imgs.map, x, y, game->tile_size, 0x000000);
+				draw_square(&game->imgs.map, (t_point){x, y}, game->tile_size, 0x000000);
 			j++;
 		}
 		i++;
@@ -64,7 +52,6 @@ bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y)
 
 	i = (int)ray_y / game->tile_size;
 	j = (int)ray_x / game->tile_size;
-	// Vérifiez indices hors map
 	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
 		return (1);
 	if (game->map_data.map[i][j] == '1')
@@ -85,79 +72,13 @@ void	draw_ray_line(t_game *game, t_player *player, float angle)
 	sin_angle = sin(angle);
 	while (!is_ray_touching_wall(game, ray_x, ray_y))
 	{
-		draw_minimap_pixel(&game->imgs.map, ray_x + game->map_offset_x, ray_y + game->map_offset_y, 0xFF0000);
+		draw_pixel(&game->imgs.map, ray_x + game->map_offset_x, ray_y + game->map_offset_y, 0xFF0000);
 		ray_x += cos_angle;
 		if (is_ray_touching_wall(game, ray_x, ray_y))
 			break ;
 		ray_y += sin_angle;
 		if (is_ray_touching_wall(game, ray_x, ray_y))
 			break ;
-	}
-}
-
-void	draw_ray_with_dda(t_game *game, t_player *player, float ray_angle)
-{
-	t_ray	ray;
-	int		tile_size = game->tile_size;
-
-	// Position de départ
-	ray.map_x = (int)(player->x / tile_size);
-	ray.map_y = (int)(player->y / tile_size);
-
-	// Direction du rayon
-	ray.dir_x = cos(ray_angle);
-	ray.dir_y = sin(ray_angle);
-
-	// Longueur de chaque pas dans x et y
-	ray.delta_dist_x = fabs(1 / ray.dir_x);
-	ray.delta_dist_y = fabs(1 / ray.dir_y);
-
-	// Initialisation des étapes et distances initiales
-	if (ray.dir_x < 0)
-	{
-		ray.step_x = -1;
-		ray.side_dist_x = (player->x / tile_size - ray.map_x) * ray.delta_dist_x;
-	}
-	else
-	{
-		ray.step_x = 1;
-		ray.side_dist_x = (ray.map_x + 1.0 - player->x / tile_size) * ray.delta_dist_x;
-	}
-
-	if (ray.dir_y < 0)
-	{
-		ray.step_y = -1;
-		ray.side_dist_y = (player->y / tile_size - ray.map_y) * ray.delta_dist_y;
-	}
-	else
-	{
-		ray.step_y = 1;
-		ray.side_dist_y = (ray.map_y + 1.0 - player->y / tile_size) * ray.delta_dist_y;
-	}
-
-	// Avancer jusqu'à collision
-	while (ray.map_x >= 0 && ray.map_x < game->map_width
-		&& ray.map_y >= 0 && ray.map_y < game->map_height
-		&& game->map_data.map[ray.map_y][ray.map_x] != '1')
-	{
-		if (game->debug)
-		{
-			int pixel_x = ray.map_x * tile_size + tile_size / 2 + game->map_offset_x;
-			int pixel_y = ray.map_y * tile_size + tile_size / 2 + game->map_offset_y;
-			draw_minimap_pixel(&game->imgs.map, pixel_x, pixel_y, 0xFF0000); // Rouge
-		}
-		if (ray.side_dist_x < ray.side_dist_y)
-		{
-			ray.side_dist_x += ray.delta_dist_x;
-			ray.map_x += ray.step_x;
-			ray.side = 0;
-		}
-		else
-		{
-			ray.side_dist_y += ray.delta_dist_y;
-			ray.map_y += ray.step_y;
-			ray.side = 1;
-		}
 	}
 }
 
@@ -170,7 +91,7 @@ void	render_rays_on_minimap(t_game *game, t_player *player)
 
 	i = 0;
 	ray_count = RAYS;
-	fraction = PI / 3 / ray_count; // Ajustez l'incrément en fonction du nombre de rayons
+	fraction = PI / 3 / ray_count;
 	start_angle = player->angle - PI / 6;
 	while (i < ray_count)
 	{
@@ -180,13 +101,16 @@ void	render_rays_on_minimap(t_game *game, t_player *player)
 	}
 }
 
-int update_minimap_loop(t_game *game)
+int	update_minimap_loop(t_game *game)
 {
+	t_point	pos;
+
 	render_minimap(game);
 	if (game->debug)
 		render_rays_on_minimap(game, &game->player);
-	draw_minimap_square(&game->imgs.map, game->player.x - PLAYER_SIZE / 2 + game->map_offset_x,
-		game->player.y - PLAYER_SIZE / 2 + game->map_offset_y, PLAYER_SIZE, 0xF7230C);
+	pos.x = game->player.x - PLAYER_SIZE / 2 + game->map_offset_x;
+	pos.y = game->player.y - PLAYER_SIZE / 2 + game->map_offset_y;
+	draw_square(&game->imgs.map, pos, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
 	return (0);
 }

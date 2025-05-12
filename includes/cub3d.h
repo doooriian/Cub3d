@@ -157,8 +157,6 @@ int		init_base_img(t_game *game);
 // Player management
 void	reset_player_var(t_player *player);
 void	rotate_player(t_player *player);
-bool	check_collision_walls(t_game *game, int tmp_x,
-			int tmp_y, int tile_size);
 void	move_player(t_game *game, float cos_angle,
 			float sin_angle, int tile_size);
 
@@ -169,8 +167,7 @@ int		key_release(int keycode, t_player *player);
 
 // MINIMAP
 int		minimap_init(t_game *game);
-void	draw_minimap_pixel(t_img *img, int x, int y, int color);
-void	draw_minimap_square(t_img *img, int x, int y, int size, int color);
+void	draw_square(t_img *img, t_point point, int size, int color);
 void	render_minimap(t_game *game);
 int		update_minimap_loop(t_game *game);
 void	draw_ray_line(t_game *game, t_player *player, float angle);
@@ -180,6 +177,8 @@ bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y);
 // File utilities
 int		check_extension(const char *path, const char *ext);
 int		open_file(const char *path);
+
+int	is_char_player(char c);
 
 // Map utilities
 char	**get_map(const char *path);

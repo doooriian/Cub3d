@@ -39,14 +39,23 @@ static int	minimap_init_2(t_game *game)
 
 int	minimap_init(t_game *game)
 {
+	t_point	pos;
+
 	if (!game)
 		return (1);
 	if (minimap_init_2(game))
 		return (1);
 	render_minimap(game);
-	draw_minimap_square(&game->imgs.map, game->player.x - PLAYER_SIZE / 2
-		+ game->map_offset_x, game->player.y - PLAYER_SIZE / 2
-		+ game->map_offset_y, PLAYER_SIZE, 0xF7230C);
+	pos.x = game->player.x - PLAYER_SIZE / 2 + game->map_offset_x;
+	pos.y = game->player.y - PLAYER_SIZE / 2 + game->map_offset_y;
+	draw_square(&game->imgs.map, pos, PLAYER_SIZE, 0xF7230C);
 	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
+	return (0);
+}
+
+int	is_char_player(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
 	return (0);
 }
