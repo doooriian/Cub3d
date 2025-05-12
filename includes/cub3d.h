@@ -108,20 +108,20 @@ typedef struct s_fps
 
 typedef struct s_ray
 {
-	double dir_x;
-	double dir_y;
-	double side_dist_x;
-	double side_dist_y;
-	double delta_dist_x;
-	double delta_dist_y;
-	double perp_wall_dist;
-	int step_x;
-	int step_y;
-	int map_x;
-	int map_y;
-	float ray_angle;
-	int side; // 0 si c'est un mur vertical, 1 si c'est un mur horizontal
-} t_ray;
+	double	dir_x;
+	double	dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+	float	ray_angle;
+	int		side; // 0 si c'est un mur vertical, 1 si c'est un mur horizontal
+}	t_ray;
 
 typedef struct s_game
 {
@@ -218,5 +218,23 @@ void	display_fps(t_fps *fps);
 char	**ft_split_with_sep(const char *str, char sep);
 int		ft_atoi_safe(const char *str, int *valid);
 int		validate_horizontal(char **map);
+
+// Raycasting
+void	init_ray(t_game *game, t_ray *ray, float ray_angle);
+void	advance_ray(t_ray *ray);
+int		check_wall_hit(t_game *game, t_ray *ray);
+void	calculate_perpendicular_distance(t_game *game, t_ray *ray);
+int		perform_dda(t_game *game, t_ray *ray);
+
+// Wall rendering
+void	calculate_wall_height(t_game *game, t_ray *ray);
+void	draw_pixel(t_img *img, int x, int y, int color);
+void	draw_line(t_game *game, int x, int draw_start, int draw_end, int color);
+t_img	*get_texture(t_game *game, t_ray *ray);
+void	draw_wall_tx(t_game *game, t_ray *ray, int x);
+void	draw_wall_color(t_game *game, t_ray *ray, int x);
+void	draw_all(t_game *game, t_ray *ray, int x);
+void	render_walls(t_game *game);
+void	draw_ceiling_and_floor(t_game *game, int x);
 
 #endif

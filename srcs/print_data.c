@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:21:18 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/10 23:10:58 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:02:52 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ void	print_config(t_game *game)
 		game->map_data.top_color[1], game->map_data.top_color[2]);
 	printf("Floor color:   R:%d, G:%d, B:%d\n", game->map_data.floor_color[0],
 		game->map_data.floor_color[1], game->map_data.floor_color[2]);
-	printf("Map dimensions: Width: %d, Height: %d\n", game->map_width, game->map_height);
+	printf("Map dimensions: Width: %d, Height: %d\n", game->map_width,
+		game->map_height);
 	printf("Tile size: %d\n", game->tile_size);
 	printf("Map offset: X:%d, Y:%d\n", game->map_offset_x, game->map_offset_y);
-	printf("Debug mode: %s\n", game->debug ? "ON" : "OFF");
+	if (game->debug)
+		printf("Debug mode: ON\n");
+	else
+		printf("Debug mode: OFF\n");
 	printf("==========================\n");
 }
 
@@ -46,7 +50,8 @@ void	print_player(t_player *player)
 	printf("Position: X:%.2f, Y:%.2f\n", player->x, player->y);
 	printf("Angle: %.2f\n", player->angle);
 	printf("Ray X: %.2f, Ray Y: %.2f\n", player->ray_x, player->ray_y);
-	printf("Temporary Position: X:%.2f, Y:%.2f\n", player->tmp_x, player->tmp_y);
+	printf("Temporary Position: X:%.2f, Y:%.2f\n", player->tmp_x,
+		player->tmp_y);
 	printf("Ray Offset: %.2f\n", player->ray_offset);
 	printf("Movement: Up: %d, Down: %d, Left: %d, Right: %d\n",
 		player->go_up, player->go_down, player->go_left, player->go_right);

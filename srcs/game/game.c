@@ -43,40 +43,49 @@ void init_ray(t_game *game, t_ray *ray, float ray_angle)
 	}
 }
 
-int perform_dda(t_game *game, t_ray *ray)
+void	advance_ray(t_ray *ray)
 {
-	int hit = 0;
-
-	// Tant que l'on n'a pas touché un mur
-	while (hit == 0)
+	if (ray->side_dist_x < ray->side_dist_y)
 	{
-		// Vérifier quel côté du mur est le plus proche et avancer le rayon
-		if (ray->side_dist_x < ray->side_dist_y)
-		{
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
-			ray->side = 0; // Vertical
-		}
-		else
-		{
-			ray->side_dist_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
-			ray->side = 1; // Horizontal
-		}
-
-		// Vérification si un mur est touché
-		if (game->map_data.map[ray->map_y][ray->map_x] == '1') // '1' = mur
-			hit = 1;
+		ray->side_dist_x += ray->delta_dist_x;
+		ray->map_x += ray->step_x;
+		ray->side = 0; // Vertical
 	}
+	else
+	{
+		ray->side_dist_y += ray->delta_dist_y;
+		ray->map_y += ray->step_y;
+		ray->side = 1; // Horizontal
+	}
+}
 
-	// Calcul de la distance perpendiculaire au mur
+int	check_wall_hit(t_game *game, t_ray *ray)
+{
+	if (game->map_data.map[ray->map_y][ray->map_x] == '1') // '1' = mur
+		return (1);
+	return (0);
+}
+
+void	calculate_perpendicular_distance(t_game *game, t_ray *ray)
+{
 	if (ray->side == 0)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 
 	ray->perp_wall_dist *= cos(ray->ray_angle - game->player.angle);
+}
 
+int perform_dda(t_game *game, t_ray *ray)
+{
+	int hit = 0;
+
+	while (hit == 0)
+	{
+		advance_ray(ray);
+		hit = check_wall_hit(game, ray);
+	}
+	calculate_perpendicular_distance(game, ray);
 	return (hit);
 }
 
@@ -166,34 +175,42 @@ void	draw_wall_tx(t_game *game, t_ray *ray, int x)
 	}
 }
 
-
-void	draw_wall(t_game *game, t_ray *ray, int x)
+void	draw_ceiling(t_game *game, int x)
 {
-	int	wall_color;
-	int	floor_color;
-	int	ceiling_color;
+	int ceiling_color;
 
-	// Définir les couleurs
+	ceiling_color = get_rgb_color(game->map_data.top_color[0],
+			game->map_data.top_color[1], game->map_data.top_color[2]);
+	verLine(game, x, 0, game->draw_start, ceiling_color);
+}
+
+void	draw_floor(t_game *game, int x)
+{
+	int floor_color;
+
+	floor_color = get_rgb_color(game->map_data.floor_color[0],
+			game->map_data.floor_color[1], game->map_data.floor_color[2]);
+	verLine(game, x, game->draw_end, HEIGHT, floor_color);
+}
+
+void	draw_wall_color(t_game *game, t_ray *ray, int x)
+{
+	int wall_color;
+
 	if (ray->side == 0)
 		wall_color = 0xFF0000; // Rouge vertical
 	else
 		wall_color = 0x00FF00; // Vert horizontal
-	ceiling_color = get_rgb_color(game->map_data.top_color[0],
-			game->map_data.top_color[1], game->map_data.top_color[2]);
-	floor_color = get_rgb_color(game->map_data.floor_color[0],
-			game->map_data.floor_color[1], game->map_data.floor_color[2]);
-
-	// Dessiner le plafond (du haut jusqu'au début du mur)
-	verLine(game, x, 0, game->draw_start, ceiling_color);
-
-	// Dessiner le mur
-	// verLine(game, x, game->draw_start, game->draw_end, wall_color);
-	draw_wall_tx(game, ray, x);
-
-	// Dessiner le sol (de la fin du mur jusqu'en bas de la fenêtre)
-	verLine(game, x, game->draw_end, HEIGHT, floor_color);
+	verLine(game, x, game->draw_start, game->draw_end, wall_color);
 }
 
+void	draw_wall(t_game *game, t_ray *ray, int x)
+{
+	draw_ceiling(game, x);
+	draw_wall_color(game, ray, x);
+	// draw_wall_tx(game, ray, x); // Uncomment for textured walls
+	draw_floor(game, x);
+}
 
 void	render_walls(t_game *game)
 {

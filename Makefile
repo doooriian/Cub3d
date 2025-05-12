@@ -42,7 +42,9 @@ SRCS_GAME := \
 		srcs/game/init_game.c \
 		srcs/game/key_hook.c \
 		srcs/game/player.c \
-		srcs/game/game.c
+		srcs/game/raycasting.c \
+		srcs/game/wall_rendering.c \
+		srcs/game/wall_rendering_utils.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 
