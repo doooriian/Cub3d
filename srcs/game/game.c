@@ -130,8 +130,10 @@ void	draw_wall(t_game *game, t_ray *ray, int x)
 		wall_color = 0xFF0000; // Rouge vertical
 	else
 		wall_color = 0x00FF00; // Vert horizontal
-	ceiling_color = 0x87CEEB; // Bleu clair (sky)
-	floor_color = 0x404040;   // Gris foncé (sol)
+	ceiling_color = get_rgb_color(game->map_data.top_color[0],
+			game->map_data.top_color[1], game->map_data.top_color[2]);
+	floor_color = get_rgb_color(game->map_data.floor_color[0],
+			game->map_data.floor_color[1], game->map_data.floor_color[2]);
 
 	// Dessiner le plafond (du haut jusqu'au début du mur)
 	verLine(game, x, 0, game->draw_start, ceiling_color);

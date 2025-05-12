@@ -142,6 +142,7 @@ typedef struct s_game
 
 // General
 int		ft_exit(t_game *data);
+int		get_rgb_color(int r, int g, int b);
 
 void	render_walls(t_game *game);
 
