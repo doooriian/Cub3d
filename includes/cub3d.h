@@ -151,6 +151,8 @@ void	render_walls(t_game *game);
 // Initialization
 void	init_data(t_game *data);
 void	init_player(t_player *player);
+int		init_base_img(t_game *game);
+
 
 // Player management
 void	reset_player_var(t_player *player);
