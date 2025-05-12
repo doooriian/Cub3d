@@ -35,6 +35,8 @@ void draw_wall_tx(t_game *game, t_ray *ray, int x)
 	}
 }
 
+
+// TEMPORAIRE
 void draw_wall_color(t_game *game, t_ray *ray, int x)
 {
 	int wall_color;
