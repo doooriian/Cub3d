@@ -33,8 +33,8 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
-# define WIDTH		1600
-# define HEIGHT		1200
+# define WIDTH		1000
+# define HEIGHT		800
 # define MAP_WIDTH	800
 # define MAP_HEIGHT	600
 # define SPEED		0.5
@@ -143,8 +143,10 @@ typedef struct s_game
 }	t_game;
 
 void	draw_compass(t_game *game);
-
-
+void	draw_triangle(t_game *game, t_point p1, t_point p2, t_point p3, int color);
+void	draw_center_circle(t_game *game, int cx, int cy, int radius, int color);
+t_point	get_point(float angle, int length, int cx, int cy);
+void	draw_line2(t_game *game, t_point p0, t_point p1, int color);
 
 // General
 int		ft_exit(t_game *game);

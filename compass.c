@@ -6,92 +6,78 @@
 #define COLOR_NORTH 0xFF0000
 #define COLOR_OTHER 0xFFFFFF
 
-void	draw_line2(t_game *game, t_point p0, t_point p1, int color)
+static void	swap_points(t_point *a, t_point *b)
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
+	t_point	tmp;
 
-	dx = abs(p1.x - p0.x);
-	dy = abs(p1.y - p0.y);
-	sx = (p0.x < p1.x) ? 1 : -1;
-	sy = (p0.y < p1.y) ? 1 : -1;
-	err = dx - dy;
-	while (1)
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+static void	fill_scanline(t_game *g, int y, int x0, int x1, int color)
+{
+	int	tmp;
+
+	if (x0 > x1)
 	{
-		draw_pixel(&game->imgs.base, p0.x, p0.y, color);
-		if (p0.x == p1.x && p0.y == p1.y)
-			break ;
-		e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			p0.x += sx;
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			p0.y += sy;
-		}
+		tmp = x0;
+		x0 = x1;
+		x1 = tmp;
+	}
+	while (x0 <= x1)
+	{
+		draw_pixel(&g->imgs.base, x0, y, color);
+		x0++;
 	}
 }
 
-void	draw_triangle(t_game *game, t_point p1, t_point p2, t_point p3, int color)
+// Interpolates the x coordinate on the edge (p0,p1) at a given y
+static int	interp_x(t_point p0, t_point p1, int y)
 {
-	draw_line2(game, p1, p2, color);
-	draw_line2(game, p2, p3, color);
-	draw_line2(game, p3, p1, color);
+	if (p1.y == p0.y)
+		return (p0.x);
+	return (p0.x + (y - p0.y) * (p1.x - p0.x) / (p1.y - p0.y));
 }
 
-void	draw_center_circle(t_game *game, int cx, int cy, int radius, int color)
+// Fill triangle by scanline method
+void	draw_filled_triangle(t_game *g, t_point p0, t_point p1, t_point p2, int color)
 {
-	int	x;
 	int	y;
+	int	x_a;
+	int	x_b;
 
-	y = -radius;
-	while (y <= radius)
+	if (p1.y < p0.y)
+		swap_points(&p0, &p1);
+	if (p2.y < p0.y)
+		swap_points(&p0, &p2);
+	if (p2.y < p1.y)
+		swap_points(&p1, &p2);
+	y = p0.y;
+	while (y <= p2.y)
 	{
-		x = -radius;
-		while (x <= radius)
+		if (y < p1.y)
 		{
-			if ((x * x) + (y * y) <= radius * radius)
-				draw_pixel(&game->imgs.base, cx + x, cy + y, color);
-			x++;
+			x_a = interp_x(p0, p2, y);
+			x_b = interp_x(p0, p1, y);
 		}
+		else
+		{
+			x_a = interp_x(p0, p2, y);
+			x_b = interp_x(p1, p2, y);
+		}
+		fill_scanline(g, y, x_a, x_b, color);
 		y++;
 	}
 }
 
-static t_point	get_point(float angle, int length, int cx, int cy)
+
+void	draw_arrow(t_game *game, float angle, int color, t_point point)
 {
-	t_point	p;
-
-	p.x = cx + cos(angle) * length;
-	p.y = cy + sin(angle) * length;
-	return (p);
-}
-
-void	draw_arrow(t_game *game, float angle, int color)
-{
-	t_point	tip;
-	t_point	base1;
-	t_point	base2;
-	int		cx;
-	int		cy;
-	float	left;
-	float	right;
-
-	cx = WIDTH / 2;
-	cy = HEIGHT / 2;
-	left = angle + M_PI / 2;
-	right = angle - M_PI / 2;
-	tip = get_point(angle, CROSS_SIZE, cx, cy);
-	base1 = get_point(left, BASE_WIDTH, cx, cy);
-	base2 = get_point(right, BASE_WIDTH, cx, cy);
-	draw_triangle(game, tip, base1, base2, color);
+	t_point	tip = get_point(angle, CROSS_SIZE, point.x, point.y);
+	t_point	base1 = get_point(angle + M_PI / 2, BASE_WIDTH, point.x, point.y);
+	t_point	base2 = get_point(angle - M_PI / 2, BASE_WIDTH, point.x, point.y);
+	draw_filled_triangle(game, tip, base1, base2, color);
 }
 
 void	draw_compass(t_game *game)
@@ -103,15 +89,17 @@ void	draw_compass(t_game *game)
 	int		cx;
 	int		cy;
 
-	cx = WIDTH / 2;
-	cy = HEIGHT / 2;
+	// Positionner la boussole en haut à droite
+	cx = WIDTH - CROSS_SIZE - 20; // Décalage de 20 pixels du bord droit
+	cy = CROSS_SIZE + 20;        // Décalage de 20 pixels du bord supérieur
 	base_angle = game->player.angle;
 	i = 0;
 	while (i < 4)
 	{
 		angle = base_angle + i * (M_PI / 2);
 		color = (i == 0) ? COLOR_NORTH : COLOR_OTHER;
-		draw_arrow(game, angle, color);
+		t_point point = {cx, cy};
+		draw_arrow(game, angle, color, point);
 		i++;
 	}
 	draw_center_circle(game, cx, cy, 13, COLOR_OTHER);
