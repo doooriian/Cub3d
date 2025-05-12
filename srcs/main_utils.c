@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 13:49:40 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 14:34:39 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:40:25 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_exit(t_game *game)
 	}
 	if (game->mlx)
 	{
+		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 		game->mlx = NULL;
 	}

@@ -135,10 +135,14 @@ typedef struct s_game
 	int			map_height; // Hauteur de la carte
 	bool		debug;
 	t_fps		fps;
+	int			draw_start;
+	int			draw_end;
 }	t_game;
 
 // General
 int		ft_exit(t_game *data);
+
+void	render_walls(t_game *game);
 
 // Initialization
 void	init_data(t_game *data);
