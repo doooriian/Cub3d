@@ -71,7 +71,6 @@ void	init_data(t_game *game)
 	int	map_px_w;
 	int	map_px_h;
 
-	init_player(&game->player, game);
 	game->map_width = get_max_len(game->map_data.map);
 	game->map_height = get_map_height(game->map_data.map);
 	tile_w = MAP_WIDTH / game->map_width;
@@ -86,5 +85,6 @@ void	init_data(t_game *game)
 	game->map_offset_y = (MAP_HEIGHT - map_px_h) / 2;
 	game->mouse_x = -1;
 	game->mouse_click = false;
+	init_player(&game->player, game);
 	player_position(game);
 }
