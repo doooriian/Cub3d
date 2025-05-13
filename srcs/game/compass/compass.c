@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 15:27:54 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/13 17:11:56 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:29:57 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	draw_arrow(t_game *game, float angle, int color, t_point point)
 	t_point	base2;
 
 	tip = get_point(angle, CROSS_SIZE, point);
-	base1 = get_point(angle + M_PI / 2, BASE_WIDTH, point);
-	base2 = get_point(angle - M_PI / 2, BASE_WIDTH, point);
+	base1 = get_point(angle + PI / 2, BASE_WIDTH, point);
+	base2 = get_point(angle - PI / 2, BASE_WIDTH, point);
 	draw_filled_triangle(game, (t_triangle){tip, base1, base2}, color);
 }
 
@@ -36,7 +36,7 @@ static void	draw_compass_arrows(t_game *game, int cx, int cy, float base_angle)
 	i = 0;
 	while (i < 4)
 	{
-		angle = base_angle + i * (M_PI / 2);
+		angle = base_angle + i * (PI / 2);
 		if (i == 0)
 			color = COLOR_NORTH;
 		else
@@ -46,14 +46,23 @@ static void	draw_compass_arrows(t_game *game, int cx, int cy, float base_angle)
 	}
 }
 
+static float	normalize_angle(float angle)
+{
+	while (angle < 0)
+		angle += 2 * PI;
+	while (angle >= 2 * PI)
+		angle -= 2 * PI;
+	return (angle);
+}
+
 void	draw_compass(t_game *game)
 {
 	int		cx;
 	int		cy;
-	float	base_angle;
+	float	angle_nord;
 
 	cx = WIDTH - CROSS_SIZE - 20;
 	cy = CROSS_SIZE + 20;
-	base_angle = game->player.angle;
-	draw_compass_arrows(game, cx, cy, base_angle);
+	angle_nord = normalize_angle(3 * PI - game->player.angle);
+	draw_compass_arrows(game, cx, cy, angle_nord);
 }
