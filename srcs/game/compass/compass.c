@@ -6,16 +6,11 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 15:27:54 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/13 16:36:01 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:11:56 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-#define CROSS_SIZE 50
-#define BASE_WIDTH 10
-#define COLOR_NORTH 0xFF0000
-#define COLOR_OTHER 0xFFFFFF
 
 void	draw_arrow(t_game *game, float angle, int color, t_point point)
 {

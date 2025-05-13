@@ -39,8 +39,13 @@
 # define MAP_HEIGHT	600
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
-# define RAYS		1
-# define PI 			3.14159265
+# define RAYS		20
+# define PI 		3.14159265
+// COMPASS
+# define CROSS_SIZE 50
+# define BASE_WIDTH 10
+# define COLOR_NORTH 0xFF0000
+# define COLOR_OTHER 0xFFFFFF
 
 // Structures
 typedef struct s_point
