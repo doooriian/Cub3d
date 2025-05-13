@@ -4,13 +4,13 @@ void calculate_wall_height(t_game *game, t_ray *ray)
 {
 	int	line_height;
 
-	line_height = (int)(HEIGHT / ray->perp_wall_dist);
+	line_height = (int)(HEIGHT / (ray->perp_wall_dist * cos(game->player.angle - ray->ray_angle)));
 	game->draw_start = -line_height / 2 + HEIGHT / 2;
-	if (game->draw_start < 0)
-		game->draw_start = 0;
+	// if (game->draw_start < 0)
+	// 	game->draw_start = 0;
 	game->draw_end = line_height / 2 + HEIGHT / 2;
-	if (game->draw_end >= HEIGHT)
-		game->draw_end = HEIGHT - 1;
+	// if (game->draw_end >= HEIGHT)
+	// 	game->draw_end = HEIGHT - 1;
 }
 
 void draw_pixel(t_img *img, int x, int y, int color)

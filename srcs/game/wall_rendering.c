@@ -15,9 +15,9 @@ void draw_wall_tx(t_game *game, t_ray *ray, int x)
 
 	// calculate value of wallX
 	if (ray->side == 0)
-		wall_x = (int)(game->player.y / game->tile_size) + ray->perp_wall_dist * ray->dir_y;
+		wall_x = (game->player.y / (float)game->tile_size) + ray->perp_wall_dist * ray->dir_y;
 	else
-		wall_x = (int)(game->player.x / game->tile_size) + ray->perp_wall_dist * ray->dir_x;
+		wall_x = (game->player.x / (float)game->tile_size) + ray->perp_wall_dist * ray->dir_x;
 	wall_x -= floor(wall_x);
 
 	// x coordinate on the texture
@@ -26,16 +26,22 @@ void draw_wall_tx(t_game *game, t_ray *ray, int x)
 		tex_x = TEX_WIDTH - tex_x - 1;
 	if (ray->side == 1 && ray->dir_y < 0)
 		tex_x = TEX_WIDTH - tex_x - 1;
+	tex_x = TEX_WIDTH - tex_x - 1;
 
 	// How much to increase the texture coordinate per screen pixel
 	step = 1.0 * TEX_HEIGHT / line_height;
 	tex_pos = (game->draw_start - HEIGHT / 2 + line_height / 2) * step;
 
+	if (game->draw_start < 0)
+		tex_pos += step * (0 - game->draw_start);
 	// Draw wall
+
 	y = game->draw_start;
-	while (y < game->draw_end)
+	if (y < 0)
+		y = 0;
+	while (y < game->draw_end && y < HEIGHT - 1)
 	{
-		tex_y = (int)tex_pos & (TEX_HEIGHT - 1); // Ne pas ecraser la texture pour la taille de la fenetre  ici probleme !!!!!!!!!!!!
+		tex_y = (int)tex_pos & (TEX_HEIGHT - 1); // Ne pas ecraser la texture pour la taille de la fenetre ici probleme !!!!!!!!!!!!
 		tex_pos += step;
 		color = get_pixel_color(get_texture(game, ray), tex_x, tex_y);
 
