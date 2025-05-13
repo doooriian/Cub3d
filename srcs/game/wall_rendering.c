@@ -99,7 +99,7 @@ void	render_walls(t_game *game)
 		{
 			calculate_wall_height(game, &ray);
 			draw_ceiling_and_floor(game, x);
-			draw_wall_tx(game, ray, x);
+			draw_wall_tx(game, &ray, x);
 		}
 		x++;
 	}
