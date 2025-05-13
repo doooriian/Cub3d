@@ -41,7 +41,7 @@ void draw_wall_tx(t_game *game, t_ray *ray, int x)
 		y = 0;
 	while (y < game->draw_end && y < HEIGHT - 1)
 	{
-		tex_y = (int)tex_pos & (get_texture(game, ray)->height - 1); // Ne pas ecraser la texture pour la taille de la fenetre ici probleme !!!!!!!!!!!!
+		tex_y = (int)tex_pos & (get_texture(game, ray)->height - 1);
 		tex_pos += step;
 		color = get_pixel_color(get_texture(game, ray), tex_x, tex_y);
 
@@ -53,20 +53,6 @@ void draw_wall_tx(t_game *game, t_ray *ray, int x)
 		y++;
 	}
 }
-
-
-// TEMPORAIRE
-void draw_wall_color(t_game *game, t_ray *ray, int x)
-{
-	int wall_color;
-
-	if (ray->side == 0)
-		wall_color = 0xFF0000;
-	else
-		wall_color = 0x00FF00;
-	draw_line(game, x, game->draw_start, game->draw_end, wall_color);
-}
-
 
 void draw_ceiling_and_floor(t_game *game, int x)
 {
@@ -84,8 +70,7 @@ void draw_ceiling_and_floor(t_game *game, int x)
 void draw_all(t_game *game, t_ray *ray, int x)
 {
 	draw_ceiling_and_floor(game, x);
-	// draw_wall_color(game, ray, x);
-	draw_wall_tx(game, ray, x); // Uncomment for textured walls
+	draw_wall_tx(game, ray, x);
 }
 
 void render_walls(t_game *game)
