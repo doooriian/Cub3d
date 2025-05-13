@@ -46,13 +46,18 @@ SRCS_GAME := \
 		srcs/game/wall_rendering_utils.c
 
 SRCS_MINIMAP := \
-		srcs/game/minimap.c \
-		srcs/game/minimap_utils.c
+		srcs/game/minimap/minimap.c \
+		srcs/game/minimap/minimap_utils.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 
+SRCS_COMPASS := \
+		srcs/game/compass/compass_utils.c \
+		srcs/game/compass/compass.c \
+		srcs/game/compass/draw_filled_triangle.c
+
 # All sources combined
-SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_MINIMAP) compass.c compass_utils.c
+SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_MINIMAP) $(SRCS_COMPASS)
 
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)

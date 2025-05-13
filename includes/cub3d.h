@@ -49,6 +49,14 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+// Ajout de la structure triangle
+typedef struct s_triangle
+{
+	t_point	p0;
+	t_point	p1;
+	t_point	p2;
+}	t_triangle;
+
 typedef struct s_map_data
 {
 	int		index;
@@ -143,10 +151,12 @@ typedef struct s_game
 }	t_game;
 
 void	draw_compass(t_game *game);
-void	draw_triangle(t_game *game, t_point p1, t_point p2, t_point p3, int color);
-void	draw_center_circle(t_game *game, int cx, int cy, int radius, int color);
-t_point	get_point(float angle, int length, int cx, int cy);
-void	draw_line2(t_game *game, t_point p0, t_point p1, int color);
+void	swap_points(t_point *a, t_point *b);
+void	fill_scanline(t_game *g, int y, t_point x0_x1, int color);
+int		interp_x(t_point p0, t_point p1, int y);
+t_point	get_point(float angle, int length, t_point center);
+void	draw_filled_triangle(t_game *g, t_triangle tri, int color);
+
 
 // General
 int		ft_exit(t_game *game);
