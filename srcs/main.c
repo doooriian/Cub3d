@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 23:55:00 by rcaillie          #+#    #+#             */
+/*   Updated: 2025/05/13 23:55:00 by rcaillie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static int	parsing(t_game *game, char *path)
@@ -67,54 +79,6 @@ static t_game	*init_game(int argc, char **argv)
 	return (game);
 }
 
-void	rotate_mouse(t_player *player, int direction)
-{
-	if (direction < 0)
-		player->angle -= ANGLE_SPEED;
-	if (direction > 0)
-		player->angle += ANGLE_SPEED;
-	if (player->angle > 2 * PI)
-		player->angle = 0;
-	if (player->angle < 0)
-		player->angle = 2 * PI;
-}
-
-int	handle_mouse_click(int button, int x, int y, t_game *game)
-{
-	(void) x;
-	(void) y;
-	if (button == 1)
-		game->mouse_click = true;
-	return (0);
-}
-
-int	handle_mouse_release(int button, int x, int y, t_game *game)
-{
-	(void) x;
-	(void) y;
-	if (button == 1)
-		game->mouse_click = false;
-	return (0);
-}
-
-int	handle_mouse_move(int x, int y, t_game *game)
-{
-	(void) y;
-	if (game->mouse_x == -1)
-	{
-		game->mouse_x = x;
-		return (0);
-	}
-	if (x > game->mouse_x && x < game->mouse_x + 10)
-		return (0);
-	if (x < game->mouse_x && x > game->mouse_x - 10)
-		return (0);
-	if (game->mouse_click == 1)
-		rotate_mouse(&game->player, x - game->mouse_x);
-	game->mouse_x = x;
-	return (1);
-}
-
 int	main(int argc, char **argv)
 {
 	t_game	*game;
@@ -123,7 +87,6 @@ int	main(int argc, char **argv)
 	if (!game)
 		ft_exit(game);
 	init_data(game);
-	init_player(&game->player, game);
 	if (game->debug)
 	{
 		print_config(game);
@@ -132,16 +95,9 @@ int	main(int argc, char **argv)
 	}
 	if (init_base_img(game))
 		ft_exit(game);
-	if (minimap_init(game)) // MINIMAP
+	if (minimap_init(game))
 		ft_exit(game);
-	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
-	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, &game->player);
-	mlx_hook(game->win, ButtonPress, ButtonPressMask, handle_mouse_click, game);
-	mlx_hook(game->win, ButtonRelease, ButtonReleaseMask, handle_mouse_release, game);
-	mlx_hook(game->win, MotionNotify, PointerMotionMask, handle_mouse_move, game);
-	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &ft_exit, game);
-	mlx_loop_hook(game->mlx, &loop, game);
-	mlx_loop(game->mlx);
+	init_hook(game);
 	ft_exit(game);
 	return (0);
 }

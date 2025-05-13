@@ -44,9 +44,11 @@ int	init_base_img(t_game *game)
 	game->imgs.base.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->imgs.base.img)
 		return (print_error("Error: Failed to create image", 1));
-	game->imgs.base.addr = mlx_get_data_addr(game->imgs.base.img, &game->imgs.base.bits_per_pixel,
+	game->imgs.base.addr = mlx_get_data_addr(game->imgs.base.img,
+			&game->imgs.base.bits_per_pixel,
 			&game->imgs.base.line_length, &game->imgs.base.endian);
-	if (!game->imgs.base.addr || game->imgs.base.line_length <= 0 || game->imgs.base.bits_per_pixel <= 0)
+	if (!game->imgs.base.addr || game->imgs.base.line_length <= 0
+		|| game->imgs.base.bits_per_pixel <= 0)
 		return (print_error("Error: Failed to configure image", 1));
 	mlx_put_image_to_window(game->mlx, game->win, game->imgs.base.img, 0, 0);
 	return (0);

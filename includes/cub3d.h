@@ -164,7 +164,6 @@ int		interp_x(t_point p0, t_point p1, int y);
 t_point	get_point(float angle, int length, t_point center);
 void	draw_filled_triangle(t_game *g, t_triangle tri, int color);
 
-
 // General
 int		ft_exit(t_game *game);
 int		get_rgb_color(int r, int g, int b);
@@ -173,9 +172,7 @@ void	render_walls(t_game *game);
 
 // Initialization
 void	init_data(t_game *game);
-void	init_player(t_player *player, t_game *game);
 int		init_base_img(t_game *game);
-
 
 // Player management
 void	reset_player_var(t_player *player);
@@ -186,8 +183,12 @@ void	move_player(t_game *game, float cos_angle,
 
 // Key hooks
 int		loop(t_game *game);
+void	init_hook(t_game *game);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_player *player);
+int		handle_mouse_click(int button, int x, int y, t_game *game);
+int		handle_mouse_release(int button, int x, int y, t_game *game);
+int		handle_mouse_move(int x, int y, t_game *game);
 
 // MINIMAP
 int		minimap_init(t_game *game);
@@ -201,8 +202,7 @@ bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y);
 // File utilities
 int		check_extension(const char *path, const char *ext);
 int		open_file(const char *path);
-
-int	is_char_player(char c);
+int		is_char_player(char c);
 
 // Map utilities
 char	**get_map(const char *path);

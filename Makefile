@@ -40,6 +40,7 @@ SRCS_MAP := \
 SRCS_GAME := \
 		srcs/game/init_game.c \
 		srcs/game/key_hook.c \
+		srcs/game/mouse.c \
 		srcs/game/player.c \
 		srcs/game/player_utils.c \
 		srcs/game/raycasting.c \

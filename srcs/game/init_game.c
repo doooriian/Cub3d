@@ -52,6 +52,18 @@ static void	player_position(t_game *game)
 	}
 }
 
+static void	init_player(t_player *player, t_game *game)
+{
+	player->size = game->tile_size / 2;
+	player->ray_offset = player->size / 2;
+	player->go_up = false;
+	player->go_down = false;
+	player->go_left = false;
+	player->go_right = false;
+	player->rotate_left = false;
+	player->rotate_right = false;
+}
+
 void	init_data(t_game *game)
 {
 	int	tile_w;
@@ -59,6 +71,7 @@ void	init_data(t_game *game)
 	int	map_px_w;
 	int	map_px_h;
 
+	init_player(&game->player, game);
 	game->map_width = get_max_len(game->map_data.map);
 	game->map_height = get_map_height(game->map_data.map);
 	tile_w = MAP_WIDTH / game->map_width;
@@ -74,16 +87,4 @@ void	init_data(t_game *game)
 	game->mouse_x = -1;
 	game->mouse_click = false;
 	player_position(game);
-}
-
-void	init_player(t_player *player, t_game *game)
-{
-	player->size = game->tile_size / 2;
-	player->ray_offset = player->size / 2;
-	player->go_up = false;
-	player->go_down = false;
-	player->go_left = false;
-	player->go_right = false;
-	player->rotate_left = false;
-	player->rotate_right = false;
 }

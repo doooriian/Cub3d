@@ -73,3 +73,17 @@ int	key_release(int keycode, t_player *player)
 		player->rotate_right = false;
 	return (0);
 }
+
+void	init_hook(t_game *game)
+{
+	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
+	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, &game->player);
+	mlx_hook(game->win, ButtonPress, ButtonPressMask, handle_mouse_click, game);
+	mlx_hook(game->win, ButtonRelease, ButtonReleaseMask, handle_mouse_release,
+		game);
+	mlx_hook(game->win, MotionNotify, PointerMotionMask, handle_mouse_move,
+		game);
+	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &ft_exit, game);
+	mlx_loop_hook(game->mlx, &loop, game);
+	mlx_loop(game->mlx);
+}
