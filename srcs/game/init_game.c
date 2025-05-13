@@ -23,8 +23,7 @@ static void	player_position(t_game *game)
 		j = 0;
 		while (game->map_data.map[i][j])
 		{
-			if (game->map_data.map[i][j] == 'N' || game->map_data.map[i][j] == 'S'
-				|| game->map_data.map[i][j] == 'E' || game->map_data.map[i][j] == 'W')
+			if (is_char_player(game->map_data.map[i][j]))
 			{
 				game->player.x = j * game->tile_size + game->tile_size / 2;
 				game->player.y = i * game->tile_size + game->tile_size / 2;

@@ -59,3 +59,17 @@ int	is_char_player(char c)
 		return (1);
 	return (0);
 }
+
+bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y)
+{
+	int	i;
+	int	j;
+
+	i = (int)ray_y / game->tile_size;
+	j = (int)ray_x / game->tile_size;
+	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
+		return (1);
+	if (game->map_data.map[i][j] == '1')
+		return (1);
+	return (0);
+}

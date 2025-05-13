@@ -47,7 +47,8 @@ SRCS_GAME := \
 
 SRCS_MINIMAP := \
 		srcs/game/minimap/minimap.c \
-		srcs/game/minimap/minimap_utils.c
+		srcs/game/minimap/minimap_utils.c \
+		srcs/game/minimap/draw_minimap.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 
