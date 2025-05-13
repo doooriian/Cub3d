@@ -60,12 +60,13 @@ void advance_ray(t_ray *ray)
 
 void calculate_perpendicular_distance(t_game *game, t_ray *ray)
 {
+	(void)game; ///// A ENLEVER 
 	if (ray->side == 0)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	else
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
-	(void)game;
-	// ray->perp_wall_dist *= cos(game->player.angle - ray->ray_angle);
+	if (ray->perp_wall_dist <= 0.0001f)
+		ray->perp_wall_dist = 0.0001f;
 }
 
 int perform_dda(t_game *game, t_ray *ray)
