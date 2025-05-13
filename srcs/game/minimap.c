@@ -92,7 +92,7 @@ void	render_rays_on_minimap(t_game *game, t_player *player)
 	i = 0;
 	ray_count = RAYS;
 	fraction = PI / 3 / ray_count;
-	start_angle = player->angle; //  - PI / 6
+	start_angle = player->angle - PI / 6;
 	while (i < ray_count)
 	{
 		draw_ray_line(game, player, start_angle);
