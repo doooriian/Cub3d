@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:55:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/13 12:57:37 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:00:11 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static int	has_single_player_start(char **map)
 
 int	is_valid_map(char **map)
 {
+	if (get_max_len(map) > 100 || get_map_height(map) > 100)
+		return (print_error("Error : Map too big", 0));
 	if (!validate_horizontal(map))
 		return (0);
 	if (!has_single_player_start(map))
 		return (0);
 	if (!has_invalid_spaces(map))
 		return (0);
-	if (get_max_len(map) > 100 || get_map_height(map) > 100)
-		return (print_error("Error : Map too big", 0));
 	return (1);
 }
