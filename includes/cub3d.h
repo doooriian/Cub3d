@@ -153,6 +153,8 @@ typedef struct s_game
 	t_fps		fps;
 	int			draw_start;
 	int			draw_end;
+	int			mouse_x;
+	bool		mouse_click;
 }	t_game;
 
 void	draw_compass(t_game *game);

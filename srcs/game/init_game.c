@@ -60,6 +60,8 @@ void	init_data(t_game *game)
 	map_px_h = game->map_height * game->tile_size;
 	game->map_offset_x = (MAP_WIDTH - map_px_w) / 2;
 	game->map_offset_y = (MAP_HEIGHT - map_px_h) / 2;
+	game->mouse_x = -1;
+	game->mouse_click = false;
 	player_position(game);
 }
 
