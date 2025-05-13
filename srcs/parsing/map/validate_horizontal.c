@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 12:51:49 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/10 14:41:21 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:48:58 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	is_valid_map_line(const char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (!is_valid_char(line[i]))
+		if (!is_valid_char(line[i]) || is_line_empty(line))
 			return (0);
 		i++;
 	}

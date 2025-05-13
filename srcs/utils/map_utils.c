@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:54:37 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/12 15:33:43 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:11:20 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ size_t	get_map_height(char **map)
 		height++;
 	return (height);
 }
-

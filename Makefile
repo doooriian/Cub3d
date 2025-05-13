@@ -38,16 +38,21 @@ SRCS_MAP := \
 		srcs/parsing/map/validate_space.c
 
 SRCS_GAME := \
-		srcs/game/minimap.c \
 		srcs/game/init_game.c \
 		srcs/game/key_hook.c \
 		srcs/game/player.c \
-		srcs/game/game.c
+		srcs/game/raycasting.c \
+		srcs/game/wall_rendering.c \
+		srcs/game/wall_rendering_utils.c
+
+SRCS_MINIMAP := \
+		srcs/game/minimap.c \
+		srcs/game/minimap_utils.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 
 # All sources combined
-SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP)
+SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_MINIMAP) compass.c compass_utils.c
 
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)

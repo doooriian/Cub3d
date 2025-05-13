@@ -33,14 +33,14 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
-# define WIDTH		1600
-# define HEIGHT		1200
+# define WIDTH		1000
+# define HEIGHT		800
 # define MAP_WIDTH	800
 # define MAP_HEIGHT	600
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
 # define PLAYER_SIZE	6
-# define RAYS		20
+# define RAYS		1
 # define PI 			3.14159265
 # define TEX_WIDTH 	64
 # define TEX_HEIGHT 	64
@@ -108,20 +108,20 @@ typedef struct s_fps
 
 typedef struct s_ray
 {
-	double dir_x;
-	double dir_y;
-	double side_dist_x;
-	double side_dist_y;
-	double delta_dist_x;
-	double delta_dist_y;
-	double perp_wall_dist;
-	int step_x;
-	int step_y;
-	int map_x;
-	int map_y;
-	float ray_angle;
-	int side; // 0 si c'est un mur vertical, 1 si c'est un mur horizontal
-} t_ray;
+	double	dir_x;
+	double	dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+	float	ray_angle;
+	int		side; // 0 si c'est un mur vertical, 1 si c'est un mur horizontal
+}	t_ray;
 
 typedef struct s_game
 {
@@ -142,42 +142,49 @@ typedef struct s_game
 	int			draw_end;
 }	t_game;
 
+void	draw_compass(t_game *game);
+void	draw_triangle(t_game *game, t_point p1, t_point p2, t_point p3, int color);
+void	draw_center_circle(t_game *game, int cx, int cy, int radius, int color);
+t_point	get_point(float angle, int length, int cx, int cy);
+void	draw_line2(t_game *game, t_point p0, t_point p1, int color);
+
 // General
-int		ft_exit(t_game *data);
+int		ft_exit(t_game *game);
 int		get_rgb_color(int r, int g, int b);
 
 void	render_walls(t_game *game);
 
 // Initialization
-void	init_data(t_game *data);
+void	init_data(t_game *game);
 void	init_player(t_player *player);
+int		init_base_img(t_game *game);
+
 
 // Player management
 void	reset_player_var(t_player *player);
 void	rotate_player(t_player *player);
-bool	check_collision_walls(t_game *game, int tmp_x,
-			int tmp_y, int tile_size);
 void	move_player(t_game *game, float cos_angle,
 			float sin_angle, int tile_size);
 
 // Key hooks
-int		loop(t_game *data);
-int		key_press(int keycode, t_game *data);
+int		loop(t_game *game);
+int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_player *player);
 
 // MINIMAP
 int		minimap_init(t_game *game);
-void	draw_minimap_pixel(t_img *img, int x, int y, int color);
-void	draw_minimap_square(t_img *img, int x, int y, int size, int color);
-void	render_minimap(t_game *data);
-int		update_minimap_loop(t_game *data);
-void	draw_ray_line(t_game *data, t_player *player, float angle);
-void	render_rays_on_minimap(t_game *data, t_player *player);
-bool	is_ray_touching_wall(t_game *data, float ray_x, float ray_y);
+void	draw_square(t_img *img, t_point point, int size, int color);
+void	render_minimap(t_game *game);
+int		update_minimap_loop(t_game *game);
+void	draw_ray_line(t_game *game, t_player *player, float angle);
+void	render_rays_on_minimap(t_game *game, t_player *player);
+bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y);
 
 // File utilities
 int		check_extension(const char *path, const char *ext);
 int		open_file(const char *path);
+
+int	is_char_player(char c);
 
 // Map utilities
 char	**get_map(const char *path);
@@ -218,5 +225,22 @@ void	display_fps(t_fps *fps);
 char	**ft_split_with_sep(const char *str, char sep);
 int		ft_atoi_safe(const char *str, int *valid);
 int		validate_horizontal(char **map);
+
+// Raycasting
+void	init_ray(t_game *game, t_ray *ray, float ray_angle);
+void	advance_ray(t_ray *ray);
+void	calculate_perpendicular_distance(t_game *game, t_ray *ray);
+int		perform_dda(t_game *game, t_ray *ray);
+
+// Wall rendering
+void	calculate_wall_height(t_game *game, t_ray *ray);
+void	draw_pixel(t_img *img, int x, int y, int color);
+void	draw_line(t_game *game, int x, int draw_start, int draw_end, int color);
+t_img	*get_texture(t_game *game, t_ray *ray);
+void	draw_wall_tx(t_game *game, t_ray *ray, int x);
+void	draw_wall_color(t_game *game, t_ray *ray, int x);
+void	draw_all(t_game *game, t_ray *ray, int x);
+void	render_walls(t_game *game);
+void	draw_ceiling_and_floor(t_game *game, int x);
 
 #endif

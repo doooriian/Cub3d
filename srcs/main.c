@@ -82,22 +82,10 @@ int	main(int argc, char **argv)
 		print_map(game->map_data.map);
 		print_player(&game->player);
 	}
-
-	// Create the image main win
-	game->imgs.base.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	if (!game->imgs.base.img)
-		return (print_error("Error: Failed to create image", 1));
-	game->imgs.base.addr = mlx_get_data_addr(game->imgs.base.img, &game->imgs.base.bits_per_pixel,
-			&game->imgs.base.line_length, &game->imgs.base.endian);
-	if (!game->imgs.base.addr || game->imgs.base.line_length <= 0 || game->imgs.base.bits_per_pixel <= 0)
-		return (print_error("Error: Failed to configure image", 1));
-	mlx_put_image_to_window(game->mlx, game->win, game->imgs.base.img, 0, 0);
-
-	// Mini map
-	if (minimap_init(game))
+	if (init_base_img(game))
 		ft_exit(game);
-
-
+	if (minimap_init(game)) // MINIMAP
+		ft_exit(game);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, &game->player);
 	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &ft_exit, game);
