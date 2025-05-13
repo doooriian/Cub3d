@@ -27,6 +27,17 @@ void	free_map(char **map)
 	free(map);
 }
 
+int	ft_free_tab_i(char **tab, int i)
+{
+	while (i >= 0)
+	{
+		free(tab[i]);
+		i--;
+	}
+	free(tab);
+	return (0);
+}
+
 static void	destroy_img_2(t_game *game)
 {
 	if (game->imgs.map.img)

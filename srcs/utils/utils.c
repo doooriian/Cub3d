@@ -6,22 +6,11 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:46:27 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/12 15:35:22 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 00:50:30 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	ft_free_tab_i(char **tab, int i)
-{
-	while (i >= 0)
-	{
-		free(tab[i]);
-		i--;
-	}
-	free(tab);
-	return (0);
-}
 
 int	get_pixel_color(t_img *img, int x, int y)
 {

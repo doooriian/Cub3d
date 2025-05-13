@@ -38,7 +38,7 @@ char	**duplicate_map(char **map)
 	return (dup_map);
 }
 
-char	**allocate_normalized_map(char **map, size_t max_len)
+static char	**allocate_normalized_map(char **map, size_t max_len)
 {
 	char	**normalized;
 	size_t	i;
@@ -64,7 +64,7 @@ char	**allocate_normalized_map(char **map, size_t max_len)
 	return (normalized);
 }
 
-void	fill_normalized_map(char **normalized, char **map, size_t max_len)
+static void	fill_normalized_map(char **normalized, char **map, size_t max_len)
 {
 	size_t	i;
 	size_t	j;

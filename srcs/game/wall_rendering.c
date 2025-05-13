@@ -41,7 +41,7 @@ static int	calculate_tex_y(t_game *game, t_ray *ray, int tex_pos)
 	return (tex_y);
 }
 
-void	draw_wall_tx(t_game *game, t_ray *ray, int x)
+static void	draw_wall_tx(t_game *game, t_ray *ray, int x)
 {
 	double	step;
 	double	tex_pos;
@@ -70,7 +70,7 @@ void	draw_wall_tx(t_game *game, t_ray *ray, int x)
 	}
 }
 
-void	draw_ceiling_and_floor(t_game *game, int x)
+static void	draw_ceiling_and_floor(t_game *game, int x)
 {
 	int	ceiling_color;
 	int	floor_color;

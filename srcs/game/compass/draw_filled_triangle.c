@@ -44,7 +44,7 @@ static void	draw_filled_triangle_lower(t_game *g, t_triangle tri, int color)
 	}
 }
 
-void	draw_filled_triangle(t_game *g, t_triangle tri, int color)
+static void	draw_filled_triangle(t_game *g, t_triangle tri, int color)
 {
 	if (tri.p1.y < tri.p0.y)
 		swap_points(&tri.p0, &tri.p1);
@@ -54,4 +54,16 @@ void	draw_filled_triangle(t_game *g, t_triangle tri, int color)
 		swap_points(&tri.p1, &tri.p2);
 	draw_filled_triangle_upper(g, tri, color);
 	draw_filled_triangle_lower(g, tri, color);
+}
+
+void	draw_arrow(t_game *game, float angle, int color, t_point point)
+{
+	t_point	tip;
+	t_point	base1;
+	t_point	base2;
+
+	tip = get_point(angle, CROSS_SIZE, point);
+	base1 = get_point(angle + PI / 2, BASE_WIDTH, point);
+	base2 = get_point(angle - PI / 2, BASE_WIDTH, point);
+	draw_filled_triangle(game, (t_triangle){tip, base1, base2}, color);
 }

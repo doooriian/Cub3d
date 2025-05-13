@@ -31,25 +31,7 @@ static void	render_minimap_tile(t_game *game, int i, int j)
 			game->tile_size, 0x000000);
 }
 
-void	render_minimap(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < game->map_height)
-	{
-		j = 0;
-		while (j < game->map_width)
-		{
-			render_minimap_tile(game, i, j);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	render_rays_on_minimap(t_game *game, t_player *player)
+static void	render_rays_on_minimap(t_game *game, t_player *player)
 {
 	int		i;
 	int		ray_count;
@@ -64,6 +46,24 @@ void	render_rays_on_minimap(t_game *game, t_player *player)
 	{
 		draw_ray_line(game, player, start_angle);
 		start_angle += fraction;
+		i++;
+	}
+}
+
+void	render_minimap(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < game->map_height)
+	{
+		j = 0;
+		while (j < game->map_width)
+		{
+			render_minimap_tile(game, i, j);
+			j++;
+		}
 		i++;
 	}
 }

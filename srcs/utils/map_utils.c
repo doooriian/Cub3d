@@ -53,3 +53,10 @@ size_t	get_map_height(char **map)
 		height++;
 	return (height);
 }
+
+int	is_char_player(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	return (0);
+}

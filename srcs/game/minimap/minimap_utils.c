@@ -53,13 +53,6 @@ int	minimap_init(t_game *game)
 	return (0);
 }
 
-int	is_char_player(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (1);
-	return (0);
-}
-
 bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y)
 {
 	int	i;

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static int	has_single_player_start(char **map)
+int	has_single_player_start(char **map)
 {
 	size_t	i;
 	size_t	j;

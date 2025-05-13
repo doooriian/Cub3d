@@ -157,29 +157,38 @@ typedef struct s_game
 	bool		mouse_click;
 }	t_game;
 
+/* ========== Function Prototypes ========== */
+/* ========================================= */
+
+/* Minimap */
+// Minimap
+int		update_minimap_loop(t_game *game);
+void	render_minimap(t_game *game);
+
+// Minimap utils
+int		minimap_init(t_game *game);
+bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y);
+
+// Drawing functions Minimap
+void	draw_ray_line(t_game *game, t_player *player, float angle);
+void	draw_square(t_img *img, t_point point, int size, int color);
+
+/* Compass */
+// Compass
 void	draw_compass(t_game *game);
+
+// Compass drawing functions
+void	draw_arrow(t_game *game, float angle, int color, t_point point);
+
+// Compass utils
 void	swap_points(t_point *a, t_point *b);
 void	fill_scanline(t_game *g, int y, t_point x0_x1, int color);
 int		interp_x(t_point p0, t_point p1, int y);
 t_point	get_point(float angle, int length, t_point center);
-void	draw_filled_triangle(t_game *g, t_triangle tri, int color);
 
-// General
-int		ft_exit(t_game *game);
-int		get_rgb_color(int r, int g, int b);
-
-void	render_walls(t_game *game);
-
-// Initialization
+/* GAME FUNCTIONS */
+// init
 void	init_data(t_game *game);
-int		init_base_img(t_game *game);
-
-// Player management
-void	reset_player_var(t_player *player);
-bool	corner_collision(t_game *game, int i, int j);
-void	rotate_player(t_player *player);
-void	move_player(t_game *game, float cos_angle,
-			float sin_angle, int tile_size);
 
 // Key hooks
 int		loop(t_game *game);
@@ -190,73 +199,93 @@ int		handle_mouse_click(int button, int x, int y, t_game *game);
 int		handle_mouse_release(int button, int x, int y, t_game *game);
 int		handle_mouse_move(int x, int y, t_game *game);
 
-// MINIMAP
-int		minimap_init(t_game *game);
-void	draw_square(t_img *img, t_point point, int size, int color);
-void	render_minimap(t_game *game);
-int		update_minimap_loop(t_game *game);
-void	draw_ray_line(t_game *game, t_player *player, float angle);
-void	render_rays_on_minimap(t_game *game, t_player *player);
-bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y);
+// Player management
+void	move_player(t_game *game, float cos_angle, float sin_angle, int tile_s);
+void	rotate_player(t_player *player);
+void	reset_player_var(t_player *player);
+bool	corner_collision(t_game *game, int i, int j);
 
-// File utilities
-int		check_extension(const char *path, const char *ext);
-int		open_file(const char *path);
-int		is_char_player(char c);
+// RAYCASTING
+void	render_walls(t_game *game);
+void	init_ray(t_game *game, t_ray *ray, float ray_angle);
+int		perform_dda(t_game *game, t_ray *ray);
 
-// Map utilities
+// Raycasting utils
+t_img	*get_texture(t_game *game, t_ray *ray);
+void	calculate_wall_height(t_game *game, t_ray *ray);
+
+// Drawing functions
+void	draw_line(t_game *game, int x, t_point draw_s_e, int color);
+void	draw_pixel(t_img *img, int x, int y, int color);
+
+/* === PARSING ===*/
 char	**get_map(const char *path);
-void	free_map(char **map);
-int		is_valid_map(char **map);
-int		is_line_empty(const char *line);
-char	**duplicate_map(char **map);
-int		init_map(t_game *game);
-int		has_invalid_spaces(char **map);
-size_t	get_max_len(char **map);
-size_t	get_map_height(char **map);
-int		get_pixel_color(t_img *img, int x, int y);
 
-// Error handling
-int		print_error(char *msg, int ret);
-void	*print_error_void(char *msg, void *ret);
-
-// Configuration parsing
+/* = Configuration = */
 int		init_config(t_game *game);
+
+// Config utils
 int		check_name_config(char *line);
 char	*extract_path(char *line);
 int		check_all_config_present(t_game *game);
-int		check_load_texture(t_game *game, char *line);
+
+// Validation config
 int		is_valid_texture_path(const char *path);
 int		is_valid_color(t_game *game, const char *color, int is_top);
 
-// Resource management
+// Load config
+int		check_load_texture(t_game *game, char *line);
+
+/* = Map = */
+int		init_map(t_game *game);
+char	**duplicate_map(char **map);
+char	**normalize_map(char **map);
+
+// Validate map
+int		is_valid_map(char **map);
+int		validate_horizontal(char **map);
+int		has_single_player_start(char **map);
+int		has_invalid_spaces(char **map);
+
+/* === Utils === */
+// error
+int		print_error(char *msg, int ret);
+void	*print_error_void(char *msg, void *ret);
+
+// free
 void	destroy_imgs(t_game *game);
+void	free_map(char **map);
 int		ft_free_tab_i(char **tab, int i);
+
+// file utils
+int		check_extension(const char *path, const char *ext);
+int		open_file(const char *path);
+
+// atoi safe
+int		ft_atoi_safe(const char *str, int *valid);
+
+// Split with sep
+char	**ft_split_with_sep(const char *str, char sep);
+
+// Map utils
+int		is_line_empty(const char *line);
+size_t	get_max_len(char **map);
+size_t	get_map_height(char **map);
+int		is_char_player(char c);
+
+// Utils
+int		get_pixel_color(t_img *img, int x, int y);
+int		get_rgb_color(int r, int g, int b);
+
+/* === Main === */
+// Main utils
+int		ft_exit(t_game *game);
+int		init_base_img(t_game *game);
 
 // Printing functions
 void	print_map(char **map);
 void	print_config(t_game *game);
 void	print_player(t_player *player);
 void	display_fps(t_fps *fps);
-
-// Map validation
-char	**ft_split_with_sep(const char *str, char sep);
-int		ft_atoi_safe(const char *str, int *valid);
-int		validate_horizontal(char **map);
-
-// Raycasting
-void	init_ray(t_game *game, t_ray *ray, float ray_angle);
-void	advance_ray(t_ray *ray);
-void	calculate_perpendicular_distance(t_ray *ray);
-int		perform_dda(t_game *game, t_ray *ray);
-
-// Wall rendering
-void	calculate_wall_height(t_game *game, t_ray *ray);
-void	draw_pixel(t_img *img, int x, int y, int color);
-void	draw_line(t_game *game, int x, t_point draw_s_e, int color);
-t_img	*get_texture(t_game *game, t_ray *ray);
-void	draw_wall_tx(t_game *game, t_ray *ray, int x);
-void	render_walls(t_game *game);
-void	draw_ceiling_and_floor(t_game *game, int x);
 
 #endif

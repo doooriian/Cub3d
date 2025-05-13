@@ -29,18 +29,6 @@ static bool	check_collision(t_game *game, int tmp_x, int tmp_y, int tile_size)
 	return (0);
 }
 
-void	rotate_player(t_player *player)
-{
-	if (player->rotate_left)
-		player->angle -= ANGLE_SPEED;
-	if (player->rotate_right)
-		player->angle += ANGLE_SPEED;
-	if (player->angle > 2 * PI)
-		player->angle = 0;
-	if (player->angle < 0)
-		player->angle = 2 * PI;
-}
-
 static void	add_move(t_game *game, float cos_angle, float sin_angle, int mv)
 {
 	float	*tmp_x;
@@ -68,6 +56,18 @@ static void	add_move(t_game *game, float cos_angle, float sin_angle, int mv)
 		*tmp_x -= sin_angle * SPEED;
 		*tmp_y += cos_angle * SPEED;
 	}
+}
+
+void	rotate_player(t_player *player)
+{
+	if (player->rotate_left)
+		player->angle -= ANGLE_SPEED;
+	if (player->rotate_right)
+		player->angle += ANGLE_SPEED;
+	if (player->angle > 2 * PI)
+		player->angle = 0;
+	if (player->angle < 0)
+		player->angle = 2 * PI;
 }
 
 void	move_player(t_game *game, float cos_angle, float sin_angle, int tile_s)

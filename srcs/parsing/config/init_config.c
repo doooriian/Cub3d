@@ -54,7 +54,7 @@ static int	get_config(t_game *game)
 	return (1);
 }
 
-int	validate_config(t_game *game)
+static int	validate_config(t_game *game)
 {
 	if (!check_all_config_present(game))
 		return (print_error("Error: Missing or duplicate configuration", 0));

@@ -52,7 +52,7 @@ void	init_ray(t_game *game, t_ray *ray, float ray_angle)
 	init_ray_direction(game, ray);
 }
 
-void	advance_ray(t_ray *ray)
+static void	advance_ray(t_ray *ray)
 {
 	if (ray->side_dist_x < ray->side_dist_y)
 	{
@@ -68,7 +68,7 @@ void	advance_ray(t_ray *ray)
 	}
 }
 
-void	calculate_perpendicular_distance(t_ray *ray)
+static void	calculate_perpendicular_distance(t_ray *ray)
 {
 	if (ray->side == 0)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
