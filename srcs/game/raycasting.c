@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 23:18:46 by rcaillie          #+#    #+#             */
+/*   Updated: 2025/05/13 23:18:46 by rcaillie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static	void	init_ray_direction(t_game *game, t_ray *ray)
@@ -60,7 +72,7 @@ void advance_ray(t_ray *ray)
 
 void calculate_perpendicular_distance(t_game *game, t_ray *ray)
 {
-	(void)game; ///// A ENLEVER 
+	(void)game; ///// A ENLEVER
 	if (ray->side == 0)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	else

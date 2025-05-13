@@ -41,6 +41,7 @@ SRCS_GAME := \
 		srcs/game/init_game.c \
 		srcs/game/key_hook.c \
 		srcs/game/player.c \
+		srcs/game/player_utils.c \
 		srcs/game/raycasting.c \
 		srcs/game/wall_rendering.c \
 		srcs/game/wall_rendering_utils.c

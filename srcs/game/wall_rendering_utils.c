@@ -1,19 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wall_rendering_utils.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 23:18:22 by rcaillie          #+#    #+#             */
+/*   Updated: 2025/05/13 23:18:22 by rcaillie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void calculate_wall_height(t_game *game, t_ray *ray)
+void	calculate_wall_height(t_game *game, t_ray *ray)
 {
 	int	line_height;
 
-	line_height = (int)(HEIGHT / (ray->perp_wall_dist * cos(game->player.angle - ray->ray_angle)));
+	line_height = (int)(HEIGHT / (ray->perp_wall_dist
+				* cos(game->player.angle - ray->ray_angle)));
 	game->draw_start = -line_height / 2 + HEIGHT / 2;
-	// if (game->draw_start < 0)
-	// 	game->draw_start = 0;
 	game->draw_end = line_height / 2 + HEIGHT / 2;
-	// if (game->draw_end >= HEIGHT)
-	// 	game->draw_end = HEIGHT - 1;
 }
 
-void draw_pixel(t_img *img, int x, int y, int color)
+void	draw_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -24,10 +33,14 @@ void draw_pixel(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void draw_line(t_game *game, int x, int draw_start, int draw_end, int color)
+void	draw_line(t_game *game, int x, t_point draw_s_e, int color)
 {
-	int y;
+	int	y;
+	int	draw_start;
+	int	draw_end;
 
+	draw_start = draw_s_e.x;
+	draw_end = draw_s_e.y;
 	y = draw_start;
 	while (y < draw_end)
 	{
@@ -36,7 +49,7 @@ void draw_line(t_game *game, int x, int draw_start, int draw_end, int color)
 	}
 }
 
-t_img *get_texture(t_game *game, t_ray *ray)
+t_img	*get_texture(t_game *game, t_ray *ray)
 {
 	if (ray->side == 0 && ray->dir_x < 0)
 		return (&game->imgs.we);

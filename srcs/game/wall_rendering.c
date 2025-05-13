@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wall_rendering.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 23:18:52 by rcaillie          #+#    #+#             */
+/*   Updated: 2025/05/13 23:18:52 by rcaillie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void draw_wall_tx(t_game *game, t_ray *ray, int x)
@@ -63,8 +75,8 @@ void draw_ceiling_and_floor(t_game *game, int x)
 			game->map_data.top_color[1], game->map_data.top_color[2]);
 	floor_color = get_rgb_color(game->map_data.floor_color[0],
 			game->map_data.floor_color[1], game->map_data.floor_color[2]);
-	draw_line(game, x, 0, game->draw_start, ceiling_color);
-	draw_line(game, x, game->draw_end, HEIGHT, floor_color);
+	draw_line(game, x, (t_point){0, game->draw_start}, ceiling_color);
+	draw_line(game, x, (t_point){game->draw_end, HEIGHT}, floor_color);
 }
 
 void draw_all(t_game *game, t_ray *ray, int x)

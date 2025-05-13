@@ -1,21 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 23:04:23 by rcaillie          #+#    #+#             */
+/*   Updated: 2025/05/13 23:04:23 by rcaillie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-void	reset_player_var(t_player *player)
-{
-	player->tmp_x = player->x;
-	player->tmp_y = player->y;
-	player->ray_x = player->x;
-	player->ray_y = player->y;
-}
-
-static bool	corner_collision(t_game *game, int i, int j)
-{
-	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
-		return (1);
-	if (game->map_data.map[i][j] == '1')
-		return (1);
-	return (0);
-}
 
 static bool	check_collision(t_game *game, int tmp_x, int tmp_y, int tile_size)
 {
@@ -25,11 +20,11 @@ static bool	check_collision(t_game *game, int tmp_x, int tmp_y, int tile_size)
 	if (corner_collision(game, (int)(tmp_y - game->player.size / 2) / tile_size,
 		(int)(tmp_x + game->player.size / 2 - 1) / tile_size) == 1)
 		return (1);
-	if (corner_collision(game, (int)(tmp_y + game->player.size / 2 - 1) / tile_size,
-		(int)(tmp_x - game->player.size / 2) / tile_size) == 1)
+	if (corner_collision(game, (int)(tmp_y + game->player.size / 2 - 1)
+		/ tile_size, (int)(tmp_x - game->player.size / 2) / tile_size) == 1)
 		return (1);
-	if (corner_collision(game, (int)(tmp_y + game->player.size / 2 - 1) / tile_size,
-		(int)(tmp_x + game->player.size / 2 - 1) / tile_size) == 1)
+	if (corner_collision(game, (int)(tmp_y + game->player.size / 2 - 1)
+		/ tile_size, (int)(tmp_x + game->player.size / 2 - 1) / tile_size) == 1)
 		return (1);
 	return (0);
 }

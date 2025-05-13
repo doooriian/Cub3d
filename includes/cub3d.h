@@ -179,6 +179,7 @@ int		init_base_img(t_game *game);
 
 // Player management
 void	reset_player_var(t_player *player);
+bool	corner_collision(t_game *game, int i, int j);
 void	rotate_player(t_player *player);
 void	move_player(t_game *game, float cos_angle,
 			float sin_angle, int tile_size);
@@ -252,7 +253,7 @@ int		perform_dda(t_game *game, t_ray *ray);
 // Wall rendering
 void	calculate_wall_height(t_game *game, t_ray *ray);
 void	draw_pixel(t_img *img, int x, int y, int color);
-void	draw_line(t_game *game, int x, int draw_start, int draw_end, int color);
+void	draw_line(t_game *game, int x, t_point draw_s_e, int color);
 t_img	*get_texture(t_game *game, t_ray *ray);
 void	draw_wall_tx(t_game *game, t_ray *ray, int x);
 void	draw_wall_color(t_game *game, t_ray *ray, int x);
