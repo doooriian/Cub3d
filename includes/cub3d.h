@@ -41,8 +41,6 @@
 # define ANGLE_SPEED	0.03
 # define RAYS		1
 # define PI 			3.14159265
-# define TEX_WIDTH 	64
-# define TEX_HEIGHT 	64
 
 // Structures
 typedef struct s_point
@@ -87,6 +85,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		height;
+	int		width;
 }	t_img;
 
 typedef struct s_imgs

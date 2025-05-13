@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:51:56 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/09 18:36:20 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:39:24 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	load_texture_image(t_game *game, t_img *img, char *path)
 		mlx_destroy_image(game->mlx, img->img);
 		return (print_error("Error: Failed to get texture address", 0));
 	}
+	img->width = width;
+	img->height = height;
 	return (1);
 }
 
