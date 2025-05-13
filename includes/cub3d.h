@@ -247,7 +247,7 @@ int		validate_horizontal(char **map);
 // Raycasting
 void	init_ray(t_game *game, t_ray *ray, float ray_angle);
 void	advance_ray(t_ray *ray);
-void	calculate_perpendicular_distance(t_game *game, t_ray *ray);
+void	calculate_perpendicular_distance(t_ray *ray);
 int		perform_dda(t_game *game, t_ray *ray);
 
 // Wall rendering
@@ -256,8 +256,6 @@ void	draw_pixel(t_img *img, int x, int y, int color);
 void	draw_line(t_game *game, int x, t_point draw_s_e, int color);
 t_img	*get_texture(t_game *game, t_ray *ray);
 void	draw_wall_tx(t_game *game, t_ray *ray, int x);
-void	draw_wall_color(t_game *game, t_ray *ray, int x);
-void	draw_all(t_game *game, t_ray *ray, int x);
 void	render_walls(t_game *game);
 void	draw_ceiling_and_floor(t_game *game, int x);
 
