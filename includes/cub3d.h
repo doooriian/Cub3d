@@ -39,7 +39,6 @@
 # define MAP_HEIGHT	600
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
-# define PLAYER_SIZE	6
 # define RAYS		1
 # define PI 			3.14159265
 # define TEX_WIDTH 	64
@@ -72,6 +71,7 @@ typedef struct s_player
 	float	ray_y;
 	float	ray_offset;
 	float	angle;
+	int		size;
 	bool	go_up;
 	bool	go_down;
 	bool	go_left;
@@ -156,7 +156,7 @@ void	render_walls(t_game *game);
 
 // Initialization
 void	init_data(t_game *game);
-void	init_player(t_player *player);
+void	init_player(t_player *player, t_game *game);
 int		init_base_img(t_game *game);
 
 

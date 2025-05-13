@@ -108,9 +108,9 @@ int	update_minimap_loop(t_game *game)
 	render_minimap(game);
 	if (game->debug)
 		render_rays_on_minimap(game, &game->player);
-	pos.x = game->player.x - PLAYER_SIZE / 2 + game->map_offset_x;
-	pos.y = game->player.y - PLAYER_SIZE / 2 + game->map_offset_y;
-	draw_square(&game->imgs.map, pos, PLAYER_SIZE, 0xF7230C);
+	pos.x = game->player.x - game->player.size / 2 + game->map_offset_x;
+	pos.y = game->player.y - game->player.size / 2 + game->map_offset_y;
+	draw_square(&game->imgs.map, pos, game->player.size, 0xF7230C);
 	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
 	return (0);
 }

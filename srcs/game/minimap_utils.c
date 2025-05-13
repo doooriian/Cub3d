@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:13:59 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/12 21:13:59 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:00:18 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	minimap_init(t_game *game)
 	if (minimap_init_2(game))
 		return (1);
 	render_minimap(game);
-	pos.x = game->player.x - PLAYER_SIZE / 2 + game->map_offset_x;
-	pos.y = game->player.y - PLAYER_SIZE / 2 + game->map_offset_y;
-	draw_square(&game->imgs.map, pos, PLAYER_SIZE, 0xF7230C);
+	pos.x = game->player.x - game->player.size / 2 + game->map_offset_x;
+	pos.y = game->player.y - game->player.size / 2 + game->map_offset_y;
+	draw_square(&game->imgs.map, pos, game->player.size, 0xF7230C);
 	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:21:18 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/12 21:02:52 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:00:01 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_player(t_player *player)
 		player->go_up, player->go_down, player->go_left, player->go_right);
 	printf("Rotation: Left: %d, Right: %d\n",
 		player->rotate_left, player->rotate_right);
-	printf("Player size: %d\n", PLAYER_SIZE);
+	printf("Player size: %d\n", player->size);
 	printf("===================\n");
 }
 

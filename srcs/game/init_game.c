@@ -63,9 +63,10 @@ void	init_data(t_game *game)
 	player_position(game);
 }
 
-void	init_player(t_player *player)
+void	init_player(t_player *player, t_game *game)
 {
-	player->ray_offset = PLAYER_SIZE / 2;
+	player->size = game->tile_size / 2;
+	player->ray_offset = player->size / 2;
 	player->go_up = false;
 	player->go_down = false;
 	player->go_left = false;

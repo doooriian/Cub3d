@@ -75,7 +75,7 @@ int	main(int argc, char **argv)
 	if (!game)
 		ft_exit(game);
 	init_data(game);
-	init_player(&game->player);
+	init_player(&game->player, game);
 	if (game->debug)
 	{
 		print_config(game);
