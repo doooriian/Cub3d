@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:54:57 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/13 23:54:57 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:49:03 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	handle_mouse_move(int x, int y, t_game *game)
 		game->mouse_x = x;
 		return (0);
 	}
-	if (x > game->mouse_x && x < game->mouse_x + 10)
+	if (x > game->mouse_x && x < game->mouse_x + 5)
 		return (0);
-	if (x < game->mouse_x && x > game->mouse_x - 10)
+	if (x < game->mouse_x && x > game->mouse_x - 5)
 		return (0);
 	if (game->mouse_click == 1)
 		rotate_mouse(&game->player, x - game->mouse_x);
