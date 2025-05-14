@@ -48,7 +48,7 @@ int	minimap_init(t_game *game)
 	render_minimap(game);
 	pos.x = game->player.x - game->player.size / 2 + game->map_offset_x;
 	pos.y = game->player.y - game->player.size / 2 + game->map_offset_y;
-	draw_square(&game->imgs.map, pos, game->player.size, 0xF7230C);
+	draw_square(&game->imgs.map, pos, game->player.size, PLAYER_COLOR);
 	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
 	return (0);
 }

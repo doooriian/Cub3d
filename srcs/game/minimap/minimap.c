@@ -21,14 +21,14 @@ static void	render_minimap_tile(t_game *game, int i, int j)
 	y = i * game->tile_size + game->map_offset_y;
 	if (game->map_data.map[i][j] == '1')
 		draw_square(&game->imgs.map, (t_point){x, y},
-			game->tile_size, 0x00888888);
+			game->tile_size, WALL_COLOR);
 	else if (game->map_data.map[i][j] == '0'
 			|| is_char_player(game->map_data.map[i][j]))
 		draw_square(&game->imgs.map, (t_point){x, y},
-			game->tile_size, 0xFFFFFF);
+			game->tile_size, FLOOR_COLOR);
 	else
 		draw_square(&game->imgs.map, (t_point){x, y},
-			game->tile_size, 0x000000);
+			game->tile_size, EMPTY_COLOR);
 }
 
 static void	render_rays_on_minimap(t_game *game, t_player *player)
@@ -77,7 +77,7 @@ int	update_minimap_loop(t_game *game)
 		render_rays_on_minimap(game, &game->player);
 	pos.x = game->player.x - game->player.size / 2 + game->map_offset_x;
 	pos.y = game->player.y - game->player.size / 2 + game->map_offset_y;
-	draw_square(&game->imgs.map, pos, game->player.size, 0xF7230C);
+	draw_square(&game->imgs.map, pos, game->player.size, PLAYER_COLOR);
 	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
 	return (0);
 }

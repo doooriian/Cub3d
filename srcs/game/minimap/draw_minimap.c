@@ -44,7 +44,7 @@ void	draw_ray_line(t_game *game, t_player *player, float angle)
 	while (!is_ray_touching_wall(game, ray_x, ray_y))
 	{
 		draw_pixel(&game->imgs.map, ray_x + game->map_offset_x,
-			ray_y + game->map_offset_y, 0xFF0000);
+			ray_y + game->map_offset_y, RAY_COLOR);
 		ray_x += cos_angle;
 		if (is_ray_touching_wall(game, ray_x, ray_y))
 			break ;

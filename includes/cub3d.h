@@ -25,7 +25,8 @@
 # include "get_next_line.h"
 # include "mlx.h"
 
-// Constants
+/* === Defines === */
+// Keys
 # define ESC 65307
 # define W 119
 # define A 97
@@ -33,14 +34,24 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
+
+// Constants
 # define WIDTH		1000
 # define HEIGHT		800
-# define MAP_WIDTH	800
-# define MAP_HEIGHT	600
 # define SPEED		0.5
 # define ANGLE_SPEED	0.03
-# define RAYS		20
 # define PI 		3.14159265
+
+// Minimap
+# define MAP_WIDTH	800
+# define MAP_HEIGHT	600
+# define RAYS		20
+# define PLAYER_COLOR 0xF7230C
+# define RAY_COLOR 0xFF0000
+# define WALL_COLOR 0x00888888
+# define FLOOR_COLOR 0xFFFFFF
+# define EMPTY_COLOR 0x000000
+
 // COMPASS
 # define CROSS_SIZE 50
 # define BASE_WIDTH 10
