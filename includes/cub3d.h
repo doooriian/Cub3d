@@ -25,7 +25,9 @@
 # include "get_next_line.h"
 # include "mlx.h"
 
-/* === Defines === */
+/* ============== Macros ============== */
+/* ==================================== */
+
 // Keys
 # define ESC 65307
 # define W 119
@@ -58,20 +60,22 @@
 # define COLOR_NORTH 0xFF0000
 # define COLOR_OTHER 0xFFFFFF
 
-// Structures
-typedef struct s_point
-{
-	int	x;
-	int	y;
-}	t_point;
+/* ============ Structures ============ */
+/* ==================================== */
 
-// Ajout de la structure triangle
+// Compass structures
 typedef struct s_triangle
 {
 	t_point	p0;
 	t_point	p1;
 	t_point	p2;
 }	t_triangle;
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct s_map_data
 {
@@ -144,7 +148,7 @@ typedef struct s_ray
 	int		map_x;
 	int		map_y;
 	float	ray_angle;
-	int		side; // 0 si c'est un mur vertical, 1 si c'est un mur horizontal
+	int		side; // 0 : mur vertical, 1 : mur horizontal
 }	t_ray;
 
 typedef struct s_game
@@ -164,12 +168,12 @@ typedef struct s_game
 	t_fps		fps;
 	int			draw_start;
 	int			draw_end;
-	int			mouse_x;
-	bool		mouse_click;
+	int			mouse_x; // Position de la souris BOONUS
+	bool		mouse_click; // Si la souris est cliquée BONUS
 }	t_game;
 
-/* ========== Function Prototypes ========== */
-/* ========================================= */
+/* ======== Function Prototypes ======== */
+/* ===================================== */
 
 /* Minimap */
 // Minimap
