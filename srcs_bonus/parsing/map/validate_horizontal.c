@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_horizontal.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 12:51:49 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:49:46 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 16:42:25 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	is_valid_char(char c)
 {
 	return (c == '0' || c == '1' || c == 'N' || c == 'E'
-		|| c == 'S' || c == 'W' || c == ' ');
+		|| c == 'S' || c == 'W' || c == ' ' || c == 'D');
 }
 
 static int	is_valid_map_line(const char *line)

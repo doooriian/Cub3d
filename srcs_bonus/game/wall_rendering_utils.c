@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_rendering_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:22 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:49:12 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 16:56:00 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	draw_line(t_game *game, int x, t_point draw_s_e, int color)
 
 t_img	*get_texture(t_game *game, t_ray *ray)
 {
+	if (door_at(game, ray->map_x, ray->map_y) != NULL)
+		return (&game->imgs.door);
 	if (ray->side == 0 && ray->dir_x < 0)
 		return (&game->imgs.we);
 	if (ray->side == 0 && ray->dir_x >= 0)

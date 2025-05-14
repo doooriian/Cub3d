@@ -8,7 +8,7 @@ LDFLAGS := -L/usr/local/lib -lreadline -Llibft -Lmlx
 INCLUDES := -Iincludes -Ilibft/includes -Imlx
 INCLUDES_BONUS := -Iincludes_bonus -Ilibft/includes -Imlx
 NAME := cub3D
-NAME_BONUS := cub3d_bonus
+NAME_BONUS := cub3D_bonus
 LIBFT := $(LIBFT_A)
 
 # =============================================================================
@@ -87,7 +87,8 @@ SRCS_BONUS_GAME := \
 		srcs_bonus/game/player_utils.c \
 		srcs_bonus/game/raycasting.c \
 		srcs_bonus/game/wall_rendering.c \
-		srcs_bonus/game/wall_rendering_utils.c
+		srcs_bonus/game/wall_rendering_utils.c \
+		srcs_bonus/game/door.c
 
 SRCS_BONUS_MINIMAP := \
 		srcs_bonus/game/minimap/minimap.c \
@@ -102,7 +103,7 @@ SRCS_BONUS_COMPASS := \
 		srcs_bonus/game/compass/draw_filled_triangle.c
 
 # All sources combined
-SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_MINIMAP) $(SRCS_COMPASS)
+SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_COMPASS)
 SRCS_BONUS := $(SRCS_BONUS_MAIN) $(SRCS_BONUS_UTILS) $(SRCS_BONUS_GAME) $(SRCS_BONUS_PARSING) $(SRCS_BONUS_CONFIG) $(SRCS_BONUS_MAP) $(SRCS_BONUS_MINIMAP) $(SRCS_BONUS_COMPASS)
 
 OBJ_DIR := objs/

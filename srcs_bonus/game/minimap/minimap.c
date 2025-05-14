@@ -26,6 +26,15 @@ static void	render_minimap_tile(t_game *game, int i, int j)
 			|| is_char_player(game->map_data.map[i][j]))
 		draw_square(&game->imgs.map, (t_point){x, y},
 			game->tile_size, FLOOR_COLOR);
+	else if (game->map_data.map[i][j] == 'D')
+	{
+		if (!door_at(game, j, i)->is_open)
+			draw_square(&game->imgs.map, (t_point){x, y},
+				game->tile_size, DOOR_COLOR);
+		else
+			draw_square(&game->imgs.map, (t_point){x, y},
+				game->tile_size, DOOR_OPEN_COLOR);
+	}
 	else
 		draw_square(&game->imgs.map, (t_point){x, y},
 			game->tile_size, EMPTY_COLOR);

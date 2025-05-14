@@ -31,6 +31,7 @@ int	loop(t_game *game)
 	if (game->debug)
 		display_fps(&game->fps);
 	update_player(game);
+	handle_door_interaction(game);
 	update_minimap_loop(game);
 	render_walls(game);
 	draw_compass(game);

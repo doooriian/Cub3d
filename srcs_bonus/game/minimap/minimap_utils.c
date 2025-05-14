@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:13:59 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:48:38 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 16:41:30 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,10 @@ bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y)
 		return (1);
 	if (game->map_data.map[i][j] == '1')
 		return (1);
+	if (game->map_data.map[i][j] == 'D')
+	{
+		if (!door_at(game, j, i)->is_open)
+			return (1);
+	}
 	return (0);
 }

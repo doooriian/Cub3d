@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:11:28 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:50:14 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 16:58:32 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ static void	destroy_img_2(t_game *game)
 	{
 		mlx_destroy_image(game->mlx, game->imgs.base.img);
 		game->imgs.base.img = NULL;
+	}
+	if (game->imgs.door.img)
+	{
+		mlx_destroy_image(game->mlx, game->imgs.door.img);
+		game->imgs.door.img = NULL;
 	}
 }
 

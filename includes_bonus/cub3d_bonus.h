@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/10 23:11:52 by rcaillie         ###   ########.fr       */
+/*   Created: 2025/05/14 16:35:19 by rcaillie          #+#    #+#             */
+/*   Updated: 2025/05/14 16:35:19 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -44,6 +44,10 @@
 # define ANGLE_SPEED	0.05
 # define PI 		3.14159265
 
+// Door
+# define MAX_DOORS	10
+# define PATH_DOOR	"./textures/wood.xpm"
+
 // Minimap
 # define MAP_WIDTH	800
 # define MAP_HEIGHT	600
@@ -53,6 +57,8 @@
 # define WALL_COLOR 0x00888888
 # define FLOOR_COLOR 0xFFFFFF
 # define EMPTY_COLOR 0x000000
+# define DOOR_COLOR 0xFF0000 //0x4f3604
+# define DOOR_OPEN_COLOR 0x00FF00
 
 // COMPASS
 # define CROSS_SIZE 50
@@ -77,6 +83,12 @@ typedef struct s_triangle
 	t_point	p2;
 }	t_triangle;
 
+typedef struct s_door
+{
+	int	x;
+	int	y;
+	int	is_open; // 0 = fermée, 1 = ouverte
+}	t_door;
 typedef struct s_map_data
 {
 	int		index;
@@ -125,6 +137,7 @@ typedef struct s_imgs
 	t_img	we;
 	t_img	base;
 	t_img	map;
+	t_img	door;
 }	t_imgs;
 
 typedef struct s_fps
@@ -170,6 +183,8 @@ typedef struct s_game
 	int			draw_end;
 	int			mouse_x; // Position de la souris BOONUS
 	bool		mouse_click; // Si la souris est cliquée BONUS
+	t_door		doors[MAX_DOORS];
+	int			door_count; // Nombre de portes dans la carte
 }	t_game;
 
 /* ======== Function Prototypes ======== */
@@ -232,6 +247,13 @@ void	calculate_wall_height(t_game *game, t_ray *ray);
 // Drawing functions
 void	draw_line(t_game *game, int x, t_point draw_s_e, int color);
 void	draw_pixel(t_img *img, int x, int y, int color);
+
+// Door management
+t_door	*door_at(t_game *game, int x, int y);
+int		distance(float x1, float y1, float x2, float y2);
+void	handle_door_interaction(t_game *game);
+int		init_door(t_game *game);
+int		load_door_texture(t_game *game);
 
 /* === PARSING ===*/
 char	**get_map(const char *path);
