@@ -63,6 +63,12 @@
 /* ============ Structures ============ */
 /* ==================================== */
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
 // Compass structures
 typedef struct s_triangle
 {
@@ -70,12 +76,6 @@ typedef struct s_triangle
 	t_point	p1;
 	t_point	p2;
 }	t_triangle;
-
-typedef struct s_point
-{
-	int	x;
-	int	y;
-}	t_point;
 
 typedef struct s_map_data
 {
