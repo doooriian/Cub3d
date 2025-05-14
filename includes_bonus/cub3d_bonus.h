@@ -46,7 +46,7 @@
 
 // Door
 # define MAX_DOORS	10
-# define PATH_DOOR	"./textures/wood.xpm"
+# define PATH_DOOR	"./textures/door.xpm"
 
 // Minimap
 # define MAP_WIDTH	800

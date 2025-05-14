@@ -12,7 +12,7 @@ NAME_BONUS := cub3D_bonus
 LIBFT := $(LIBFT_A)
 
 # =============================================================================
-# 📂 SOURCES & OBJECTS 📂
+# 📂 SOURCES 📂
 # =============================================================================
 
 # Main sources
@@ -55,7 +55,10 @@ SRCS_COMPASS := \
 		srcs/game/compass/compass.c \
 		srcs/game/compass/draw_filled_triangle.c
 
-# Bonus sources
+# =============================================================================
+# 📂 SOURCES BONUS 📂
+# =============================================================================
+
 SRCS_BONUS_MAIN := srcs_bonus/main.c srcs_bonus/print_data.c srcs_bonus/main_utils.c
 
 SRCS_BONUS_UTILS := \
@@ -106,6 +109,10 @@ SRCS_BONUS_COMPASS := \
 SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_COMPASS)
 SRCS_BONUS := $(SRCS_BONUS_MAIN) $(SRCS_BONUS_UTILS) $(SRCS_BONUS_GAME) $(SRCS_BONUS_PARSING) $(SRCS_BONUS_CONFIG) $(SRCS_BONUS_MAP) $(SRCS_BONUS_MINIMAP) $(SRCS_BONUS_COMPASS)
 
+# =============================================================================
+# 📂 OBJECTS 📂
+# =============================================================================
+
 OBJ_DIR := objs/
 OBJ_DIR_BONUS := objs_bonus/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -119,7 +126,6 @@ MLX := $(MLX_DIR)/libmlx_Linux.a
 
 LIBS := $(LIBFT_A) $(MLX) -L/usr/lib/X11 -lXext -lX11 -lm -lreadline
 
-
 # =============================================================================
 #	📊 PROGRESS BAR CONFIG 📊
 # =============================================================================
@@ -131,6 +137,20 @@ COMPILED_FILES := 0
 define progress_bar
 	$(eval COMPILED_FILES=$(shell echo $$(($(COMPILED_FILES) + 1))))
 	$(eval PROGRESS_PERCENT=$(shell echo $$(($(COMPILED_FILES) * 100 / $(TOTAL_FILES)))))
+	$(eval FILLED_BAR_LENGTH=$(shell echo $$(($(PROGRESS_PERCENT) * $(BAR_LENGTH) / 100))))
+	@printf "\rCompiling [\033[0;36m"
+	@for i in $(shell seq 1 $(FILLED_BAR_LENGTH)); do printf "#"; done
+	@for i in $(shell seq 1 $(shell echo $$(($(BAR_LENGTH) - $(FILLED_BAR_LENGTH))))); do printf " "; done
+	@printf "\033[0m] $(PROGRESS_PERCENT)%%"
+endef
+
+# BONUS PROGRESS BAR
+TOTAL_FILES_BONUS := $(words $(SRCS_BONUS))
+COMPILED_FILES_BONUS := 0
+
+define progress_bar_bonus
+	$(eval COMPILED_FILES_BONUS=$(shell echo $$(($(COMPILED_FILES_BONUS) + 1))))
+	$(eval PROGRESS_PERCENT=$(shell echo $$(($(COMPILED_FILES_BONUS) * 100 / $(TOTAL_FILES_BONUS)))))
 	$(eval FILLED_BAR_LENGTH=$(shell echo $$(($(PROGRESS_PERCENT) * $(BAR_LENGTH) / 100))))
 	@printf "\rCompiling [\033[0;36m"
 	@for i in $(shell seq 1 $(FILLED_BAR_LENGTH)); do printf "#"; done
@@ -163,7 +183,7 @@ $(OBJ_DIR)/%.o: %.c
 
 $(OBJ_DIR_BONUS)/%.o: %.c
 	@mkdir -p $(@D)
-	$(call progress_bar)
+	$(call progress_bar_bonus)
 	@$(CC) $(CFLAGS) $(INCLUDES_BONUS) -c $< -o $@
 
 
