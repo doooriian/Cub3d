@@ -106,8 +106,9 @@ SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $
 SRCS_BONUS := $(SRCS_BONUS_MAIN) $(SRCS_BONUS_UTILS) $(SRCS_BONUS_GAME) $(SRCS_BONUS_PARSING) $(SRCS_BONUS_CONFIG) $(SRCS_BONUS_MAP) $(SRCS_BONUS_MINIMAP) $(SRCS_BONUS_COMPASS)
 
 OBJ_DIR := objs/
+OBJ_DIR_BONUS := objs_bonus/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)
-OBJ_BONUS := $(SRCS_BONUS:%.c=$(OBJ_DIR)/%.o)
+OBJ_BONUS := $(SRCS_BONUS:%.c=$(OBJ_DIR_BONUS)/%.o)
 
 LIBFT_DIR := libft
 LIBFT_A := $(LIBFT_DIR)/libft.a
@@ -158,6 +159,11 @@ $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(call progress_bar)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR_BONUS)/%.o: %.c
+	@mkdir -p $(@D)
+	$(call progress_bar)
+	@$(CC) $(CFLAGS) $(INCLUDES_BONUS) -c $< -o $@
 
 
 MAPS := $(wildcard maps/*.cub)
@@ -217,6 +223,16 @@ fclean: clean # fclean_libft
 	@echo "Fclean de $(NAME) : \033[1;32mOK\033[0m"
 
 re: fclean all
+
+clean_bonus:
+	@rm -rf $(OBJ_DIR_BONUS)
+	@echo "Clean de $(NAME_BONUS) : \033[1;32mOK\033[0m"
+
+fclean_bonus: clean_bonus # fclean_libft
+	@rm -f $(NAME_BONUS)
+	@echo "Fclean de $(NAME_BONUS) : \033[1;32mOK\033[0m"
+
+re_bonus: fclean_bonus bonus
 
 # =============================================================================
 # 💼 PHONY RULES 💼

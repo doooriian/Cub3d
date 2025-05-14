@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:55:00 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/13 23:55:00 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:15:46 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int	main(int argc, char **argv)
 		print_player(&game->player);
 	}
 	if (init_base_img(game))
-		ft_exit(game);
-	if (minimap_init(game))
 		ft_exit(game);
 	init_hook(game);
 	ft_exit(game);

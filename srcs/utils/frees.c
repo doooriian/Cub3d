@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:11:28 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:54:53 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 15:14:38 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,4 @@ void	destroy_imgs(t_game *game)
 		mlx_destroy_image(game->mlx, game->imgs.ea.img);
 		game->imgs.ea.img = NULL;
 	}
-	destroy_img_2(game);
 }
