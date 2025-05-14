@@ -21,6 +21,7 @@
 # include <sys/time.h>
 # include <stdbool.h>
 # include <X11/X.h>
+# include <sys/time.h>
 # include "libft.h"
 # include "get_next_line.h"
 # include "mlx.h"
@@ -139,6 +140,9 @@ typedef struct s_imgs
 	t_img	base;
 	t_img	map;
 	t_img	door;
+	t_img	sprite1;
+	t_img	sprite2;
+	t_img	sprite3;
 }	t_imgs;
 
 typedef struct s_fps
@@ -186,6 +190,8 @@ typedef struct s_game
 	bool		mouse_click; // Si la souris est cliquée BONUS
 	t_door		doors[MAX_DOORS];
 	int			door_count; // Nombre de portes dans la carte
+	int			sprite_x;
+	int			sprite_y; 
 }	t_game;
 
 /* ======== Function Prototypes ======== */
@@ -313,6 +319,8 @@ int		is_char_player(char c);
 // Utils
 int		get_pixel_color(t_img *img, int x, int y);
 int		get_rgb_color(int r, int g, int b);
+double 	get_time(void);
+void	find_sprite(t_game *game);
 
 /* === Main === */
 // Main utils

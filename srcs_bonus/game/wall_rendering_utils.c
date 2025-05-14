@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_rendering_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:22 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 16:56:00 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 23:50:31 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,35 @@ void	draw_line(t_game *game, int x, t_point draw_s_e, int color)
 	}
 }
 
+static int is_sprite(t_game *game, int x, int y)
+{
+	static double last_time = 0.0;
+	static int    frame     = 0;
+	const double  interval  = 1;
+
+	double now = get_time();
+	if (now - last_time >= interval) {
+		last_time = now;
+		frame = (frame + 1) % 3;
+	}
+	if (game->sprite_x == x && game->sprite_y == y)
+		return frame;
+
+	return -1;
+}
+
+
 t_img	*get_texture(t_game *game, t_ray *ray)
 {
+	int	value;
+	
+	value = is_sprite(game, ray->map_x, ray->map_y);
+	if (value == 0)
+		return (&game->imgs.sprite1);
+	if (value == 1)
+		return (&game->imgs.sprite2);
+	if (value == 2)
+		return (&game->imgs.sprite3);
 	if (door_at(game, ray->map_x, ray->map_y) != NULL)
 		return (&game->imgs.door);
 	if (ray->side == 0 && ray->dir_x < 0)

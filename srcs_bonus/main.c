@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:55:00 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 16:36:48 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 23:58:00 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,22 @@ static t_game	*init_game(int argc, char **argv)
 	return (game);
 }
 
+static void	init_sprite(t_game *game)
+{
+	game->imgs.sprite1.img = mlx_xpm_file_to_image(game->mlx, "textures/ea.xpm",
+			&game->imgs.sprite1.width, &game->imgs.sprite1.height);
+	game->imgs.sprite1.addr = mlx_get_data_addr(game->imgs.sprite1.img, &game->imgs.sprite1.bits_per_pixel,
+			&game->imgs.sprite1.line_length, &game->imgs.sprite1.endian);
+	game->imgs.sprite2.img = mlx_xpm_file_to_image(game->mlx, "textures/no.xpm",
+			&game->imgs.sprite2.width, &game->imgs.sprite2.height);
+	game->imgs.sprite2.addr = mlx_get_data_addr(game->imgs.sprite2.img, &game->imgs.sprite2.bits_per_pixel,
+			&game->imgs.sprite2.line_length, &game->imgs.sprite2.endian);
+	game->imgs.sprite3.img = mlx_xpm_file_to_image(game->mlx, "textures/so.xpm",
+			&game->imgs.sprite3.width, &game->imgs.sprite3.height);
+	game->imgs.sprite3.addr = mlx_get_data_addr(game->imgs.sprite3.img, &game->imgs.sprite3.bits_per_pixel,
+			&game->imgs.sprite3.line_length, &game->imgs.sprite3.endian);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	*game;
@@ -99,6 +115,8 @@ int	main(int argc, char **argv)
 		ft_exit(game);
 	if (minimap_init(game))
 		ft_exit(game);
+	find_sprite(game);
+	init_sprite(game);
 	init_hook(game);
 	ft_exit(game);
 	return (0);

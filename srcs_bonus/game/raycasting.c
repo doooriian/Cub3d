@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:46 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 16:38:11 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 22:17:07 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int	perform_dda(t_game *game, t_ray *ray)
 		advance_ray(ray);
 		hit = game->map_data.map[ray->map_y][ray->map_x] == '1'
 			|| (game->map_data.map[ray->map_y][ray->map_x] == 'D'
-				&& !door_at(game, ray->map_x, ray->map_y)->is_open);
+				&& !door_at(game, ray->map_x, ray->map_y)->is_open)
+				|| game->map_data.map[ray->map_y][ray->map_x] == 'A';
 	}
 	calculate_perpendicular_distance(ray);
 	return (hit);
