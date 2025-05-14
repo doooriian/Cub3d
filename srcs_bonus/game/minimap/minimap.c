@@ -80,6 +80,8 @@ void	render_minimap(t_game *game)
 int	update_minimap_loop(t_game *game)
 {
 	t_point	pos;
+	char	*fps_text;
+	char	*itoa;
 
 	render_minimap(game);
 	if (game->debug)
@@ -88,5 +90,18 @@ int	update_minimap_loop(t_game *game)
 	pos.y = game->player.y - game->player.size / 2 + game->map_offset_y;
 	draw_square(&game->imgs.map, pos, game->player.size, PLAYER_COLOR);
 	mlx_put_image_to_window(game->mlx, game->win_map, game->imgs.map.img, 0, 0);
+	if (game->debug)
+	{
+		itoa = ft_itoa((int)game->fps.fps);
+		if (!itoa)
+			return (1);
+		fps_text = ft_strjoin("FPS: ", itoa);
+		free(itoa);
+		if (!fps_text)
+			return (1);
+		mlx_string_put(game->mlx, game->win_map, MAP_WIDTH / 2 - 10,
+			15, 0xFFFFFF, fps_text);
+		free(fps_text);
+	}
 	return (0);
 }

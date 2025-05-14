@@ -34,6 +34,7 @@
 # define A 97
 # define S 115
 # define D 100
+# define E 101
 # define LEFT 65361
 # define RIGHT 65363
 
@@ -45,7 +46,7 @@
 # define PI 		3.14159265
 
 // Door
-# define MAX_DOORS	10
+# define MAX_DOORS	5
 # define PATH_DOOR	"./textures/door.xpm"
 
 // Minimap
@@ -250,7 +251,6 @@ void	draw_pixel(t_img *img, int x, int y, int color);
 
 // Door management
 t_door	*door_at(t_game *game, int x, int y);
-int		distance(float x1, float y1, float x2, float y2);
 void	handle_door_interaction(t_game *game);
 int		init_door(t_game *game);
 int		load_door_texture(t_game *game);

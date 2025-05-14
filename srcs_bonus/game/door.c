@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 16:37:06 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 17:05:47 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:34:08 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,29 @@ t_door	*door_at(t_game *game, int x, int y)
 	return (NULL);
 }
 
-int	distance(float x1, float y1, float x2, float y2)
+void	toggle_door_at(t_game *game, int x, int y)
 {
-	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
+	t_door	*door;
+
+	door = door_at(game, x, y);
+	if (door)
+	{
+		if (door->is_open == 0)
+			door->is_open = 1;
+		else
+			door->is_open = 0;
+	}
 }
 
 void	handle_door_interaction(t_game *game)
 {
-	int		i;
-	float	px;
-	float	py;
-	float	dist;
+	int	px;
+	int	py;
 
-	px = game->player.x / (float)game->tile_size;
-	py = game->player.y / (float)game->tile_size;
-	i = 0;
-	while (i < game->door_count)
-	{
-		dist = distance(game->player.x, game->player.y, (game->doors[i].x + 0.5)
-				* game->tile_size, (game->doors[i].y + 0.5) * game->tile_size);
-		if (dist < game->tile_size * 2)
-		{
-			game->doors[i].is_open = 1;
-		}
-		else
-			game->doors[i].is_open = 0;
-		i++;
-	}
+	px = (int)(game->player.x / game->tile_size);
+	py = (int)(game->player.y / game->tile_size);
+	toggle_door_at(game, px + 1, py);
+	toggle_door_at(game, px - 1, py);
+	toggle_door_at(game, px, py + 1);
+	toggle_door_at(game, px, py - 1);
 }

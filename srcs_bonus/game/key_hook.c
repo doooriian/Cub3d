@@ -31,7 +31,6 @@ int	loop(t_game *game)
 	if (game->debug)
 		display_fps(&game->fps);
 	update_player(game);
-	handle_door_interaction(game);
 	update_minimap_loop(game);
 	render_walls(game);
 	draw_compass(game);
@@ -55,6 +54,8 @@ int	key_press(int keycode, t_game *game)
 		game->player.rotate_left = true;
 	if (keycode == RIGHT)
 		game->player.rotate_right = true;
+	if (keycode == E)
+		handle_door_interaction(game);
 	return (0);
 }
 
