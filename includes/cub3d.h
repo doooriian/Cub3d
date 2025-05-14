@@ -40,8 +40,8 @@
 // Constants
 # define WIDTH		1000
 # define HEIGHT		800
-# define SPEED		0.5
-# define ANGLE_SPEED	0.03
+# define SPEED		1.5
+# define ANGLE_SPEED	0.05
 # define PI 		3.14159265
 
 // Minimap
