@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/10 23:11:52 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:47:53 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ typedef struct s_imgs
 	t_img	so;
 	t_img	we;
 	t_img	base;
-	t_img	map;
 }	t_imgs;
 
 typedef struct s_fps
@@ -155,10 +154,7 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	void		*win_map;
 	int			tile_size;
-	int			map_offset_x;
-	int			map_offset_y;
 	t_map_data	map_data;
 	t_player	player;
 	t_imgs		imgs;
@@ -168,25 +164,11 @@ typedef struct s_game
 	t_fps		fps;
 	int			draw_start;
 	int			draw_end;
-	int			mouse_x; // Position de la souris BOONUS
-	bool		mouse_click; // Si la souris est cliquée BONUS
 }	t_game;
 
 /* ======== Function Prototypes ======== */
 /* ===================================== */
 
-/* Minimap */
-// Minimap
-int		update_minimap_loop(t_game *game);
-void	render_minimap(t_game *game);
-
-// Minimap utils
-int		minimap_init(t_game *game);
-bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y);
-
-// Drawing functions Minimap
-void	draw_ray_line(t_game *game, t_player *player, float angle);
-void	draw_square(t_img *img, t_point point, int size, int color);
 
 /* Compass */
 // Compass

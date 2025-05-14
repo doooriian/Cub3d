@@ -6,11 +6,11 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:11:28 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:54:53 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 14:50:14 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	free_map(char **map)
 {
@@ -36,6 +36,20 @@ int	ft_free_tab_i(char **tab, int i)
 	}
 	free(tab);
 	return (0);
+}
+
+static void	destroy_img_2(t_game *game)
+{
+	if (game->imgs.map.img)
+	{
+		mlx_destroy_image(game->mlx, game->imgs.map.img);
+		game->imgs.map.img = NULL;
+	}
+	if (game->imgs.base.img)
+	{
+		mlx_destroy_image(game->mlx, game->imgs.base.img);
+		game->imgs.base.img = NULL;
+	}
 }
 
 void	destroy_imgs(t_game *game)

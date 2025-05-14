@@ -6,7 +6,9 @@ CC := cc
 CFLAGS := -g -Wall -Wextra -Werror
 LDFLAGS := -L/usr/local/lib -lreadline -Llibft -Lmlx
 INCLUDES := -Iincludes -Ilibft/includes -Imlx
+INCLUDES_BONUS := -Iincludes_bonus -Ilibft/includes -Imlx
 NAME := cub3D
+NAME_BONUS := cub3d_bonus
 LIBFT := $(LIBFT_A)
 
 # =============================================================================
@@ -40,17 +42,11 @@ SRCS_MAP := \
 SRCS_GAME := \
 		srcs/game/init_game.c \
 		srcs/game/key_hook.c \
-		srcs/game/mouse.c \
 		srcs/game/player.c \
 		srcs/game/player_utils.c \
 		srcs/game/raycasting.c \
 		srcs/game/wall_rendering.c \
 		srcs/game/wall_rendering_utils.c
-
-SRCS_MINIMAP := \
-		srcs/game/minimap/minimap.c \
-		srcs/game/minimap/minimap_utils.c \
-		srcs/game/minimap/draw_minimap.c
 
 SRCS_PARSING := srcs/parsing/get_map.c
 
@@ -59,11 +55,59 @@ SRCS_COMPASS := \
 		srcs/game/compass/compass.c \
 		srcs/game/compass/draw_filled_triangle.c
 
+# Bonus sources
+SRCS_BONUS_MAIN := srcs_bonus/main.c srcs_bonus/print_data.c srcs_bonus/main_utils.c
+
+SRCS_BONUS_UTILS := \
+		srcs_bonus/utils/file_utils.c \
+		srcs_bonus/utils/errors.c \
+		srcs_bonus/utils/map_utils.c \
+		srcs_bonus/utils/utils.c \
+		srcs_bonus/utils/frees.c \
+		srcs_bonus/utils/ft_split_with_sep.c \
+		srcs_bonus/utils/ft_atoi_safe.c
+
+SRCS_BONUS_CONFIG := \
+		srcs_bonus/parsing/config/init_config.c \
+		srcs_bonus/parsing/config/config_utils.c \
+		srcs_bonus/parsing/config/is_valid_config.c \
+		srcs_bonus/parsing/config/load_config.c
+
+SRCS_BONUS_MAP := \
+		srcs_bonus/parsing/map/init_map.c \
+		srcs_bonus/parsing/map/validate_map.c \
+		srcs_bonus/parsing/map/validate_horizontal.c \
+		srcs_bonus/parsing/map/validate_space.c
+
+SRCS_BONUS_GAME := \
+		srcs_bonus/game/init_game.c \
+		srcs_bonus/game/key_hook.c \
+		srcs_bonus/game/mouse.c \
+		srcs_bonus/game/player.c \
+		srcs_bonus/game/player_utils.c \
+		srcs_bonus/game/raycasting.c \
+		srcs_bonus/game/wall_rendering.c \
+		srcs_bonus/game/wall_rendering_utils.c
+
+SRCS_BONUS_MINIMAP := \
+		srcs_bonus/game/minimap/minimap.c \
+		srcs_bonus/game/minimap/minimap_utils.c \
+		srcs_bonus/game/minimap/draw_minimap.c
+
+SRCS_BONUS_PARSING := srcs_bonus/parsing/get_map.c
+
+SRCS_BONUS_COMPASS := \
+		srcs_bonus/game/compass/compass_utils.c \
+		srcs_bonus/game/compass/compass.c \
+		srcs_bonus/game/compass/draw_filled_triangle.c
+
 # All sources combined
 SRCS := $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_GAME) $(SRCS_PARSING) $(SRCS_CONFIG) $(SRCS_MAP) $(SRCS_MINIMAP) $(SRCS_COMPASS)
+SRCS_BONUS := $(SRCS_BONUS_MAIN) $(SRCS_BONUS_UTILS) $(SRCS_BONUS_GAME) $(SRCS_BONUS_PARSING) $(SRCS_BONUS_CONFIG) $(SRCS_BONUS_MAP) $(SRCS_BONUS_MINIMAP) $(SRCS_BONUS_COMPASS)
 
 OBJ_DIR := objs/
 OBJ := $(SRCS:%.c=$(OBJ_DIR)/%.o)
+OBJ_BONUS := $(SRCS_BONUS:%.c=$(OBJ_DIR)/%.o)
 
 LIBFT_DIR := libft
 LIBFT_A := $(LIBFT_DIR)/libft.a
@@ -98,6 +142,13 @@ endef
 
 all: $(MLX_DIR) $(MLX) libft $(NAME)
 	@echo "\n🎉 Compilation of $(NAME)!\n"
+
+bonus: $(MLX_DIR) $(MLX) libft $(NAME_BONUS)
+	@echo "\n🎉 Compilation of $(NAME_BONUS)!\n"
+
+$(NAME_BONUS): $(MLX) $(LIBFT) $(OBJ_BONUS)
+	@$(CC) $(CFLAGS) $(INCLUDES_BONUS) $(OBJ_BONUS) $(LIBS) -o $(NAME_BONUS)
+	@echo "\n🎉 Compilation of $(NAME_BONUS)!\n"
 
 $(NAME): $(MLX) $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBS) -o $(NAME)

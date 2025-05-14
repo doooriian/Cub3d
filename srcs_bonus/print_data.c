@@ -6,11 +6,11 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:21:18 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:57:15 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 14:50:43 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	print_map(char **map)
 {
@@ -36,6 +36,7 @@ void	print_config(t_game *game)
 	printf("Map dimensions: Width: %d, Height: %d\n", game->map_width,
 		game->map_height);
 	printf("Tile size: %d\n", game->tile_size);
+	printf("Map offset: X:%d, Y:%d\n", game->map_offset_x, game->map_offset_y);
 	if (game->debug)
 		printf("Debug mode: ON\n");
 	else

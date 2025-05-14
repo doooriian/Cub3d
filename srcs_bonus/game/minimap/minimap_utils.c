@@ -6,11 +6,11 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:13:59 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/13 15:00:18 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 14:48:38 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static int	minimap_init_2(t_game *game)
 {

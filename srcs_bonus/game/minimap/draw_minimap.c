@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:52:48 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/13 22:52:48 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:48:35 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	draw_square(t_img *img, t_point point, int size, int color)
 {

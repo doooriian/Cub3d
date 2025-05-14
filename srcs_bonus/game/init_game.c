@@ -6,11 +6,11 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:01:55 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:52:39 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 14:48:48 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static	void	player_orientation(t_game *game, int i, int j)
 {
@@ -81,6 +81,10 @@ void	init_data(t_game *game)
 		game->tile_size = tile_w;
 	map_px_w = game->map_width * game->tile_size;
 	map_px_h = game->map_height * game->tile_size;
+	game->map_offset_x = (MAP_WIDTH - map_px_w) / 2;
+	game->map_offset_y = (MAP_HEIGHT - map_px_h) / 2;
+	game->mouse_x = -1;
+	game->mouse_click = false;
 	init_player(&game->player, game);
 	player_position(game);
 }

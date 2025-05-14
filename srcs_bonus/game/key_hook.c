@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	update_player(t_game *game)
 {
@@ -31,6 +31,7 @@ int	loop(t_game *game)
 	if (game->debug)
 		display_fps(&game->fps);
 	update_player(game);
+	update_minimap_loop(game);
 	render_walls(game);
 	draw_compass(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->imgs.base.img, 0, 0);
@@ -77,6 +78,11 @@ void	init_hook(t_game *game)
 {
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, &game->player);
+	mlx_hook(game->win, ButtonPress, ButtonPressMask, handle_mouse_click, game);
+	mlx_hook(game->win, ButtonRelease, ButtonReleaseMask, handle_mouse_release,
+		game);
+	mlx_hook(game->win, MotionNotify, PointerMotionMask, handle_mouse_move,
+		game);
 	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &ft_exit, game);
 	mlx_loop_hook(game->mlx, &loop, game);
 	mlx_loop(game->mlx);

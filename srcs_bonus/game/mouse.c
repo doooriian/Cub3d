@@ -6,11 +6,11 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:54:57 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 13:52:26 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 14:48:55 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	rotate_mouse(t_player *player, int direction)
 {

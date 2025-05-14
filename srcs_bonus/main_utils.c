@@ -6,11 +6,11 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 13:49:40 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:52:11 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/14 14:50:36 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	ft_exit(t_game *game)
 {
@@ -22,6 +22,11 @@ int	ft_exit(t_game *game)
 	{
 		mlx_destroy_window(game->mlx, game->win);
 		game->win = NULL;
+	}
+	if (game->mlx && game->win_map)
+	{
+		mlx_destroy_window(game->mlx, game->win_map);
+		game->win_map = NULL;
 	}
 	if (game->mlx)
 	{
