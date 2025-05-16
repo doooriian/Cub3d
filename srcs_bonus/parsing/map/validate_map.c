@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:55:53 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 14:15:13 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 19:04:44 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	has_too_much_sprites(char **map)
 		}
 		i++;
 	}
-	if (sprites_count > 1)
+	if (sprites_count > MAX_SPRITES)
 		return (print_error("Error: Invalid number of sprites starts", 0));
 	return (1);
 }

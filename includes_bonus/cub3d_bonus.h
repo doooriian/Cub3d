@@ -69,6 +69,10 @@
 # define COLOR_NORTH 0xFF0000
 # define COLOR_OTHER 0xFFFFFF
 
+// Ajout : nombre max de sprites
+# define MAX_SPRITES 5
+# define TIME_SPRITE 1.2 // Temps d'animation des sprites seconds
+
 /* ============ Structures ============ */
 /* ==================================== */
 
@@ -170,6 +174,15 @@ typedef struct s_ray
 	int		side; // 0 : mur vertical, 1 : mur horizontal
 }	t_ray;
 
+typedef struct s_sprite
+{
+	int	x;
+	int	y;
+	int	frame;
+	double	last_time;
+	bool	active;
+}	t_sprite;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -192,9 +205,8 @@ typedef struct s_game
 	t_door		doors[MAX_DOORS];
 	char		**map_doors;
 	int			door_count; // Nombre de portes dans la carte
-	int			sprite_x;
-	int			sprite_y;
-	bool		is_sprite;
+	t_sprite	sprites[MAX_SPRITES];
+	int			sprite_count;
 }	t_game;
 
 /* ======== Function Prototypes ======== */

@@ -28,6 +28,21 @@ static void	update_player(t_game *game)
 
 int	loop(t_game *game)
 {
+	double	now;
+	int		i;
+
+	// Animation de tous les sprites
+	now = get_time();
+	i = 0;
+	while (i < game->sprite_count)
+	{
+		if (game->sprites[i].active && now - game->sprites[i].last_time > TIME_SPRITE)
+		{
+			game->sprites[i].frame = (game->sprites[i].frame + 1) % 3;
+			game->sprites[i].last_time = now;
+		}
+		i++;
+	}
 	if (game->debug)
 		display_fps(&game->fps);
 	update_player(game);

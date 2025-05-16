@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:46:27 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 14:40:09 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 19:03:07 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,21 @@ void	find_sprite(t_game *game)
 	int	y;
 	int	x;
 
+	game->sprite_count = 0;
 	y = 0;
 	while (game->map_data.map[y])
 	{
 		x = 0;
 		while (game->map_data.map[y][x])
 		{
-			if (game->map_data.map[y][x] == 'A')
+			if (game->map_data.map[y][x] == 'A' && game->sprite_count < MAX_SPRITES)
 			{
-				game->is_sprite = true;
-				game->sprite_x = x;
-				game->sprite_y = y;
+				game->sprites[game->sprite_count].x = x;
+				game->sprites[game->sprite_count].y = y;
+				game->sprites[game->sprite_count].frame = 0;
+				game->sprites[game->sprite_count].last_time = get_time();
+				game->sprites[game->sprite_count].active = true;
+				game->sprite_count++;
 			}
 			x++;
 		}

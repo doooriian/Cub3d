@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:22 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 18:35:30 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 19:10:39 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,38 +50,26 @@ void	draw_line(t_game *game, int x, t_point draw_s_e, int color)
 	}
 }
 
-static int	is_sprite(t_game *game, int x, int y)
-{
-	static double	last_time = 0.0;
-	static int		frame = 0;
-	double			interval;
-	double			now;
-
-	interval = 1;
-	now = get_time();
-	if (now - last_time >= interval)
-	{
-		last_time = now;
-		frame = (frame + 1) % 3;
-	}
-	if (game->sprite_x == x && game->sprite_y == y)
-		return (frame);
-	return (-1);
-}
-
 t_img	*get_texture(t_game *game, t_ray *ray)
 {
-	int		value;
+	int i;
 
-	value = 3;
-	if (game->is_sprite)
-		value = is_sprite(game, ray->map_x, ray->map_y);
-	if (value == 0)
-		return (&game->imgs.sprite1);
-	if (value == 1)
-		return (&game->imgs.sprite2);
-	if (value == 2)
-		return (&game->imgs.sprite3);
+	i = 0;	// PAS OTPIMISE !!!!!!!!!!!!!!!!!!!!!!!!!!! UTILISER MAP DOORS ET AJOUTER SPRITES DEDANS 
+	while (i < game->sprite_count)
+	{
+		if (game->sprites[i].active &&
+			game->sprites[i].x == ray->map_x &&
+			game->sprites[i].y == ray->map_y)
+		{
+			if (game->sprites[i].frame == 0)
+				return (&game->imgs.sprite1);
+			if (game->sprites[i].frame == 1)
+				return (&game->imgs.sprite2);
+			if (game->sprites[i].frame == 2)
+				return (&game->imgs.sprite3);
+		}
+		i++;
+	}
 	if (game->map_data.map[ray->map_y][ray->map_x] == 'D')
 	{
 		if (game->map_doors && game->map_doors[ray->map_y][ray->map_x] == '1')
