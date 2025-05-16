@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:11:28 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 16:58:32 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:28:55 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,25 @@ static void	destroy_img_2(t_game *game)
 	}
 }
 
+static void	destroy_sprite_img(t_game *game)
+{
+	if (game->imgs.sprite1.img)
+	{
+		mlx_destroy_image(game->mlx, game->imgs.sprite1.img);
+		game->imgs.sprite1.img = NULL;
+	}
+	if (game->imgs.sprite2.img)
+	{
+		mlx_destroy_image(game->mlx, game->imgs.sprite2.img);
+		game->imgs.sprite2.img = NULL;
+	}
+	if (game->imgs.sprite3.img)
+	{
+		mlx_destroy_image(game->mlx, game->imgs.sprite3.img);
+		game->imgs.sprite3.img = NULL;
+	}
+}
+
 void	destroy_imgs(t_game *game)
 {
 	if (!game)
@@ -82,4 +101,5 @@ void	destroy_imgs(t_game *game)
 		game->imgs.ea.img = NULL;
 	}
 	destroy_img_2(game);
+	destroy_sprite_img(game);
 }
