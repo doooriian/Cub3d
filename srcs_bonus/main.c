@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:55:00 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 14:23:51 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 14:34:30 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	init_sprite(t_game *game)
 	game->imgs.sprite3.img = mlx_xpm_file_to_image(game->mlx, "textures/so.xpm",
 			&game->imgs.sprite3.width, &game->imgs.sprite3.height);
 	if (!game->imgs.sprite1.img || !game->imgs.sprite2.img
-		|| game->imgs.sprite3.img)
+		|| !game->imgs.sprite3.img)
 		return (print_error("Error: Failed to load sprites textures", 0));
 	if (!check_img_add(game))
 		return (0);
