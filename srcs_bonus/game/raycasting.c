@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:46 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 14:33:20 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 17:55:18 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,27 @@ static void	calculate_perpendicular_distance(t_ray *ray)
 
 int	perform_dda(t_game *game, t_ray *ray)
 {
-	int	hit;
+	int		hit;
+	char	cell;
+	t_door	*door;
 
 	hit = 0;
+	door = NULL;
 	while (hit == 0)
 	{
 		advance_ray(ray);
-		hit = game->map_data.map[ray->map_y][ray->map_x] == '1'
-			|| (game->map_data.map[ray->map_y][ray->map_x] == 'D'
-				&& !door_at(game, ray->map_x, ray->map_y)->is_open)
-			|| game->map_data.map[ray->map_y][ray->map_x] == 'A';
+		cell = game->map_data.map[ray->map_y][ray->map_x];
+		if (cell == '1')
+			hit = 1;
+		else if (cell == 'D')
+		{
+			if (!door || door->x != ray->map_x || door->y != ray->map_y)
+				door = door_at(game, ray->map_x, ray->map_y);
+			if (door && !door->is_open)
+				hit = 1;
+		}
+		else if (cell == 'A')
+			hit = 1;
 	}
 	calculate_perpendicular_distance(ray);
 	return (hit);

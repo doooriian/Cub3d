@@ -53,7 +53,7 @@
 // Minimap
 # define MAP_WIDTH	800
 # define MAP_HEIGHT	600
-# define RAYS		20
+# define RAYS		10
 # define PLAYER_COLOR 0xF7230C
 # define RAY_COLOR 0xFF0000
 # define WALL_COLOR 0x00888888

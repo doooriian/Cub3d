@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_rendering_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:22 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 14:41:44 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 17:59:51 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ static int	is_sprite(t_game *game, int x, int y)
 
 t_img	*get_texture(t_game *game, t_ray *ray)
 {
-	int	value;
+	int		value;
+	t_door	*door;
 
 	value = 3;
 	if (game->is_sprite)
@@ -81,8 +82,12 @@ t_img	*get_texture(t_game *game, t_ray *ray)
 		return (&game->imgs.sprite2);
 	if (value == 2)
 		return (&game->imgs.sprite3);
-	if (door_at(game, ray->map_x, ray->map_y) != NULL)
-		return (&game->imgs.door);
+	if (game->map_data.map[ray->map_y][ray->map_x] == 'D')
+	{
+		door = door_at(game, ray->map_x, ray->map_y);
+		if (door && !door->is_open)
+			return (&game->imgs.door);
+	}
 	if (ray->side == 0 && ray->dir_x < 0)
 		return (&game->imgs.we);
 	if (ray->side == 0 && ray->dir_x >= 0)

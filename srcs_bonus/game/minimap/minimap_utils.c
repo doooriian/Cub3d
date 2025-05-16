@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:13:59 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 15:09:23 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:45:39 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,18 @@ int	minimap_init(t_game *game)
 
 bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	cell;
 
 	i = (int)ray_y / game->tile_size;
 	j = (int)ray_x / game->tile_size;
+	cell = game->map_data.map[i][j];
 	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
 		return (1);
-	if (game->map_data.map[i][j] == '1' || game->map_data.map[i][j] == 'A')
+	if (cell == '1' || cell == 'A')
 		return (1);
-	if (game->map_data.map[i][j] == 'D')
+	if (cell == 'D')
 	{
 		if (!door_at(game, j, i)->is_open)
 			return (1);

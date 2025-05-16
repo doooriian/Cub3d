@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:56:04 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 16:40:02 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:02:08 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,6 @@
 // Minimap
 # define MAP_WIDTH	800
 # define MAP_HEIGHT	600
-# define RAYS		20
-# define PLAYER_COLOR 0xF7230C
-# define RAY_COLOR 0xFF0000
-# define WALL_COLOR 0x00888888
-# define FLOOR_COLOR 0xFFFFFF
-# define EMPTY_COLOR 0x000000
 
 // COMPASS
 # define CROSS_SIZE 50
