@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:13:59 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 16:41:30 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:09:23 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y)
 	j = (int)ray_x / game->tile_size;
 	if (i < 0 || i >= game->map_height || j < 0 || j >= game->map_width)
 		return (1);
-	if (game->map_data.map[i][j] == '1')
+	if (game->map_data.map[i][j] == '1' || game->map_data.map[i][j] == 'A')
 		return (1);
 	if (game->map_data.map[i][j] == 'D')
 	{

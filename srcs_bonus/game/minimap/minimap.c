@@ -12,6 +12,32 @@
 
 #include "cub3d_bonus.h"
 
+static int render_minimap_tile_bis(t_game *game, int i, int j)
+{
+	int	x;
+	int	y;
+
+	x = j * game->tile_size + game->map_offset_x;
+	y = i * game->tile_size + game->map_offset_y;
+	if (game->map_data.map[i][j] == 'D')
+	{
+		if (!door_at(game, j, i)->is_open)
+			draw_square(&game->imgs.map, (t_point){x, y},
+				game->tile_size, DOOR_COLOR);
+		else
+			draw_square(&game->imgs.map, (t_point){x, y},
+				game->tile_size, DOOR_OPEN_COLOR);
+		return (1);
+	}
+	else if (game->map_data.map[i][j] == 'A')
+	{
+		draw_square(&game->imgs.map, (t_point){x, y},
+			game->tile_size, SPRITE_COLOR);
+		return (1);
+	}
+	return (0);
+}
+
 static void	render_minimap_tile(t_game *game, int i, int j)
 {
 	int	x;
@@ -26,15 +52,8 @@ static void	render_minimap_tile(t_game *game, int i, int j)
 			|| is_char_player(game->map_data.map[i][j]))
 		draw_square(&game->imgs.map, (t_point){x, y},
 			game->tile_size, FLOOR_COLOR);
-	else if (game->map_data.map[i][j] == 'D')
-	{
-		if (!door_at(game, j, i)->is_open)
-			draw_square(&game->imgs.map, (t_point){x, y},
-				game->tile_size, DOOR_COLOR);
-		else
-			draw_square(&game->imgs.map, (t_point){x, y},
-				game->tile_size, DOOR_OPEN_COLOR);
-	}
+	else if (render_minimap_tile_bis(game, i, j))
+		return ;
 	else
 		draw_square(&game->imgs.map, (t_point){x, y},
 			game->tile_size, EMPTY_COLOR);

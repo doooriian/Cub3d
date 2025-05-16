@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:55:00 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 14:34:30 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 15:01:29 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ static t_game	*init_game(int argc, char **argv)
 
 static int	init_sprite(t_game *game)
 {
-	game->imgs.sprite1.img = mlx_xpm_file_to_image(game->mlx, "textures/ea.xpm",
+	game->imgs.sprite1.img = mlx_xpm_file_to_image(game->mlx, "textures/sprite1.xpm",
 			&game->imgs.sprite1.width, &game->imgs.sprite1.height);
-	game->imgs.sprite2.img = mlx_xpm_file_to_image(game->mlx, "textures/no.xpm",
+	game->imgs.sprite2.img = mlx_xpm_file_to_image(game->mlx, "textures/sprite2.xpm",
 			&game->imgs.sprite2.width, &game->imgs.sprite2.height);
-	game->imgs.sprite3.img = mlx_xpm_file_to_image(game->mlx, "textures/so.xpm",
+	game->imgs.sprite3.img = mlx_xpm_file_to_image(game->mlx, "textures/sprite3.xpm",
 			&game->imgs.sprite3.width, &game->imgs.sprite3.height);
 	if (!game->imgs.sprite1.img || !game->imgs.sprite2.img
 		|| !game->imgs.sprite3.img)
