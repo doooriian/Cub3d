@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_space.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 13:06:14 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:49:53 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 13:40:47 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 static int	is_cell_properly_enclosed(char **map, size_t y, size_t x)
 {
-	if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'S'
-		|| map[y][x] == 'E' || map[y][x] == 'W')
+	char	c;
+
+	c = map[y][x];
+	if (c == '0' || c == 'N' || c == 'S'
+		|| c == 'E' || c == 'W' || c == 'D'
+		|| c == 'A')
 	{
 		if (y == 0 || x == 0 || !map[y + 1] || !map[y][x + 1])
 			return (0);
