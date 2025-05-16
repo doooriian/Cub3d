@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:22 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 23:50:31 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 14:32:53 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,31 @@ void	draw_line(t_game *game, int x, t_point draw_s_e, int color)
 	}
 }
 
-static int is_sprite(t_game *game, int x, int y)
+static int	is_sprite(t_game *game, int x, int y)
 {
-	static double last_time = 0.0;
-	static int    frame     = 0;
-	const double  interval  = 1;
+	static double	last_time;
+	static int		frame;
+	double			interval;
+	double			now;
 
-	double now = get_time();
-	if (now - last_time >= interval) {
+	last_time = 0.0;
+	frame = 0;
+	interval = 1;
+	now = get_time();
+	if (now - last_time >= interval)
+	{
 		last_time = now;
 		frame = (frame + 1) % 3;
 	}
 	if (game->sprite_x == x && game->sprite_y == y)
-		return frame;
-
-	return -1;
+		return (frame);
+	return (-1);
 }
-
 
 t_img	*get_texture(t_game *game, t_ray *ray)
 {
 	int	value;
-	
+
 	value = is_sprite(game, ray->map_x, ray->map_y);
 	if (value == 0)
 		return (&game->imgs.sprite1);
