@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:46:27 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 14:23:28 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 14:40:09 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	find_sprite(t_game *game)
 		{
 			if (game->map_data.map[y][x] == 'A')
 			{
+				game->is_sprite = true;
 				game->sprite_x = x;
 				game->sprite_y = y;
 			}

@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:01:55 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:48:48 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 14:41:10 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	init_data(t_game *game)
 	game->map_offset_y = (MAP_HEIGHT - map_px_h) / 2;
 	game->mouse_x = -1;
 	game->mouse_click = false;
+	game->is_sprite = false;
 	init_player(&game->player, game);
 	player_position(game);
 }

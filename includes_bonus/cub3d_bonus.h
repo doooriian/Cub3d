@@ -192,6 +192,7 @@ typedef struct s_game
 	int			door_count; // Nombre de portes dans la carte
 	int			sprite_x;
 	int			sprite_y;
+	bool		is_sprite;
 }	t_game;
 
 /* ======== Function Prototypes ======== */
