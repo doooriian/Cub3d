@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:22 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 17:59:51 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:35:30 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	calculate_wall_height(t_game *game, t_ray *ray)
 void	draw_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
+	int		width;
 
-	if (x < 0 || x >= img->line_length / (img->bits_per_pixel / 8)
-		|| y < 0 || y >= img->line_length / (img->bits_per_pixel / 8))
+	width = img->line_length / (img->bits_per_pixel / 8);
+	if (x < 0 || x >= width || y < 0 || y >= width)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
@@ -71,7 +72,6 @@ static int	is_sprite(t_game *game, int x, int y)
 t_img	*get_texture(t_game *game, t_ray *ray)
 {
 	int		value;
-	t_door	*door;
 
 	value = 3;
 	if (game->is_sprite)
@@ -84,8 +84,7 @@ t_img	*get_texture(t_game *game, t_ray *ray)
 		return (&game->imgs.sprite3);
 	if (game->map_data.map[ray->map_y][ray->map_x] == 'D')
 	{
-		door = door_at(game, ray->map_x, ray->map_y);
-		if (door && !door->is_open)
+		if (game->map_doors && game->map_doors[ray->map_y][ray->map_x] == '1')
 			return (&game->imgs.door);
 	}
 	if (ray->side == 0 && ray->dir_x < 0)

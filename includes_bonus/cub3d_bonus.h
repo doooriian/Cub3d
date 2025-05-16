@@ -190,6 +190,7 @@ typedef struct s_game
 	int			mouse_x; // Position de la souris BOONUS
 	bool		mouse_click; // Si la souris est cliquée BONUS
 	t_door		doors[MAX_DOORS];
+	char		**map_doors;
 	int			door_count; // Nombre de portes dans la carte
 	int			sprite_x;
 	int			sprite_y;
@@ -261,6 +262,8 @@ void	draw_pixel(t_img *img, int x, int y, int color);
 t_door	*door_at(t_game *game, int x, int y);
 void	handle_door_interaction(t_game *game);
 int		init_door(t_game *game);
+int		init_door_map(t_game *game);
+int		init_check_door(t_game *game);
 int		load_door_texture(t_game *game);
 
 /* === PARSING ===*/

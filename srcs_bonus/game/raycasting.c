@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:46 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 17:55:18 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:15:20 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,8 @@ int	perform_dda(t_game *game, t_ray *ray)
 {
 	int		hit;
 	char	cell;
-	t_door	*door;
 
 	hit = 0;
-	door = NULL;
 	while (hit == 0)
 	{
 		advance_ray(ray);
@@ -94,9 +92,7 @@ int	perform_dda(t_game *game, t_ray *ray)
 			hit = 1;
 		else if (cell == 'D')
 		{
-			if (!door || door->x != ray->map_x || door->y != ray->map_y)
-				door = door_at(game, ray->map_x, ray->map_y);
-			if (door && !door->is_open)
+			if (game->map_doors && game->map_doors[ray->map_y][ray->map_x] == '1')
 				hit = 1;
 		}
 		else if (cell == 'A')

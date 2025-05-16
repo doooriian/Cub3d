@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 13:49:40 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:50:36 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/16 18:22:14 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_exit(t_game *game)
 	if (!game)
 		exit(0);
 	free_map(game->map_data.map);
+	free_map(game->map_doors);
 	destroy_imgs(game);
 	if (game->mlx && game->win)
 	{

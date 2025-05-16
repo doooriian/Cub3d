@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 16:37:06 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 17:34:08 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:41:18 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,56 @@ int	init_door(t_game *game)
 	return (0);
 }
 
+int	init_door_map(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	game->map_doors = ft_calloc(game->map_height + 1, sizeof(char *));
+	if (!game->map_doors)
+		return (print_error("Error: Failed to allocate memory for doors", 1));
+	while (y < game->map_height)
+	{
+		game->map_doors[y] = ft_calloc(game->map_width + 1, sizeof(char));
+		if (!game->map_doors[y])
+		{
+			ft_free_tab_i(game->map_doors, y);
+			return (print_error("Error: Failed to allocate memory for doors", 1));
+		}
+		x = 0;
+		while (game->map_data.map[y][x])
+		{
+			if (game->map_data.map[y][x] == 'D')
+				game->map_doors[y][x] = '1'; // 1 = fermée
+			else
+				game->map_doors[y][x] = '0';
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	init_check_door(t_game *game)
+{
+	if (init_door(game))
+		return (1);
+	if (init_door_map(game))
+	{
+		free_map(game->map_doors);
+		game->map_doors = NULL;
+		return (1);
+	}
+	if (!game->map_doors)
+	{
+		free_map(game->map_doors);
+		game->map_doors = NULL;
+		return (print_error("Error: Failed to allocate memory for doors", 1));
+	}
+	return (0);
+}
+
 t_door	*door_at(t_game *game, int x, int y)
 {
 	int	i;
@@ -79,9 +129,17 @@ void	toggle_door_at(t_game *game, int x, int y)
 	if (door)
 	{
 		if (door->is_open == 0)
+		{
 			door->is_open = 1;
+			if (game->map_doors && game->map_doors[y])
+				game->map_doors[y][x] = 'O';
+		}
 		else
+		{
 			door->is_open = 0;
+			if (game->map_doors && game->map_doors[y])
+				game->map_doors[y][x] = '1';
+		}
 	}
 }
 
@@ -92,8 +150,14 @@ void	handle_door_interaction(t_game *game)
 
 	px = (int)(game->player.x / game->tile_size);
 	py = (int)(game->player.y / game->tile_size);
-	toggle_door_at(game, px + 1, py);
-	toggle_door_at(game, px - 1, py);
-	toggle_door_at(game, px, py + 1);
-	toggle_door_at(game, px, py - 1);
+	if (!game->map_doors)
+		return ;
+	if (game->map_data.map[py] && game->map_data.map[py][px + 1] == 'D')
+		toggle_door_at(game, px + 1, py);
+	if (game->map_data.map[py] && px > 0 && game->map_data.map[py][px - 1] == 'D')
+		toggle_door_at(game, px - 1, py);
+	if (game->map_data.map[py + 1] && game->map_data.map[py + 1][px] == 'D')
+		toggle_door_at(game, px, py + 1);
+	if (py > 0 && game->map_data.map[py - 1] && game->map_data.map[py - 1][px] == 'D')
+		toggle_door_at(game, px, py - 1);
 }

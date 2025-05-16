@@ -23,7 +23,7 @@ static int	render_minimap_tile_bis(t_game *game, int i, int j)
 	cell = game->map_data.map[i][j];
 	if (cell == 'D')
 	{
-		if (!door_at(game, j, i)->is_open)
+		if (game->map_doors && game->map_doors[i][j] == '1')
 			draw_square(&game->imgs.map, (t_point){x, y},
 				game->tile_size, DOOR_COLOR);
 		else

@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:13:59 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 17:45:39 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:33:40 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	is_ray_touching_wall(t_game *game, float ray_x, float ray_y)
 		return (1);
 	if (cell == 'D')
 	{
-		if (!door_at(game, j, i)->is_open)
+		if (game->map_doors && game->map_doors[i][j] == '1')
 			return (1);
 	}
 	return (0);

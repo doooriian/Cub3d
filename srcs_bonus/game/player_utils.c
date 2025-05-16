@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:03:18 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 15:07:50 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:38:43 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	corner_collision(t_game *game, int i, int j)
 		return (1);
 	if (game->map_data.map[i][j] == 'D')
 	{
-		if (door_at(game, j, i)->is_open == 0)
+		if (game->map_doors[i][j] == '1')
 			return (1);
 	}
 	return (0);

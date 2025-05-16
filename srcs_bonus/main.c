@@ -6,7 +6,7 @@
 /*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:55:00 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 15:01:29 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:33:09 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	main(int argc, char **argv)
 	if (!game)
 		ft_exit(game);
 	init_data(game);
-	if (init_door(game))
+	if (init_check_door(game))
 		ft_exit(game);
 	if (game->debug)
 	{
