@@ -191,7 +191,7 @@ typedef struct s_game
 	t_door		doors[MAX_DOORS];
 	int			door_count; // Nombre de portes dans la carte
 	int			sprite_x;
-	int			sprite_y; 
+	int			sprite_y;
 }	t_game;
 
 /* ======== Function Prototypes ======== */
@@ -319,8 +319,9 @@ int		is_char_player(char c);
 // Utils
 int		get_pixel_color(t_img *img, int x, int y);
 int		get_rgb_color(int r, int g, int b);
-double 	get_time(void);
+double	get_time(void);
 void	find_sprite(t_game *game);
+int		check_img_add(t_game *game);
 
 /* === Main === */
 // Main utils
