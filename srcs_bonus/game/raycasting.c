@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:18:46 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 18:15:20 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/17 18:56:36 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int	perform_dda(t_game *game, t_ray *ray)
 			hit = 1;
 		else if (cell == 'D')
 		{
-			if (game->map_doors && game->map_doors[ray->map_y][ray->map_x] == '1')
+			if (game->map_doors
+				&& game->map_doors[ray->map_y][ray->map_x] == '1')
 				hit = 1;
 		}
 		else if (cell == 'A')

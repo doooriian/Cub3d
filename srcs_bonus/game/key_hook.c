@@ -31,12 +31,12 @@ int	loop(t_game *game)
 	double	now;
 	int		i;
 
-	// Animation de tous les sprites
 	now = get_time();
 	i = 0;
 	while (i < game->sprite_count)
 	{
-		if (game->sprites[i].active && now - game->sprites[i].last_time > TIME_SPRITE)
+		if (game->sprites[i].active
+			&& now - game->sprites[i].last_time > TIME_SPRITE)
 		{
 			game->sprites[i].frame = (game->sprites[i].frame + 1) % 3;
 			game->sprites[i].last_time = now;

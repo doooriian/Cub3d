@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:55:00 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/16 18:33:09 by rcaillie         ###   ########.fr       */
+/*   Updated: 2025/05/17 18:54:14 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,15 @@ static t_game	*init_game(int argc, char **argv)
 
 static int	init_sprite(t_game *game)
 {
-	game->imgs.sprite1.img = mlx_xpm_file_to_image(game->mlx, "textures/sprite1.xpm",
-			&game->imgs.sprite1.width, &game->imgs.sprite1.height);
-	game->imgs.sprite2.img = mlx_xpm_file_to_image(game->mlx, "textures/sprite2.xpm",
-			&game->imgs.sprite2.width, &game->imgs.sprite2.height);
-	game->imgs.sprite3.img = mlx_xpm_file_to_image(game->mlx, "textures/sprite3.xpm",
-			&game->imgs.sprite3.width, &game->imgs.sprite3.height);
+	game->imgs.sprite1.img = mlx_xpm_file_to_image(game->mlx,
+			"textures/sprite1.xpm", &game->imgs.sprite1.width,
+			&game->imgs.sprite1.height);
+	game->imgs.sprite2.img = mlx_xpm_file_to_image(game->mlx,
+			"textures/sprite2.xpm", &game->imgs.sprite2.width,
+			&game->imgs.sprite2.height);
+	game->imgs.sprite3.img = mlx_xpm_file_to_image(game->mlx,
+			"textures/sprite3.xpm", &game->imgs.sprite3.width,
+			&game->imgs.sprite3.height);
 	if (!game->imgs.sprite1.img || !game->imgs.sprite2.img
 		|| !game->imgs.sprite3.img)
 		return (print_error("Error: Failed to load sprites textures", 0));
