@@ -271,12 +271,10 @@ void	draw_line(t_game *game, int x, t_point draw_s_e, int color);
 void	draw_pixel(t_img *img, int x, int y, int color);
 
 // Door management
-t_door	*door_at(t_game *game, int x, int y);
 void	handle_door_interaction(t_game *game);
 int		init_door(t_game *game);
 int		init_door_map(t_game *game);
 int		init_check_door(t_game *game);
-int		load_door_texture(t_game *game);
 
 /* === PARSING ===*/
 char	**get_map(const char *path);
@@ -339,6 +337,11 @@ int		get_rgb_color(int r, int g, int b);
 double	get_time(void);
 void	find_sprite(t_game *game);
 int		check_img_add(t_game *game);
+
+// Door utils
+t_door	*door_at(t_game *game, int x, int y);
+int		load_door_texture(t_game *game);
+void	toggle_door_at(t_game *game, int x, int y);
 
 /* === Main === */
 // Main utils

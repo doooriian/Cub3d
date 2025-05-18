@@ -62,6 +62,7 @@ SRCS_COMPASS := \
 SRCS_BONUS_MAIN := srcs_bonus/main.c srcs_bonus/print_data.c srcs_bonus/main_utils.c
 
 SRCS_BONUS_UTILS := \
+		srcs_bonus/utils/door_utils.c \
 		srcs_bonus/utils/file_utils.c \
 		srcs_bonus/utils/errors.c \
 		srcs_bonus/utils/map_utils.c \
