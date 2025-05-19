@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 16:37:06 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/18 14:40:55 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/19 21:17:24 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int	init_door_map_loop(t_game *game, int x, int y)
 			ft_putstr_fd("Error: Failed to allocate", 2);
 			return (print_error("memory for doors", 1));
 		}
+		x = 0;
 		while (game->map_data.map[y][x])
 		{
 			if (game->map_data.map[y][x] == 'D')
