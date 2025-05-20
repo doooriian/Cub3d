@@ -176,9 +176,9 @@ typedef struct s_ray
 
 typedef struct s_sprite
 {
-	int	x;
-	int	y;
-	int	frame;
+	int		x;
+	int		y;
+	int		frame;
 	double	last_time;
 	bool	active;
 }	t_sprite;
