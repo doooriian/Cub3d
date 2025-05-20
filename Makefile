@@ -188,16 +188,6 @@ $(OBJ_DIR_BONUS)/%.o: %.c
 	@$(CC) $(CFLAGS) $(INCLUDES_BONUS) -c $< -o $@
 
 
-MAPS := $(wildcard maps/*.cub)
-
-maps_win:
-	@for file in $(MAPS); do \
-		sed -i 's/\r$$//' $$file; \
-	done
-	@echo "Conversion des fichiers de maps en format Unix : \033[1;32mOK\033[0m"
-
-.PHONY: maps_win
-
 # =============================================================================
 # LIBFT
 # =============================================================================
@@ -240,7 +230,7 @@ clean:
 	@rm -rf $(OBJ_DIR)
 	@echo "Clean de $(NAME) : \033[1;32mOK\033[0m"
 
-fclean: clean # fclean_libft
+fclean: clean fclean_libft
 	@rm -f $(NAME)
 	@echo "Fclean de $(NAME) : \033[1;32mOK\033[0m"
 
@@ -250,7 +240,7 @@ clean_bonus:
 	@rm -rf $(OBJ_DIR_BONUS)
 	@echo "Clean de $(NAME_BONUS) : \033[1;32mOK\033[0m"
 
-fclean_bonus: clean_bonus # fclean_libft
+fclean_bonus: clean_bonus fclean_libft
 	@rm -f $(NAME_BONUS)
 	@echo "Fclean de $(NAME_BONUS) : \033[1;32mOK\033[0m"
 
