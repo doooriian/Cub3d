@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 23:55:00 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/17 18:54:14 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/20 14:15:17 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,22 @@ static t_game	*init_game_win(t_game *game, char *path, bool debug)
 {
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
-	{
-		print_error("Error: Memory allocation failure", 1);
-		return (NULL);
-	}
+		return (print_error_void("Error: Memory allocation failure", NULL));
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
 		print_error("Error: Failed to initialize mlx", 1);
-		return (NULL);
+		ft_exit(game);
 	}
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!game->win)
 	{
 		print_error("Error: Failed to create window", 1);
-		return (NULL);
+		ft_exit(game);
 	}
 	game->debug = debug;
 	if (parsing(game, path))
-	{
 		ft_exit(game);
-		return (NULL);
-	}
 	return (game);
 }
 

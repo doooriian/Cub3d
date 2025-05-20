@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcaillie <rcaillie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 13:51:17 by rcaillie          #+#    #+#             */
-/*   Updated: 2025/05/14 14:49:58 by doley            ###   ########.fr       */
+/*   Updated: 2025/05/20 14:22:11 by rcaillie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	count_lines(const char *path)
 		count++;
 		line = get_next_line(fd);
 	}
+	if (line)
+		free(line);
 	close(fd);
 	return (count);
 }
@@ -71,6 +73,13 @@ static int	fill_map(char **map, const char *path)
 	while (line)
 	{
 		map[i] = sanitize_line(line);
+		if (!map[i])
+		{
+			free(line);
+			ft_free_tab_i(map, i);
+			close(fd);
+			return (-1);
+		}
 		free(line);
 		i++;
 		line = get_next_line(fd);
@@ -85,7 +94,7 @@ char	**get_map(const char *path)
 	int		lines;
 
 	lines = count_lines(path);
-	if (lines < 0)
+	if (lines <= 0)
 		return (NULL);
 	map = ft_calloc(lines + 1, sizeof(char *));
 	if (!map)
