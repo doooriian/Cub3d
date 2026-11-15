@@ -1,37 +1,27 @@
-<br />
-<p align="center">
-  <a href="https://42.fr/">
-    <img src="https://github.com/doooriian/42-Badges/blob/main/42_Logo.png" alt="42 Logo" width="250" height="250">
-  </a>
+<div align="center">
 
-  <h1 align="center">Cub3d</h1>
+<a href="https://42.fr/"><img src="https://raw.githubusercontent.com/doooriian/42-Badges/main/badges/cub3dm.png" width="125" alt="Cub3d 42 project badge" /></a>
 
-  <p align="center">
-    A 3D raycasting game project from 42 School
-    <br /><br />
-    <img src="https://github.com/doooriian/42-Badges/blob/main/badges/cub3dm.png" alt="Cub3d Badge" width="150">
-  </p>
-</p>
+# Cub3d
 
-<p align="center">
-  <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/doooriian/Cub3d?color=1A237E" />
-  <img alt="Code language count" src="https://img.shields.io/github/languages/count/doooriian/Cub3d?color=00BCD4" />
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/doooriian/Cub3d?color=7B1FA2" />
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/doooriian/Cub3d?color=D32F2F" />
-</p>
+**3D raycasting engine · Linux**
+
+<img src="https://img.shields.io/badge/42%20School-Project-7C3AED?style=flat-square" alt="42 School project" />
+
+</div>
 
 ---
 
-## ✨ Overview
+## 🔎 Overview
 
 **Cub3d** is a group of two project at 42 School that implements a basic 3D game engine using raycasting, inspired by classic games like *Wolfenstein 3D*.  
 This project tests your skills in graphics programming, coordinate transformations, texture mapping, user input, and scene rendering under constraints.  
 
-The goal? Create a functional 3D environment (walls, floor/ceiling, sprites) where the user can navigate, while handling performance and visual correctness.
+The goal is to create a navigable 3D environment using raycasting, wall textures, and floor/ceiling colors while handling player movement and collisions.
 
 ---
 
-## 📑 Key Features
+## ✨ Key Features
 
 - **Raycasting Engine**  
   Casts rays to determine wall slices and distances, drawing a 3D perspective from a 2D map layout.
@@ -45,8 +35,8 @@ The goal? Create a functional 3D environment (walls, floor/ceiling, sprites) whe
 - **Player Movement & Look**  
   Handles keyboard inputs (forward, backward, left, right, rotate) smoothly while checking collisions.
 
-- **Sprites Rendering**  
-  Displays objects (enemies, items) as sprites with correct ordering and depth.
+- **Bonus Features**  
+  Additional doors, mouse controls and a minimap are implemented in the bonus sources.
   
 ---
 
@@ -61,6 +51,8 @@ The goal? Create a functional 3D environment (walls, floor/ceiling, sprites) whe
 
 ## 🚀 How to Build and Run
 
+**Platform:** Linux with X11 and the Linux MiniLibX. This project is not configured to run natively on macOS.
+
 Clone and compile:
 
 ```bash
@@ -72,7 +64,7 @@ make
 Run the program with a map file:
 
 ```bash
-./cub3d maps/map.cub
+./cub3D maps/official.cub
 ```
 
 Controls during gameplay:
@@ -97,24 +89,8 @@ Tested with:
 - Edge cases on map boundaries and invalid inputs  
 - Texture alignment and scaling  
 - Collision detection with walls  
-- Sprite rendering order and occlusion  
 - Performance consistency (frame rendering, no flickering)
 
----
-
-## 📸 Visual Example
-
-![Cub3d Demo](https://github.com/doooriian/42-Badges/blob/main/Cub3d.gif)
-
----
-
-## ✅ Results
-
-Here’s my score for the Cub3d project:
-
-<p align="center">
-  <img src="https://github.com/doooriian/42-Badges/blob/main/badges/LibftGrade.png" alt="Cub3d Grade">
-</p>
 
 ---
 
