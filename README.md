@@ -61,6 +61,8 @@ The goal is to render a navigable 3D environment from a 2D map, with wall textur
 
 ## 🚀 How to Build and Run
 
+**Platform:** Linux with X11 and MiniLibX. The included Linux graphics library is not intended to run natively on macOS. Build and run this project in a compatible Linux environment.
+
 Clone and compile:
 
 ```bash
@@ -99,11 +101,6 @@ Tested with:
 - Collision detection with walls  
 - Performance consistency (frame rendering, no flickering)
 
----
-
-## 📸 Visual Example
-
-A screenshot or short gameplay GIF can be added here to demonstrate the rendering engine. The previous media link was removed because the referenced GIF is not present in the linked repository.
 
 ---
 
