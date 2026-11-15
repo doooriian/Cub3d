@@ -1,117 +1,59 @@
-<br />
-<p align="center">
-  <a href="https://42.fr/">
-    <img src="https://github.com/doooriian/42-Badges/blob/main/42_Logo.png" alt="42 Logo" width="250" height="250">
-  </a>
+# Cub3d
 
-  <h1 align="center">Cub3d</h1>
+> **42 School project** · C · 3D raycasting · Linux
 
-  <p align="center">
-    A 3D raycasting game project from 42 School
-    <br /><br />
-    <img src="https://github.com/doooriian/42-Badges/blob/main/badges/cub3dm.png" alt="Cub3d Badge" width="150">
-  </p>
-</p>
+A 3D rendering engine built in C as a two-person project, using raycasting to display a navigable scene from a 2D map.
 
-<p align="center">
-  <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/doooriian/Cub3d?color=1A237E" />
-  <img alt="Code language count" src="https://img.shields.io/github/languages/count/doooriian/Cub3d?color=00BCD4" />
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/doooriian/Cub3d?color=7B1FA2" />
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/doooriian/Cub3d?color=D32F2F" />
-</p>
+## Overview
 
----
+Cub3d explores the foundations of real-time 3D rendering: projecting walls from a 2D layout, loading textures, and handling player movement and collisions.
 
-## ✨ Overview
+## Features
 
-**Cub3d** is a group of two project at 42 School that implements a basic 3D game engine using raycasting, inspired by classic games like *Wolfenstein 3D*.  
-This project tests your skills in graphics programming, coordinate transformations, texture mapping, user input, and scene rendering under constraints.  
+- Raycasting-based wall rendering and perspective
+- Parsing and validation of `.cub` maps
+- Wall textures, floor and ceiling colors
+- Player movement, rotation and collision handling
+- Bonus implementation with doors, mouse interaction and minimap
 
-The goal is to render a navigable 3D environment from a 2D map, with wall textures, floor and ceiling colors, and reliable player movement.
+## Technical approach
 
----
+The code separates map/configuration parsing, raycasting, wall rendering, input management and game state. The bonus code lives in `srcs_bonus/`.
 
-## 📑 Key Features
+**Stack:** C · MiniLibX (Linux) · X11 · Make · Geometry.
 
-- **Raycasting Engine**  
-  Casts rays to determine wall slices and distances, drawing a 3D perspective from a 2D map layout.
+## Build and usage
 
-- **Map Parsing**  
-  Reads `.cub` map files, validates map layouts (walls closed, valid characters), and extracts textures/colors.
+**Platform:** Linux with X11. This repository uses the Linux MiniLibX and is **not configured to build or run natively on macOS**.
 
-- **Texture Mapping**  
-  Applies wall textures, floor and ceiling colors, correct orientation and scaling.
-
-- **Player Movement & Look**  
-  Handles keyboard inputs (forward, backward, left, right, rotate) smoothly while checking collisions.
-
-- **Additional rendering features**  
-  The bonus build includes extra gameplay and rendering components, including doors and a minimap.
-  
----
-
-## 🛠️ Technologies Used
-
-- **[C](https://devdocs.io/c/)** — Core programming language  
-- **[MLX (MiniLibX)](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)** — Graphics and window handling  
-- **[Makefile](https://www.gnu.org/software/make/manual/make.html)** — Build system  
-- **Mathematics & Linear Algebra** — For raycasting calculations, vector operations
-
----
-
-## 🚀 How to Build and Run
-
-**Platform:** Linux with X11 and MiniLibX. The included Linux graphics library is not intended to run natively on macOS. Build and run this project in a compatible Linux environment.
-
-Clone and compile:
+Prerequisites include a C compiler, Make, X11 development libraries and the dependencies needed by MiniLibX.
 
 ```bash
-git clone git@github.com:doooriian/Cub3d.git
+git clone https://github.com/doooriian/Cub3d.git
 cd Cub3d
 make
-```
-
-Run the program with a map file:
-
-```bash
 ./cub3D maps/official.cub
 ```
 
-Controls during gameplay:
-- Move: **W**, **A**, **S**, **D**  
-- Rotate / Turn: **Left / Right arrows OR pressing left mouse click and dragging**  
-- Exit: **ESC**
-
-To clean and rebuild:
+To build the bonus version:
 
 ```bash
-make clean
-make fclean
-make re
+make bonus
+./cub3D_bonus maps/official.cub
 ```
 
----
+Use `W`, `A`, `S`, `D` for movement, arrow keys to rotate and `Esc` to exit. The bonus includes additional mouse input.
 
-## 🧪 Testing
+## Verification
 
-Tested with:
-- Multiple `.cub` map files (simple and complex)  
-- Edge cases on map boundaries and invalid inputs  
-- Texture alignment and scaling  
-- Collision detection with walls  
-- Performance consistency (frame rendering, no flickering)
+The repository contains multiple `.cub` maps suitable for checking different scene layouts and input validation. No automated CI test suite is included; run the binary in a compatible Linux graphical session.
 
+## Notes and limitations
 
----
-
-## 📚 Resources
-
-- **[Raycasting Theory & Tutorials](https://lodev.org/cgtutor/raycasting.html)**  
-- **[MiniLibX Documentation](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)**  
-- **[Wolfenstein 3D Engine Explanation](https://permadi.com/1996/05/ray-casting-tutorial/)**  
+- Linux/X11 only in its current configuration; native macOS support is not included
+- The rendering relies on raycasting rather than a general-purpose polygonal 3D engine
+- Created collaboratively by two 42 students
 
 ---
 
-## 📬 Contact
-
-Feel free to reach out or contribute to this project on [GitHub](https://github.com/doooriian)!
+Part of the [42 curriculum](https://42.fr/). Explore the other projects on [my GitHub profile](https://github.com/doooriian).
