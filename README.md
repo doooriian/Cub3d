@@ -1,14 +1,31 @@
+<div align="center">
+
+<a href="https://42.fr/"><img src="https://raw.githubusercontent.com/doooriian/42-Badges/main/badges/cub3dm.png" alt="Cub3d 42 badge" width="125" /></a>
+
 # Cub3d
 
-> **42 School project** · C · 3D raycasting · Linux
+**42 School · 🎮 Software engineering project**
+
+<img src="https://img.shields.io/badge/42_Project-C%20%7C%20Raycasting-7C3AED?style=flat-square" alt="Cub3d technology" />
+<img src="https://img.shields.io/badge/Documentation-Project_Overview-334155?style=flat-square" alt="Project documentation" />
+
+</div>
+
+---
 
 A 3D rendering engine built in C as a two-person project, using raycasting to display a navigable scene from a 2D map.
 
-## Overview
+
+---
+
+## 🔎 Overview
 
 Cub3d explores the foundations of real-time 3D rendering: projecting walls from a 2D layout, loading textures, and handling player movement and collisions.
 
-## Features
+
+---
+
+## ✨ Features
 
 - Raycasting-based wall rendering and perspective
 - Parsing and validation of `.cub` maps
@@ -16,13 +33,19 @@ Cub3d explores the foundations of real-time 3D rendering: projecting walls from 
 - Player movement, rotation and collision handling
 - Bonus implementation with doors, mouse interaction and minimap
 
-## Technical approach
+
+---
+
+## 🧩 Technical approach
 
 The code separates map/configuration parsing, raycasting, wall rendering, input management and game state. The bonus code lives in `srcs_bonus/`.
 
-**Stack:** C · MiniLibX (Linux) · X11 · Make · Geometry.
+> **Tech stack** · C · MiniLibX (Linux) · X11 · Make · Geometry.
 
-## Build and usage
+
+---
+
+## 🚀 Build and usage
 
 **Platform:** Linux with X11. This repository uses the Linux MiniLibX and is **not configured to build or run natively on macOS**.
 
@@ -44,11 +67,17 @@ make bonus
 
 Use `W`, `A`, `S`, `D` for movement, arrow keys to rotate and `Esc` to exit. The bonus includes additional mouse input.
 
-## Verification
+
+---
+
+## 🧪 Verification
 
 The repository contains multiple `.cub` maps suitable for checking different scene layouts and input validation. No automated CI test suite is included; run the binary in a compatible Linux graphical session.
 
-## Notes and limitations
+
+---
+
+## ⚠️ Notes and limitations
 
 - Linux/X11 only in its current configuration; native macOS support is not included
 - The rendering relies on raycasting rather than a general-purpose polygonal 3D engine
@@ -56,4 +85,8 @@ The repository contains multiple `.cub` maps suitable for checking different sce
 
 ---
 
-Part of the [42 curriculum](https://42.fr/). Explore the other projects on [my GitHub profile](https://github.com/doooriian).
+<div align="center">
+
+<sub>Part of the <a href="https://42.fr/">42 curriculum</a> · <a href="https://github.com/doooriian">Back to my GitHub profile</a></sub>
+
+</div>
