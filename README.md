@@ -27,7 +27,7 @@
 **Cub3d** is a group of two project at 42 School that implements a basic 3D game engine using raycasting, inspired by classic games like *Wolfenstein 3D*.  
 This project tests your skills in graphics programming, coordinate transformations, texture mapping, user input, and scene rendering under constraints.  
 
-The goal? Create a functional 3D environment (walls, floor/ceiling, sprites) where the user can navigate, while handling performance and visual correctness.
+The goal is to render a navigable 3D environment from a 2D map, with wall textures, floor and ceiling colors, and reliable player movement.
 
 ---
 
@@ -45,8 +45,8 @@ The goal? Create a functional 3D environment (walls, floor/ceiling, sprites) whe
 - **Player Movement & Look**  
   Handles keyboard inputs (forward, backward, left, right, rotate) smoothly while checking collisions.
 
-- **Sprites Rendering**  
-  Displays objects (enemies, items) as sprites with correct ordering and depth.
+- **Additional rendering features**  
+  The bonus build includes extra gameplay and rendering components, including doors and a minimap.
   
 ---
 
@@ -72,7 +72,7 @@ make
 Run the program with a map file:
 
 ```bash
-./cub3d maps/map.cub
+./cub3D maps/official.cub
 ```
 
 Controls during gameplay:
@@ -97,24 +97,13 @@ Tested with:
 - Edge cases on map boundaries and invalid inputs  
 - Texture alignment and scaling  
 - Collision detection with walls  
-- Sprite rendering order and occlusion  
 - Performance consistency (frame rendering, no flickering)
 
 ---
 
 ## 📸 Visual Example
 
-![Cub3d Demo](https://github.com/doooriian/42-Badges/blob/main/Cub3d.gif)
-
----
-
-## ✅ Results
-
-Here’s my score for the Cub3d project:
-
-<p align="center">
-  <img src="https://github.com/doooriian/42-Badges/blob/main/badges/LibftGrade.png" alt="Cub3d Grade">
-</p>
+A screenshot or short gameplay GIF can be added here to demonstrate the rendering engine. The previous media link was removed because the referenced GIF is not present in the linked repository.
 
 ---
 
